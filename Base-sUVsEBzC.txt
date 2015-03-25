@@ -1,0 +1,10 @@
+for X = -2500, 2500, 512 do
+        for Z = -2500, 2500, 512 do
+                local P = Instance.new("Part")
+                P.Anchored = true
+                P.Locked = true
+                P.Size = Vector3.new(512,3,512)
+                P.CFrame = CFrame.new(X,0,Z)
+                P.BrickColor = BrickColor.Green()
+                P.Parent = game.Workspace
+        end

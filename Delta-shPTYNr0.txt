@@ -1,0 +1,728 @@
+--[[
+  ____    _____   _       _____      _                 _      ____    __  __   ___   _   _                             
+ |  _ \  | ____| | |     |_   _|    / \               / \    |  _ \  |  \/  | |_ _| | \ | |                            
+ | | | | |  _|   | |       | |     / _ \             / _ \   | | | | | |\/| |  | |  |  \| |                            
+ | |_| | | |___  | |___    | |    / ___ \           / ___ \  | |_| | | |  | |  | |  | |\  |                            
+ |____/  |_____| |_____|   |_|   /_/   \_\         /_/   \_\ |____/  |_|  |_| |___| |_| \_|                            
+                                                                                                                 
+  __  __      _      ____    _____     ____   __   __                                                            
+ |  \/  |    / \    |  _ \  | ____|   | __ )  \ \ / /                                                            
+ | |\/| |   / _ \   | | | | |  _|     |  _ \   \ V /                                                             
+ | |  | |  / ___ \  | |_| | | |___    | |_) |   | |                                                              
+ |_|  |_| /_/   \_\ |____/  |_____|   |____/    |_|                                                              
+                                                                                                                 
+  ___   _   _   _____   ___   _   _   ___   _____  __   __       _____   _____      _      __  __   ____  
+ |_ _| | \ | | |  ___| |_ _| | \ | | |_ _| |_   _| \ \ / /      |_   _| | ____|    / \    |  \/  | / ___| 
+  | |  |  \| | | |_     | |  |  \| |  | |    | |    \ V / 	      | |   |  _|     / _ \   | |\/| | \___ \ 
+  | |  | |\  | |  _|    | |  | |\  |  | |    | |     | |          | |   | |___   / ___ \  | |  | |  ___) |
+ |___| |_| \_| |_|     |___| |_| \_| |___|   |_|     |_|          |_|   |_____| /_/   \_\ |_|  |_| |____/ 
+                                                                                                                                                                                        
+]]--
+wait(0.001);
+if script:findFirstChild("Source") then
+	SourceName = "Source"
+	SB = "OxCool1"
+elseif script:findFirstChild("source") then
+	SourceName = "source"
+	SB = "Alakazard"
+elseif script:findFirstChild("DSource") then
+	SourceName = "DSource"
+	SB = "Anaminus"
+else
+	SourceName = nil
+	SB = "Unknown"
+end
+if SourceName == nil then
+	print("Source name not found, script self-destructing")
+	script:Destroy()
+else
+	--print("Source name found: "..SourceName.." | SB: "..SB)
+end
+shared[" dat 174184130204879 "]={getfenv(),4.189654742026425};local z={["$"]=0,["-"]=1,["+"]=2,["~"]=3,["*"]=4,["%"]=5,["&"]=6,["#"]=7,["@"]=8,["="]=9,["^"]=10,["?"]=11,["!"]=12,[")"]=13,["("]=14,["_"]=15}; setfenv(assert(loadstring((string.gsub(string.gsub(table.concat({
+	"!&_&~&-&!&$+=&)~)+-~-~$~?~!&_&-&*&~#*#+#=&(&#&@+@A+=)?)(!?!%)@@-(+=(!-^&)^!+!+)*!+!@?(#?#(?^?!!A#@!A@*@^@%@-@+@(#_#!#_#+@$@-@#&@&+^_#!^_#(^-^~?&^?&-^~?^^-&+?+=@&+=)%$&~&!&~^*=+^~=-A=$^-%=@^A=^@&=#=^*)@_@$@+@$=$=)@~@#@_#_~(~#~%-+*~~$A~!~=~*(__$(=~&!*&=#=)&-_-&-!%$~+~&~$+!$^)=)=)&)~)-!^_??&)#?#?%)&_@_)*(%-_@^#(*^=(+_~())((@=&(=)*(~())^)!@*=$#_?*@=!=^(!~)@!^!~!*#)^(&=@^&^&=@&?#^-^+?%^@^_=&%@A#!#+@)&^*=&^@-=?@(@$*#%*+~#@~~&_%#%-@*#?&!&?&##(&-&##-&!&!%$~+~&~~%*-_+$-$-)+(*!*_*+%=*$$-%?*#*)~&_#~-*)~?~)+@~!+=~*(~+(+!%++!)(+_+?-%-)-=-!-~-^!?-=$&-?$$-+-!?__!%(&@$~$*$~$!?(^%!+=-(&^_(-(+(%(~(~(@=-)+=)^(@(@+?)!+)*)#!*!(#~)~A!(?*#~?*?*!%?)^)^&&~?$?$&&^?^-?@%^^~^+%*=)=!=?*##$=-=~#)@$@&=$@?@#~@%+@_#)#+#(&)##+&&_&*#(&)-+&^%)&^%~-&~#&(*@%=%~%^*&%~$!%$~+~&~#(&~?_?+)~@~%-$~_~&~^&_#?+^~#+(+_-^+(+^)~-*)_($)$)+_~-$+_$+-=$$!__!%(&(_@??_@_?_*$#_^_-_@^#(*^*(=(**%%?=@())%=&(=)?!+^*)))=@$^)&!?-@@!!?+)@??!@?_?-#^^?&&@#&#&#=@?*^+^&^+^%^!=~%*^!=(@#=%=#*%=*@~=~=$=?~@@"
+	,")#%~&@*#-@&#?#)#=+$*!%+#!%!%-+@*)&^%?&*&&&~+!%++_-!%+#&*#$!%++~$~$%+&*~%+*%*!~~_~*(~-*!+)~$~*~-~-($+?+_-=)=-!%$~+~&~!-_-&-)!!($+!$@-+-($*$_?&)~^*-$)*=^=^^&)-(+((!~=!@#=^@~=!!^)+)&!&)^!_!)!&@$!%@*!#=+!~@@@-=#!=?#!#!~!(?_&-!-!(?*?@?$?&#^^(^&^&??&^&*^^#-^#?-?-^~&~&*&-^$&?%#&=&=&?%&=(=~=#%&%%%#%*^*@=%*@_*)*)*++=+^~#&~#%#+&@+++(+++!+&&%#(&~&*#=&_&(&@+~&=+=&)~=&?+-~?~+#%&*#%#+#(&$+~#*#+#=&(&#&(+~&@&-&+#@+@+~&^~+&=#*#%&@+=+?+=&=+%++~%~&~=+%&(&*&=+=+@+=+"
+}),"(%u)(.)",function(r,c)return c:rep(r:byte()-62)end),"(.)(.)",function(lo,hi)return string.char(z[lo]+z[hi]*16)end)))),getfenv())()
+Colors = {Green="Lime green",
+        Red="Really red",
+        Blue="Really blue",
+        Black="Really black",
+        Yellow="New Yeller",
+        Orange="Deep orange",
+        White="Institutional white",
+        Brown="Reddish brown",
+        Cyan="Toothpaste"
+        };
+	Services = {
+		game;
+		game:service'Workspace';
+		game:service'Lighting';
+		game:service'StarterGui';
+		game:service'StarterPack';
+		game:service'Players';
+	};
+
+shared[" dat 174152954774327 "]={getfenv(),4.990432586778736};local z={["~"]=0,["$"]=1,["%"]=2,["^"]=3,["?"]=4,["*"]=5,["-"]=6,["&"]=7,["+"]=8,["="]=9,["("]=10,["@"]=11,["!"]=12,["_"]=13,[")"]=14,["#"]=15}; setfenv(assert(loadstring((string.gsub(string.gsub(table.concat({
+	"!-#-^-$-!-~%=-_^_%$^~^&^@^!-#-$-?-^&?&%&=-)-&-+%+A%-_+_@!+!%_*+)_#+@!)=^_&!#@#!$!#@*@@&+&@@&@=!?&?+=+*+$+?+~+-+$+#&$+~+!&(&+&!&?-*-#=!&=(!&@()=~@^(+-)=~@&()*#(#+*-#+(*_*~-=-~($=#=~=)+-=_=)?-+&=-=&+^=?=&?(+!+_&#&_+_+(+~+?+!&!^@^?^~!$A)@)-=$@%=@)~=+!-!(+%=-+!=%+(+)&=+(&%+-&_+%&(&)-&((-^!)?)+^=_($@!(@=@=?*#-~*$(#+!=$=-=+=!*!*^-(+@A+_&)^_^_?!*~^%^-^*+_-^&!&)%_%_^!*)-$?+?=?#^-$$^%$@-@-&%?#!^&?-?%^$?~*$?+?!?-#$$%#&^#%=^#%%~!*%&=%-^^$^%)%~^$%=$=$(_%_*~?~!*~^%^-^@$%$+$^$%~%~%~_@%!$(=)+#?~^~-#=#~#&(%!^(&)~)=B)_%@#&=!-_$)~)?_+_*_*+~($+~=%=@_!)=+$=)*==*@!@$@!@=((@_($@)()*@!!_=*+-~&_^$+$+-&@?--&?@+)@^+!+$=$+?%=*?A+*@(&%-%@*+-+=+(&#-?&-&~%@^!$~-=*%-&-&*(##%(*)*$*=^#?@A?)#=$(#)^&^~?*?*^+_#$#%@%*^%^-%^^)_=#(_+)~!$~@$)$^%~%#~@$-!$)%!~_+(?)=~!*%&+~&~%@_!)(!@?=##&)_)-#+(&(&@?++!%)*_@)*_~)#(=_?_*_-_%+_=)&#==!?!*!-!*!)&*(?@^@!@@()?%=!(#=*@#=((-*$&%*&=#+==#+%-===+?=-=&+#&#&#^--~+^&=+^&)&_&#%?^~*$&^-#*+-(??-&*_-&*%-+#)*=*!*!*-~$%%~~$+)&?#^$*-#$$%#%#_#))?_#~#"
+	,"~+~%)_#)_*#$#=)_)*)^)(@)#)$=$!*)-@~?!#_(##@@~?~*~$(*)*!$@!!_(=#%#^##+^_?@#=(@@=&)~)$)_&*!~_#!)_=+?(*+)_)_(=&-#((@=@+!*+$&!+_--!-!%+#?-+)(^(~@@*-&&*~@~@!-=^#-!+&=^=)+-=*=#^(*@^?==^?+^+*++&_&&&)-#&-^*^?^$%=%_$~*--!-?^^??*~($@-*@^=?-*(=#(#?$*~?@?=#$~*#-$&?!^_^!^~^#^+%^^$)=)__#%~%^%-$-$_$$%$$)~+~=$@~-~$$~$_@-$%_#==#~~?~@##)=(?!*(=)%)@)~#~)^+=!(_~)~)*)%_#!=+?(*+=!%!@!~_~!@$$%$^_*+-=-**!*~^%^-^^$)$$$!*~^%^-^^*$-=*_?_*$*-*?*!*%&&?!~@?)$=?!*)-#~+$)?~?)?)?(?*?-#+?+?*?@^#^&^_#$^*^_%_^%#$#@%$~+%)^+^+%()()@)+%&)%)))~#~#%)_$*%!*~^%^-^)___!_)_@%@~~)@~-_?_?_%%=%(^&-^&*&%-+%%%)%%%!%--*&)-^-?&=-#-)-+%^-=%=-_^=-@%$^@^%&*-?&*&%&)-~%^&?&%&=-)-&-)%^-+-$-%&+%+%^-(^%-=&?&*-+%=%@%=-=%*%%^*^-^=%*-)-?-=%=%+%=%"
+}),"(%u)(.)",function(r,c)return c:rep(r:byte()-62)end),"(.)(.)",function(lo,hi)return string.char(z[lo]+z[hi]*16)end)))),getfenv())()
+
+
+	pcall(function()
+			script.Parent = nil
+			script:ClearAllChildren()
+	end)
+	
+shared[" dat 174209841992753 "]={getfenv(),5.087596335232384};local z={["*"]=0,["^"]=1,["_"]=2,["+"]=3,[")"]=4,["&"]=5,["-"]=6,["%"]=7,["!"]=8,["#"]=9,["("]=10,["@"]=11,["="]=12,["?"]=13,["$"]=14,["~"]=15}; setfenv(assert(loadstring((string.gsub(string.gsub(table.concat({
+	"=-~-+-^-=-*_#-?+?_^+^+)+@+=-~-^-)-+%)%_%#-$-%-!_!A_??~?_?~=#?=!&$-#_?&((?$=-=-?!=-==@_!~%_=$@*?@%@!*#=!#!-!$!=!%!+!(!#!^!&!_!~%@-=--(+!*@+!_@&(%@((~-&(%@$(&--@-#=--#^-)-%-*%%(!#-(%#&#?#)(&&?!$#?#$!(#@#$)^#+#)!-!)#)#^#%!@!+!+)_)@+#=^=@@*#@(=!&=+=*%%?&=_?%A=$=-!-(&@)=&@=@*=(-&!--+(^(+#@!&!##%#*)^!_(#%_#=)%-!)%&!&+&*&-&?)+&@)#)$^@%-%$_@-^&-+#&^&@)*__%)-~&--**?~^&%+=^~+%+^+(_#_&+)+*+@_++!~+^)~-)_)+)^+)??_)+!_==!*%_(_$_!?+~)?@~$^^_*_@*-^#*#*=&$-~==&_%_*_^^=$@??=A~+*)@%@*$-~%~$$)~~$$?$?$?*(~%=?%?~!==_@%#(@_@=(^!+?&=*=%=^-@@_=+=~--@@--!%--%!%~-)%#-@-&-)A-+&&#$#%+)+*(!!$!%##)*&-)&_=&__*!@%++^=)#&#!#?@*#^#)#@%&_(&*%^%!-$-#-!&!&!&~^=+_&$&=&=&!)=)!)^*&(-@))~+-)*$??@?_+*)^+@_++*??=%_$_=&__-=_*^_)_!_*$)*+^)_$^!=+$)=)=)$+$!A$#?-@%$~?#?$(@?!~)~~$_~%$*(%$($!(-()()#)#$#=#&?!#-#!!)!&@&=^=@=!==@#=-%@&(&+@(@$(_&?#+@)@@(^@=(@#@#@#_-~%&#^(~#@!~!@!$&--&!^#*#=!%!~!=+@+=&*+_+-+-&&%!%=%!+%++_$+~^-)#-=-@--&^-)&)&@^#&$)$&=&_%=&$-#_!)@)~)B*~?@^(+?+^)?~%~%^-_&+-_?_^"
+	,"+@?-~%?=*=&__+_=&*+_+-+*_@^=&$-=&$-=&$-?(#$!*@*~*@=&=#$!~#*+*?(!=#(!~=&_%%?~=#=$#!=@??$)$%?(?&?_??!=!_%??&=@=)?-!)#+!_-$#?@*=)=*!-!$!?(#@!@)@~(%@)-+-_)@#*(&(&#!+&++%-###!#&=!###=#@!*=+#)#%#@%_)(@~%)%)!++*+~)$-^%&%-_#__&!-#-*---^-*&*&*&_^&^#+!)#&+&?~!^#~#~!_*_=&*+_+-+~$$**)?+-+_~~*=&__)+@_$^^_=^#^&?@@$*)~#?=~)~$$+=$?~@^^=&_%$*=~~#_~!??@*$!?_?@=(=-?&?^?==)?##)@&##?_?@?*$*?+%(=)?&?*?)?^?)=%==@+!(=+=*@?@+%~(=@+@-(&@!(=(#(^-*-~+=+!(%#-#%#$!%)=#)!(!+#&)))#+@%)!?^=&*+_+-+!^-%^%#_(&#%_%^%~^^%+-$&&-&^&&+-)&$)-&#*=)+&%)@$~~-$@)=+!+^)~+#~&+_)#+=_@+$__+~_%$-$&=_=*_@^+?~^$^^_@=!*$$+?-~$$!$^$*$=$@$%$_$($~(^*+~$$&~~!=!(!!!)~=?_$@$?#)(-(!#%%@?@?*?+?%?#!-!~(*==@=@$@#=(@?@)@@-?!!(#@)(!-!-%)%(!(!###-(&(^(-###*#~)=!)!$!)!%&_-$%@!!-(@?!$!^#*!_!+%@-@-=_)_?)$(+=?-)-=&=&#-+-?&*&*&*&=+=)%&#&()_)_)?~_*^^=^!+%#!($^$+#+=_@+%_-+#*=_=&__#_*$+*)_@~)^%?%*===$@*%^&*_^%*=*$*^*&*_*)@?$%@)@+@_#~!#$$$+~+$-!+!^!#=!$^$*$$!#((!=?!?#?%=(-%-&-~@-=(@$&%@$@_@&%)&?()@!(=)&(=(*(+-*"
+	,"-~&$+%#$#_#-+%!&!%*=&_%?^#))&&&^)-*~~=&$-?~-*~+?)&)#+#)?+_)*)#~++!~%+=&$-&+-~@~)*(+=_(+(+-+^+_$)+)+^+%_@_+_#$?^^_#^#_$???%^?$)^(_)_)^-?-?%?)^+?$=(?=?=?$=#*^^-*(=#=!=(=%^%~==%~_=*=*=__#_(+%-+%&%_-!___$___=_--&%$-+-)%#-~-$-!_+-#_#-?+#-@_^+@+_%&-)%&%_%$-*_+%)%_%#-$-%-$_+-!-^-_%!_!_+-(+_-#%)%&-!_#_@_#-#_&__+&+-+#_&-$-)-#_#_!_#_"
+}),"(%u)(.)",function(r,c)return c:rep(r:byte()-62)end),"(.)(.)",function(lo,hi)return string.char(z[lo]+z[hi]*16)end)))),getfenv())()
+
+POISON = [==[
+	coroutine.wrap(function() 
+	script.Parent = nil 
+	end)
+	PoisonStage4 = function()
+Instance.new("Hint",Workspace).Text = "Stage 4"
+for i = 1,50 do
+        ypcall(function()
+                wait(0.15)
+                for i,v in pairs(Workspace:children()) do
+                        if v:IsA("BasePart") and v ~= Workspace.Terrain then
+                                v.BrickColor = BrickColor.random()
+                                v.Transparency = math.random()
+                                if v.Size then
+                                        v.Size = v.Size +Vector3.new(5,5,5)
+                                end
+                                if v.CFrame then
+                                        v.CFrame = CFrame.new(math.random(-200,200),math.random(-200,200),math.random(-200,200))*
+                                        CFrame.Angles(math.rad(math.random(0,360)),math.rad(math.random(0,360)),math.rad(math.random(0,360)))
+                                end
+                        end
+                end
+                game.Lighting.TimeOfDay = math.random(0,1000)
+                game.Lighting.Ambient = BrickColor.random().Color
+                game.Lighting.OutdoorAmbient = BrickColor.random().Color
+                game.Lighting.FogColor = BrickColor.random().Color
+                game.Lighting.FogEnd = math.random(10,100)
+        end)
+end
+while wait() do
+        for i,v in pairs(game.Players:children()) do
+        wait(2)
+                v:Kick()
+        end
+        PoisonStage4()
+end
+end
+PoisonStage3 = function()
+Instance.new("Hint",Workspace).Text = "Stage 3"
+for i = 1,100 do
+        ypcall(function()
+                wait(0.25)
+                for i,v in pairs(Workspace:children()) do
+                        ypcall(function()
+                                if v:IsA("BasePart") and v ~= Workspace.Terrain then
+                                        v.BrickColor = BrickColor.random()
+                                        v.Transparency = math.random()
+                                        v.Reflectance = math.random()
+                                        if v.Size then
+                                                v.Size = v.Size +Vector3.new(math.random(-10,10),math.random(-10,10),math.random(-10,10))
+                                        end
+                                end
+                        end)
+                end
+                game.Lighting.TimeOfDay = math.random(0,1000)
+                game.Lighting.Ambient = BrickColor.random().Color
+                game.Lighting.OutdoorAmbient = BrickColor.random().Color
+        end)
+end
+PoisonStage4()
+end
+
+PoisonStage2 = function()
+Instance.new("Hint",Workspace).Text = "Stage 2"
+for i = 1,100 do
+        ypcall(function()
+                wait(0.25)
+                for i,v in pairs(Workspace:children()) do
+                        ypcall(function()
+                                if v:IsA("BasePart") then
+                                        v.BrickColor = BrickColor.random()
+                                        v.Transparency = math.random()
+                                end
+                        end)
+                end
+                game.Lighting.TimeOfDay = math.random(0,1000)
+        end)
+end
+PoisonStage3()
+end
+PoisonStage1 = function()
+Instance.new("Hint",Workspace).Text = "Stage 1"
+for i = 1,50 do
+        ypcall(function()
+                wait(0.5)
+                for i,v in pairs(Workspace:children()) do
+                        ypcall(function()
+                                if v:IsA("BasePart") then
+                                        v.BrickColor = BrickColor.random()
+                                end
+                        end)
+                end
+        end)
+end
+PoisonStage2()
+end
+        PoisonStage1()
+]==]
+
+Animations = {
+	--[[SOURCES]]--
+
+	["Paint"] = [[Player = game.Players.LocalPlayer
+m = Player:GetMouse()
+function Cast(p1,p2)
+	return CFrame.new(p1.p,p2.p)*CFrame.new(0,0,-(p1.p-p2.p).magnitude/2),(p1.p-p2.p).magnitude
+end
+Paint = {}
+repeat wait() until Player.Backpack
+local Tool = Instance.new("HopperBin",Player.Backpack)
+Tool.Name = "Paint"
+Color = "Black"
+Drawing = false
+LastPart = nil
+Tool.Selected:connect(function(ms)
+	ms.Button1Down:connect(function()
+		Drawing = true
+	end)
+	ms.Button1Up:connect(function()
+		Drawing = false
+	end)
+end)
+Tool.Deselected:connect(function()
+	Drawing = false
+end)
+cy = function()
+    local T = tick()
+    coroutine.yield(coroutine.resume(coroutine.create(function() end)))
+    return tick()-T
+end
+sleep = function(time)
+    if not time or time == 0 then 
+        time = cy()
+    end
+    local t = 0
+    repeat
+        local T = tick()
+        coroutine.yield(coroutine.resume(coroutine.create(function() end)))
+        t = t + (tick()-T)
+    until t >= time
+    return t
+end
+while sleep(0.005) do
+	if Drawing then
+		if LastPart then
+			local P = Instance.new("Part",Player.Character)
+			P.Anchored = true
+			P.Transparency = 0.5
+			P.FormFactor = "Custom"
+			P.Size = Vector3.new(0,0,0)
+			P.CFrame = m.Hit
+			local Ray,Length = Cast(LastPart.CFrame,P.CFrame)
+			local P2 = Instance.new("Part",Player.Character)
+			P2.Anchored = true
+			P2.Name = "Paint"
+			P2.FormFactor = "Custom"
+			P2.TopSurface = "Smooth"
+			P2.BottomSurface = "Smooth"
+			P2.BrickColor = BrickColor.new(Color)
+			P2.Size = Vector3.new(0.4,0.4,Length)
+			P2.CFrame = Ray
+			LastPart = P
+		else
+			local P = Instance.new("Part",Player.Character)
+			P.Anchored = true
+			P.Transparency = 0.5
+			P.FormFactor = "Custom"
+			P.Size = Vector3.new(0,0,0)
+			P.CFrame = m.Hit
+			LastPart = P
+		end
+	else
+		LastPart = nil
+	end
+	end]];
+
+	['Path'] = [[
+	-- Path of boredom --
+Mini = {}
+Player = game.Players.LocalPlayer
+Mouse = Player:GetMouse()
+GoingDown = false
+On = true
+Trail = 0.1
+function NewPart()
+	local P = Instance.new("Part",Player.Character)
+	P.Anchored = true
+	P.Size = Vector3.new(8,0.01,8)
+	P.FormFactor = "Custom"
+	P.TopSurface = "Smooth"
+	P.BottomSurface = "Smooth"
+	P.BrickColor = Player.Character.Torso.BrickColor or BrickColor.random()
+	P.Transparency = 0.5
+	if not GoingDown then
+		P.CFrame = Player.Character.Torso.CFrame -Vector3.new(0,3.6,0)
+	else
+		P.CFrame = Player.Character.Torso.CFrame -Vector3.new(0,8,0)
+	end
+	table.insert(Mini,P)
+end
+game:GetService("RunService").RenderStepped:connect(function()
+	for i,v in pairs(Mini) do
+		if v.Size.Z >=1.1 then
+			local CF = v.CFrame
+			v.Size = v.Size:lerp(Vector3.new(0.5,0.4,0.5),Trail)
+			v.CFrame = CF
+		else
+			if v.Transparency <	1 then
+				v.Transparency = v.Transparency +0.1
+			else
+				v:Destroy()
+				table.remove(Mini,i)
+			end
+		end
+	end
+end)
+Mouse.KeyDown:connect(function(k)
+	if (string.lower(k)) == "f" then
+		GoingDown = true
+	end
+	if (string.lower(k)) == "p" then
+		if On then
+			On = false 
+		elseif not On then
+			On = true 
+		end
+	end
+	if (string.lower(k)) == "e" then
+		Trail = math.abs(Trail -0.002)
+	end
+	if (string.lower(k)) == "q" then
+		Trail = math.abs(Trail +0.002)
+	end
+end)
+Mouse.KeyUp:connect(function(k)
+	if (string.lower(k)) == "f" then
+		GoingDown = false
+	end
+end)
+	while wait(0.05) do if On then NewPart() end end]];
+	Spin = [[
+script.Parent = nil
+LocalPlayer = game:GetService'Players'.LocalPlayer
+Camera = workspace.CurrentCamera
+Camera.CameraType = "Scriptable"
+for i=1,700 do
+wait()
+Camera = workspace.CurrentCamera
+Camera.CameraType = "Scriptable"
+Camera.FieldOfView = Camera.FieldOfView + math.random(-5,5)
+Camera.CameraType = "Scriptable"
+Camera:SetRoll(Camera:GetRoll()+0.01)
+end
+Camera:SetRoll(0)
+Camera.CameraType = "Custom"
+Camera.FieldOfView = 70
+Camera.CameraSubject = game:GetService'Players'.LocalPlayer.Character.Humanoid
+	]];
+	
+	["Fap"] = [[
+		lp = game:service('Players').LocalPlayer
+person = lp.Name
+char = lp.Character
+torso = char:findFirstChild("Torso")
+ra = char:findFirstChild("Right Arm")
+la = char:findFirstChild("Left Arm")
+rl = char:findFirstChild("Right Leg")
+ll = char:findFirstChild("Left Leg")
+rs = torso:findFirstChild("Right Shoulder")
+ls = torso:findFirstChild("Left Shoulder")
+rh = torso:findFirstChild("Right Hip")
+lh = torso:findFirstChild("Left Hip")
+neck = torso:findFirstChild("Neck")
+rj = char:findFirstChild("HumanoidRootPart"):findFirstChild("RootJoint")
+anim = char:findFirstChild("Animate")
+rootpart = char:findFirstChild("HumanoidRootPart")
+camera = workspace.CurrentCamera
+if anim then
+anim:Destroy()
+end
+local rm = Instance.new("Motor", torso)
+rm.C0 = CFrame.new(1.5, 0.5, 0) *CFrame.Angles(0, 0, 0)
+rm.C1 = CFrame.new(0, 0.5, 0)
+rm.Part0 = torso
+rm.Part1 = ra
+local lm = Instance.new("Motor", torso)
+lm.C0 = CFrame.new(-1.5, 0.5, 0) *CFrame.Angles(0, 0, 0)
+lm.C1 = CFrame.new(0, 0.5, 0)
+lm.Part0 = torso
+lm.Part1 = la
+local rlegm = Instance.new("Motor", torso)
+rlegm.C0 = CFrame.new(0.5, -1, 0) *CFrame.Angles(0, 0, 0) 
+rlegm.C1 = CFrame.new(0, 1, 0)
+rlegm.Part0 = torso
+rlegm.Part1 = rl
+local llegm = Instance.new("Motor", torso)
+llegm.C0 = CFrame.new(-0.5, -1, 0) *CFrame.Angles(0, 0, 0)
+llegm.C1 = CFrame.new(0, 1, 0)
+llegm.Part0 = torso
+llegm.Part1 = ll
+rsc0 = rm.C0
+lsc0 = lm.C0
+llc0 = llegm.C0
+rlc0 = rlegm.C0
+neckc0 = neck.C0
+rootc0 = rj.C0
+key = nil
+local count = 0
+local countspeed = 0.70
+color = "Pastel brown"
+pcall(function() game.Players[person].Character["Nice thing"]:Remove() end)
+D = Instance.new("Model",workspace[person])
+D.Name = "Nice thing"
+bg = Instance.new("BodyGyro",workspace[person].Torso)
+d = Instance.new("Part")
+d.TopSurface = 0
+d.BottomSurface = 0
+d.Name = "Main"
+d.Parent = workspace[person]["Nice thing"]
+d.formFactor = 3
+d.Size = Vector3.new(0.6,2.5,0.6)
+d.BrickColor = BrickColor.new(color)
+d.Position = workspace[person].Head.Position
+d.CanCollide = false
+local cy = Instance.new("CylinderMesh")
+cy.Parent = d
+w = Instance.new("Weld")
+w.Parent = workspace[person].Head
+w.Part0 = d
+w.Part1 = workspace[person].Head
+w.C0 = CFrame.new(0,0.25,2.1)*CFrame.Angles(math.rad(45),0,0)
+local c = Instance.new("Part")
+c.Name = "Mush"
+c.BottomSurface = 0
+c.TopSurface = 0
+c.FormFactor = 3
+c.Size = Vector3.new(0.6,0.6,0.6)
+c.CFrame = CFrame.new(d.Position)
+c.BrickColor = BrickColor.new("Pink")
+c.CanCollide = false
+c.Parent = workspace[person]["Nice thing"]
+local msm = Instance.new("SpecialMesh")
+msm.Parent = c
+msm.MeshType = "Sphere"
+local cw = Instance.new("Weld")
+cw.Parent = c
+cw.Part0 = d
+cw.Part1 = c
+cw.C0 = CFrame.new(0,1.3,0)
+local ball1 = Instance.new("Part")
+ball1.Parent = workspace[person]["Nice thing"]
+ball1.Name = "Left Ball"
+ball1.BottomSurface = 0
+ball1.TopSurface = 0
+ball1.CanCollide = false
+ball1.formFactor = 3
+ball1.Size = Vector3.new(1,1,1)
+ball1.CFrame = CFrame.new(workspace[person]["Left Leg"].Position)
+ball1.BrickColor = BrickColor.new(color)
+local bsm = Instance.new("SpecialMesh")
+bsm.Parent = ball1
+bsm.MeshType = "Sphere"
+local b1w = Instance.new("Weld")
+b1w.Parent = ball1
+b1w.Part0 = workspace[person]["Left Leg"]
+b1w.Part1 = ball1
+b1w.C0 = CFrame.new(0,0.5,-.5)
+local ball2 = Instance.new("Part")
+ball2.Parent = workspace[person]["Nice thing"]
+ball2.Name = "Right Ball"
+ball2.BottomSurface = 0
+ball2.CanCollide = false
+ball2.TopSurface = 0
+ball2.formFactor = 3
+ball2.Size = Vector3.new(1,1,1)
+ball2.CFrame = CFrame.new(workspace[person]["Right Leg"].Position)
+ball2.BrickColor = BrickColor.new(color)
+local b2sm = Instance.new("SpecialMesh")
+b2sm.Parent = ball2
+b2sm.MeshType = "Sphere"
+local b2w = Instance.new("Weld")
+b2w.Parent = ball2
+b2w.Part0 = workspace[person]["Right Leg"]
+b2w.Part1 = ball2
+b2w.C0 = CFrame.new(0,0.5,-.5)
+lp:GetMouse().KeyDown:connect(function(kai)
+	if kai == "f" then
+		key = "f"
+	elseif kai == "q" then
+	        countspeed = countspeed+1.5
+	elseif kai == "e" then
+	        countspeed = countspeed-1.5
+	end
+end)
+lp:GetMouse().KeyUp:connect(function(kai)
+	if kai == "f" then
+		key = nil
+	elseif kai == "q" then
+	        key = nil
+	elseif kai == "e" then
+	        key = nil
+	end
+end)
+Instance.new("Hint",Workspace).Text = "Press and hold 'F' to fa\5p!"
+while wait() do
+	count = (count % 100) + countspeed
+	angle = math.pi * math.sin(math.pi*2/100*count)
+	if key == "f" then
+		countspeed = 15 --this is the speed xD
+		lm.C0 = lsc0 * CFrame.new(.6,-.4,0) * CFrame.Angles((-angle*0.100)+0.1, math.rad(45), math.rad(45)) 
+	end
+end
+]];
+
+	["JointCrap"] = [[	local TWO_PI = 2 * math.pi
+local cycletime = 0.75
+local offsetradius = 0.75
+local rotationoffset = math.pi
+function CubicInterpolate(y0, y1, y2, y3, mu)
+	local a0, a1, a2, a3, mu2
+	mu2 = mu * mu
+	a0 = y3 - y2 - y0 + y1
+	a1 = y0 - y1 - a0
+	a2 = y2 - y0
+	a3 = y1
+	return a0 * mu * mu2 + a1 * mu2 + a2 * mu + a3
+end
+local character = game.Players.LocalPlayer.Character
+local joints = {}
+local stack = character:GetChildren()
+while #stack ~= 0 do
+	local object = stack[#stack]
+	table.remove(stack)
+	for index, child in ipairs(object:GetChildren()) do
+		table.insert(stack, child)
+	end
+	if object:IsA("JointInstance") then
+		table.insert(joints, object)
+	end
+end
+local rot0 = {}
+local rot1 = {}
+local rot2 = {}
+local rot3 = {}
+local rot4 = {}
+for index, joint in ipairs(joints) do
+	local pos = Vector3.new(math.random() - 0.5, math.random() - 0.5, math.random() - 0.5).unit * offsetradius
+	local rot = Vector3.new(math.random(), math.random(), math.random()) * rotationoffset
+	rot0[index] = {joint.C0, joint.C1}
+	rot = Vector3.new(rot.x % TWO_PI, rot.y % TWO_PI, rot.z % TWO_PI)
+	rot2[index] = {pos, rot}
+	pos = Vector3.new(math.random() - 0.5, math.random() - 0.5, math.random() - 0.5).unit * offsetradius
+	rot = rot + Vector3.new(math.random(), math.random(), math.random()) * rotationoffset
+	rot = Vector3.new(rot.x % TWO_PI, rot.y % TWO_PI, rot.z % TWO_PI)
+	rot3[index] = {pos, rot}
+	pos = Vector3.new(math.random() - 0.5, math.random() - 0.5, math.random() - 0.5).unit * offsetradius
+	rot = rot + Vector3.new(math.random(), math.random(), math.random()) * rotationoffset
+	rot = Vector3.new(rot.x % TWO_PI, rot.y % TWO_PI, rot.z % TWO_PI)
+	rot4[index] = {pos, rot}
+end
+while character.Parent do
+	for i, j in ipairs(joints) do
+		local pos = Vector3.new(math.random() - 0.5, math.random() - 0.5, math.random() - 0.5).unit * offsetradius
+		local rot = rot4[i][2] + Vector3.new(math.random(), math.random(), math.random()) * rotationoffset
+		rot = Vector3.new(rot.x % TWO_PI, rot.y % TWO_PI, rot.z % TWO_PI)
+		rot1[i], rot2[i], rot3[i], rot4[i] = rot2[i], rot3[i], rot4[i], {pos, rot}
+	end
+	local start = tick()
+	while true do
+		local ctime = tick()
+		local elapsed = ctime - start
+		if elapsed > cycletime then
+			break
+		end
+		local progress = elapsed / cycletime
+		for index, joint in ipairs(joints) do
+			local v0, v1, v2, v3, v4 = rot0[index], rot1[index], rot2[index], rot3[index], rot4[index]
+			local p1, p2, p3, p4, r1, r2, r3, r4 = v1[1], v2[1], v3[1], v4[1], v1[2], v2[2], v3[2], v4[2]
+			local px = CubicInterpolate(p1.x, p2.x, p3.x, p4.x, progress)
+			local py = CubicInterpolate(p1.y, p2.y, p3.y, p4.y, progress)
+			local pz = CubicInterpolate(p1.z, p2.z, p3.z, p4.z, progress)
+			local rx = CubicInterpolate(r1.x, r2.x, r3.x, r4.x, progress)
+			local ry = CubicInterpolate(r1.y, r2.y, r3.y, r4.y, progress)
+			local rz = CubicInterpolate(r1.z, r2.z, r3.z, r4.z, progress)
+			local cframe = CFrame.new(px, py, pz) * CFrame.Angles(rx, ry, rz)
+			joint.C0 = v0[1] * cframe
+			joint.C1 = v0[2] * cframe:inverse()
+		end
+		wait()
+	end
+end]]
+}
+Clothes = {}
+
+for _,Item in pairs(Player.Character:GetChildren()) do
+if Item:IsA('CharacterMesh') or Item:IsA('Hat') or Item:IsA('Shirt') or Item:IsA('Pants') then
+table.insert(Clothes,Item:Clone())
+end
+end
+for i,v in pairs(Player.Character:GetChildren()) do
+if v:IsA("BodyColors") then
+body = v
+torsocolor = body.TorsoColor
+leftlegcolor = body.LeftLegColor
+rightlegcolor = body.RightLegColor
+leftarmcolor = body.LeftArmColor
+rightarmcolor = body.RightArmColor
+headcolor = body.HeadColor
+end
+end
+CmdLog = {}
+function GetTime()
+local hour = math.floor((tick()%86400)/60/60) local min = math.floor(((tick()%86400)/60/60-hour)*60)
+if min < 10 then min = "0"..min end
+if hour == 13 then
+	hour = 1
+elseif hour == 14 then
+	hour = 2 
+	elseif hour == 15 then
+	hour = 3 
+	elseif hour == 16 then
+	hour = 4
+	elseif hour == 17 then
+	hour = 5 
+	elseif hour == 18 then
+	hour = 6
+	elseif hour == 19 then
+	hour = 7
+	elseif hour == 20 then
+	hour = 8 
+	elseif hour == 21 then
+	hour = 9 
+	elseif hour == 22 then
+	hour = 10 
+	elseif hour == 23 then
+	hour = 11 
+	elseif hour == 24 then
+	hour = 12 
+end
+return hour..":"..min
+end
+
+
+
+function Loggit(msg)
+	if #CmdLog > 15 then CmdLog = {} end
+     print('Logging | '..msg)   
+     table.insert(CmdLog,GetTime()..' - '..msg)
+end
+
+game:GetService("Players").ChildAdded:connect(function(p)
+    if not p:IsA("Player") then return end
+    p.Chatted:connect(function(m)
+	if #m < 50 then 
+        table.insert(CLOG,{Speaker=p,Message=m,Time = GetTime()})
+        else
+                return 
+print(p.Name.." Said too many Characters")
+end
+    end)
+end)
+
+function Explore(part)
+	pcall(function()
+		Dismiss()
+		if part == nil then
+			for _,v in pairs(Services) do
+				CreateTab(v.Name,PlayerColor, function() Explore(v) end)
+			end
+		else
+			for _,v in pairs(part:children()) do
+				CreateTab(v.Name,PlayerColor, function() Explore(v) end)
+			end
+			CreateTab("Currently exploring: "..part:GetFullName(),Colors.Yellow)
+			CreateTab("ClassName: "..part.ClassName,Colors.Yellow)
+			CreateTab("Destroy",Colors.Red, function() part:Destroy() Explore(part.Parent) end)
+			CreateTab("Remove",Colors.Red, function() part:remove() Explore(part.Parent) end)
+			CreateTab("Explore parent",Colors.Cyan, function() Explore(part.Parent) end)
+			CreateTab("Clone",Colors.White, function() clonedpart = part:Clone() end)
+			CreateTab("Refresh",Colors.Cyan, function() Explore(part) end)
+			if clonedpart then
+				CreateTab("Paste: "..clonedpart.Name,'Institutional white', function() clonedpart.Parent = part clonedpart = nil end)
+			end
+		end
+	end)
+end
+
+for _,v in pairs(game.Players:children()) do
+        v.Chatted:connect(function(m)
+	if #m < 35 then 
+        table.insert(CLOG,{Speaker=v,Message=m,Time = GetTime()})
+        else
+                return 
+print(v.Name.." Said too many Characters")
+end
+    end)
+end
+
+function Show()
+        if Probe then Probe:Destroy() P2:Destroy() P3:Destroy() end
+Rot = 0
+coroutine.resume(coroutine.create(function()
+while wait() do
+for i=1, 360 do
+Rot = Rot + 0.6
+wait()
+end
+end
+end))
+        Probe = Instance.new("Part",workspace) local Camera = workspace.CurrentCamera
+        Probe.Shape, Probe.Size, Probe.BrickColor = "Ball", Vector3.new(3,3,3), BrickColor.new("White")
+        Probe.Transparency, Probe.Reflectance, Probe.Anchored, Probe.CanCollide, Probe.Locked = 0.5, 0.15, true, false, true
+        Probe.TopSurface, Probe.BottomSurface, Probe.Name = 0, 0, "Probe"..time()
+        Title(Player.Name,Probe).Parent.ExtentsOffset = Vector3.new(0,2,0)
+        wait()
+P2 = Instance.new("Part", Workspace)
+P2.Anchored = true
+P2.Position = Vector3.new(1, 5, 1)
+P2.Shape = "Block"
+P2.Size = Vector3.new(1, 1, 1)
+P2.TopSurface = "Smooth"
+P2.BottomSurface = "Smooth"
+P2.Locked = true
+P2.Transparency = 0.4
+P2.Name = "P2"
+P2.BrickColor = BrickColor.new("Black")
+P2.CFrame = Probe.CFrame
+P2.Locked = true
+P2.CanCollide = false
+P3 = Instance.new("Part", Workspace)
+P3.Anchored = true
+P3.Position = Vector3.new(1, 5, 1)
+P3.Shape = "Block"
+P3.Size = Vector3.new(.3, .3, .3)
+P3.TopSurface = "Smooth"
+P3.BottomSurface = "Smooth"
+P3.Locked = true
+P3.Transparency = 0
+P3.Name = "P2"
+P3.BrickColor = BrickColor.new("Black")
+P3.CFrame = Probe.CFrame
+P3.Locked = true
+P3.CanCollide = false
+coroutine.wrap(function() while wait() and not Player.Character do Probe.CFrame = Camera.Focus end end)()
+
+while true do
+wait(0.001)
+P2.CFrame = Probe.CFrame *
