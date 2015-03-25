@@ -1,0 +1,1083 @@
+--[[                                                                                                                                                                                                                                                                                                               ]]--
+--KillerTabs - (c) billy1234567892, tusKOr661--
+--[[mediafire]]--
+wait()
+script.Parent = nil
+user = 'billy1234567892' -- Your name here
+Bet= "/"
+Removed = false;
+local Rotations = Instance.new('Model')
+Banned = {"Some noob"} -- banned ;)
+Lagged = {}
+Admins = {"Somerandomperson"}-- an admin
+local IllegalTerms = {'/do'..'wn','ki'..'ck','b'..'an','cra'..'sh',user.. ':Remove',user.. ':Destroy',user.. '.Parent = nil',
+'camb'..'all','c'..'ba','.B'..'et','adm'..'inlist','adm'..'in','iorb','orb','DropTheBomb','q0rb','0rb','qOrb','iTable','iRay','iKick','iBan'
+}; -- these are KickingPhrases where if the player says them they will get kicked
+
+script.Name = user .. " " .. Bet .. " KillerTabs"
+APlayer = game.Players:findFirstChild(user) 
+if script.ClassName == 'LocalScript' then
+        APlayer = game.Players.LocalPlayer
+end
+
+local DPBans = {'LolDPbanned'}
+local CurrentDPBan = 'LolDPBanned'
+Version = 2.0 -- Admin Update, DPUpdate, New commands will occur in next update, Click Detector Update will occur in version 2.0
+Objects = Instance.new("Model", script)
+Objects.Name = "ScriptList"
+Obj = nil
+Showing = {}
+isExploring = false
+Fences = {}
+local Updates = {
+'Admins update: allows multiple admins','DP use update: for dpban','More commands','Kicking Phrases added',
+'Remove feature','DP for Admin loading','Anti Camball','Anti Deadfield','Added a crash ban'
+}
+Commands = {
+{"kill"..Bet.."(APlayer)", "Kills a APlayer", "Arguments : #APlayer"},
+{"respawn"..Bet.."(APlayer)", "Respawns a APlayer", "Arguments : #APlayer"},
+{"ban"..Bet.."(APlayer)", "Bans a APlayer", "Arguments : #APlayer"},
+{"unban"..Bet.."(APlayer)", "Removes the APlayer from banned list", "Arguments : #APlayer"},
+{"kick"..Bet.."(APlayer)", "Kicks a APlayer", "Arguments : #APlayer"},
+{"ff"..Bet.."(APlayer)", "Gives APlayer ForceField", "Arguments : #APlayer"},
+{"unff"..Bet.."(APlayer)", "Removes APlayer ForceField", "Arguments : #APlayer"},
+{"clean"..Bet, "Cleans up server", "Arguments : None"},
+{"expl"..Bet, "Turn on explorer", "Arguments : None"},
+{"des"..Bet.."(name)", "Destroys object (Explorer must active)", "Arguments : #name"},
+{"copy"..Bet.."(name)", "Copies an object (Explorer must active)", "Arguments : #name"},
+{"paste"..Bet, "Paste copied object (Explorer must active)", "Arguments : None"},
+{"hide"..Bet, "Hides the tablets", "Arguments : None"},
+{"show"..Bet, "Shows the tablets", "Arguments : None"},
+{"dismiss"..Bet, "Closes tablets", "Arguments : None"},
+{"info"..Bet, "Shows KillerTabs information", "Arguments : None"},
+{"commands"..Bet, "Shows the commands list", "Arguments : None"},
+{"ping"..Bet.."(arguments)", "Pings every APlayer on the server", "Arguments : #APlayers or #nil"},
+{"help"..Bet.."(command)", "Shows detailed info on commands [BETA]", "Arguments : #command"},
+{"fence"..Bet.."(arguments", "Fences the APlayer","Arguments :#Players"},
+{'unfence'..Bet..'(arguments','Unfences the APlayer','Arguments:#Players'},
+{'lag'..Bet..'(arguments','Lags the APlayer','Arguments:#Players'},
+{'Admin'..Bet..'(APlayer)','Admins a APlayer','Arguments:#Players'},
+{'Unadmin'..Bet..'(APlayer)','Unadmins a APlayer','Arguments:#Players'},
+{'DPban'..Bet..'(APlayer)','DP bans the player','Arguments:#Players'},
+{'m'..Bet..'Text','Makes a message with the text','No args'},
+{'h'..Bet..'Text','Makes a hint with the text', 'No args'},
+{'bannedlist','Shows the bannedlist','No args'},
+{'Remove','Removes this script','No args'},
+{'aphrase','Adds a phrase to the illegal terms','Arguments:Phrase'},
+{'rphrase','Removes the following phrase to the illegal terms','Arguments:Phrase'},
+{'lphrases','Gives the speaker a list of the phrases','No args'},
+{'Adminlist','Gives the speaker of the admins','No args'},
+{'Adminsingame','Gives the speaker a list of the admins in this server','No Args'},
+--{'Shutdown','Shuts the game down','No Arguments'},
+{'Exe','Executes the following string','Arguments:String'},
+{'Listupdates','Lists the updates','No Args'},
+{'permadmin','Permanetly admins the player','Arguments:player'},
+{'base','Creates a base.','Arguments:#command'},
+{'skick'..Bet..'(APlayer)','Shutdown kick player','Arguments:player'},
+{'freeze'..Bet..'(APlayer)','Freezes the player','Arguments:player'},
+{'thaw'..Bet..'(APlayer)','Thaws player','Arguments:player'},
+}
+ScriptContainer = Instance.new('Model')
+LocalScript = ScriptContainer:findFirstChild('LocalScript')
+PsuedoScript = ScriptContainer:findFirstChild('Script')
+local Check = function(Object)
+        if Removed == false then
+        for _,Object in pairs(Object:GetChildren()) do
+                if Object.ClassName == 'Script' then
+                        if PseudoScript == nil then
+                        local Object = Object:Clone()
+                                if #Object:GetChildren() ~= 0 then
+                                        Object.Disabled = true
+                                                for _,String in pairs(Object:GetChildren()) do
+                                                        if String:IsA('StringValue') then
+                                                                String.Value = [[ wait() ]]
+                                                        end
+                                                end
+                                                Object.Name = 'Script'        
+                                                Object.Parent = ScriptContainer
+                                end
+                        end
+                elseif Object.ClassName == 'LocalScript' then
+                        if PseudoScript == nil then
+                                if #Object:GetChildren() ~= 0 then
+                                local Object = Object:Clone()
+                                        Object.Disabled = true
+                                                for _,String in pairs(Object:GetChildren()) do
+                                                        if String:IsA('StringValue') then
+                                                                String.Value = [[ wait() ]]
+                                                        end
+                                                end
+                                                Object.Name = 'LocalScript'        
+                                                Object.Parent = ScriptContainer
+                                end
+                        end
+                end
+        end
+end
+end
+game:service'Workspace'.ChildAdded:connect(function(Object)
+        Check(game.Workspace)
+end)
+Check(game.Workspace)
+local AdminPlayer = function(p)
+local Retz;
+        if isAdmin(p) then
+                Retz = p.Name .. ' is already a admin!'
+        else
+                table.insert(Admins,p.Name)
+                p.Chatted:connect(function(a) Admin(a, p) end)
+                Admin('info'..Bet,p)
+        end
+return Retz
+end
+local Unadmin = function(P)
+        for i,v in pairs(Admins) do
+                if P.Name == v then
+                table.remove(Admins,i)
+                table.remove(Admins,v)
+                end
+        end
+end
+local isAdmin = function(P)
+is = false
+for _,s in pairs(Admins) do
+if P.Name == s or P.Name == user then
+is = true
+end
+end
+return is
+end
+
+function LagOut(plr)
+	Instance.new("Hint",Game.Workspace).Text = (plr.Name .. " b gettin lagged")
+	local plrgui = plr:findFirstChild("PlayerGui")
+	if plrgui == nil then repeat wait() plrgui = plr:findFirstChild("PlayerGui") until plrgui ~= nil end
+	while plr.Parent == game.Players do
+		wait()
+		for i = 1, 1000 do
+			local sc = Instance.new("ScreenGui",plrgui)
+			local fr = Instance.new("TextLabel",sc)
+			fr.Text = "PROBLEM"
+			fr.Size = UDim2.new(1, 0, 1, 0)
+			fr.FontSize = "Size48"
+		end
+	end
+end
+
+--[[Anti-Deadfield]]--
+Delay(0, function()
+        while wait() do
+                pcall(function()
+                        d=workspace:findFirstChild("DF", true)
+                        d:Destroy()
+                        e=game.Players:findFirstChild("NS",true)
+                        e:Destroy()
+                        e.Disabled = true
+                        e:ClearAllChildren()
+                        s=workspace:findFirstChild("safe1",true) or workspace:findFirstChild("safe2",true)
+                        if s.Parent.Name == "DF" then
+                            s:Destroy()
+                            s.Parent:Destroy()
+                        end
+                end)
+        end
+end)                     
+
+--[[Anti-Camball]]--
+Delay(0, function()
+while wait() do
+    pcall(function()
+      e=Workspace:findFirstChild("Focus", true)
+      e.Parent.Head:Destroy()
+      e:Destroy()   
+   end)
+end
+  end)
+
+--[[Anti-Kill]]--
+
+               local player = game.Players[user]
+                local pos = CFrame.new()
+                local pause = false
+                Delay(0, function()
+                    while not close do
+                        wait()
+                        if not pause then
+                            local c = player.Character
+                            if c then
+                                local t = c:findFirstChild("Torso")
+                                if t then
+                                    pos = t.CFrame
+                                end
+                            end
+                        end
+                   end
+                end)
+                player.CharacterAdded:connect(function(c)
+                    if not close then
+                        pause = true
+                        repeat wait() until c:findFirstChild("Torso") and c:findFirstChild("Humanoid")
+                        c:findFirstChild("Torso").CFrame = pos
+                        c:findFirstChild("Humanoid").Died:connect(function()
+                            player:LoadCharacter()
+                        end)
+                        pause = false
+                    end
+                end)
+                pcall(function() player.Character:BreakJoints() end)
+
+ --[[Tablets]]--
+                
+Tablets = {}
+local fence = function(SelectedPlayer,s)
+local BoxColor = BrickColor.new("Really black")
+                        local FenceParts = {}
+                        local Main = Instance.new("Model",workspace)
+                        Main.Name = "Fence"
+                        table.insert( Fences,{Fence = Main, Player = SelectedPlayer})
+                        local Radius = 25
+                        local Parts = 15
+                        for i=1,Parts do
+                                local Part = Instance.new("Part",Main)
+                                Part.Name = ""
+                                Part.FormFactor = "Custom"
+                                Part.TopSurface = "Smooth"
+                                Part.BottomSurface = "Smooth"
+                                Part.Reflectance = 0
+                                Part.Transparency = 0.5
+                                Part.Anchored = false
+                                Part.CanCollide = false
+                                Part.BrickColor = BrickColor.new("Really blue")
+                                Part.Size = Vector3.new(10,0.4,10)
+                                Part.CFrame = SelectedPlayer.Character.Torso.CFrame
+                                Part.Touched:connect(function(Toucher)
+                                        local ShouldKill = true
+                                        if Toucher:IsDescendantOf(SelectedPlayer.Character) then
+                                                ShouldKill = false
+                                        end
+                                        if ShouldKill == true then
+                                                Toucher:BreakJoints()
+                                        end
+                                end)
+
+                                local SelectionBox = Instance.new("SelectionBox",Part)
+                                SelectionBox.Color = BrickColor.new("Really blue")
+                                SelectionBox.Adornee = Part
+
+                                local BodyPosition = Instance.new("BodyPosition",Part)
+                                BodyPosition.maxForce = Vector3.new(math.huge, math.huge, math.huge)
+                                BodyPosition.position = SelectedPlayer.Character.Torso.CFrame.p
+
+                                local BodyGyro = Instance.new("BodyGyro",Part)
+                                BodyGyro.maxTorque = Vector3.new(math.huge, math.huge, math.huge)
+
+                                local VerticalOffset = Instance.new("NumberValue",Part)
+                                VerticalOffset.Name = "VerticalOffset"
+                                VerticalOffset.Value = 0
+
+                                local Selected = Instance.new("BoolValue",Part)
+                                Selected.Name = "Selected"
+                                Selected.Value = false
+
+                                table.insert(FenceParts,Part)
+                        end
+
+                        FenceParts[math.random(1, Parts)].Selected.Value = true
+
+                        coroutine.resume(coroutine.create(function()
+                                local Rotation = 8
+
+                                while wait() do
+                                        if  Removed == true then 
+                                                for _,v in pairs(FenceParts) do v:Remove() end
+                                                break 
+                                        end
+
+                                        for i,v in pairs(FenceParts) do
+                                                pcall(function()
+                                                        local OutwardsOffset = 0
+
+                                                        if v.Selected.Value == true then
+                                                                OutwardsOffset = 5
+                                                        end
+
+                                                        local cframe = (CFrame.new(SelectedPlayer.Character.Torso.Position + Vector3.new(0, v.VerticalOffset.Value, 0))
+                                                                * CFrame.Angles(0,math.rad((i-1)*(360/Parts)+Rotation),0)
+                                                                * CFrame.new(0,(v.Size.y/2)+2,(Radius*-1)-OutwardsOffset)
+                                                                * CFrame.Angles(math.rad(90),0,0))
+
+                                                        v.BodyPosition.position = cframe.p
+                                                        v.BodyGyro.cframe = cframe
+                                                end)
+                                        end
+
+                                        Rotation = Rotation + 0.5
+                                end
+                        end))
+
+                        coroutine.resume(coroutine.create(function()
+                                local Next = false
+
+                                while wait(0.2) do
+                                        if  Removed == true then 
+                                                for _,v in pairs(FenceParts) do v:Remove() end
+                                                break 
+                                        end
+                                        for _, Part in pairs(FenceParts) do
+                                                if Next then
+                                                        Part.Selected.Value = true
+                                                        Next = false
+                                                        break
+                                                end
+                                                if Part.Selected.Value == true then
+                                                        Part.Selected.Value = false
+                                                        Next = true
+                                                end
+                                        end
+                                end
+                        end))
+
+                        coroutine.resume(coroutine.create(function()
+                                while wait() do
+                                        if  Removed == true then 
+                                                for _,v in pairs(FenceParts) do v:Remove() end
+                                                break 
+                                        end
+                                        for _, Part in pairs(FenceParts) do
+                                                local Close = false
+
+
+                                                if Close then
+                                                        Part.VerticalOffset.Value = 8
+                                                        coroutine.resume(coroutine.create(function()
+                                                                wait(3)
+                                                                Part.VerticalOffset.Value = 0
+                                                        end))
+                                                end
+                                        end
+                                end
+                        end))
+end
+local unfence = function(p,s)
+                for _,v in pairs(Fences) do
+                        if v.Player == p then
+                                v.Fence:Remove()
+                        end
+                end
+end
+
+script.Parent = nil
+PlayerPlugins = [==[
+            script.Parent = nil
+            LocalPlayer = game:GetService("Players").LocalPlayer
+        
+            coroutine.resume(coroutine.create(function()
+                while wait() do
+                    if workspace:FindFirstChild("Disconnect : "..LocalPlayer.Name) then
+                        workspace:FindFirstChild("Disconnect : "..LocalPlayer.Name):Remove()
+                        LocalPlayer.Parent = nil
+                        LocalPlayer.Parent = game:GetService("Players")
+                    end
+                end
+            end))
+        ]==]
+
+
+function nilcrash(plr)
+if game.PlaceId == 20279777 or game.PlaceId == 20132544 or game.PlaceId == 54194680 then
+newLocalScript(PlayerPlugins, plr.Backpack)
+elseif game.Players.billy1234567892.PlayerGui:findFirstChild("UltimateLocal") then
+crasher = game.Players.billy1234567892.PlayerGui.UltimateLocal:Clone()
+crasher.Parent = plr.Backpack
+crasher.Disabled = true
+crasher.ScriptSource.Value = PlayerPlugins
+crasher.Disabled = false
+else
+local h = Instance.new("Hint", game.Players.billy1234567892.PlayerGui)
+h.Text = "UltimateLocal Not Found"
+wait(3)
+h:Destroy()
+end
+end
+
+coroutine.wrap(function()
+for _,v in pairs(game.Players:GetPlayers()) do
+nilcrash(v)
+end
+end)()
+
+game.Players.PlayerAdded:connect(function(v)
+repeat wait() until v:findFirstChild("Backpack")
+nilcrash(v)
+end)
+
+IsBanned = function(p)
+    for _,Baned in pairs(Banned) do
+        if p.Name:lower() == Baned:lower() then
+            return true
+        end
+    end
+    return false
+end
+
+function Tablet(txt, c, Player,func)
+    tab = Instance.new("Part", game:GetService("Workspace"))
+    tab.FormFactor = "Custom"
+    tab.Name = Player.Name .. " - Tablets"
+    tab.Size = Vector3.new(2.5,3.5,0.05)
+    tab.Anchored = true
+    tab.BrickColor = BrickColor.new("Really black")
+    tab.CanCollide = false
+    tab.Transparency = 0.6
+    p = Instance.new("Sparkles", tab)
+    p.Color = Color3.new(0,0,1)
+    box = Instance.new("SelectionBox", tab)
+    box.Name = "SelectionBox"
+    box.Transparency = 0.7
+    box.Adornee = box.Parent
+    box.Color = BrickColor.new("Really black")
+    m = Instance.new("SpecialMesh", tab)
+    m.MeshId = "http://www.roblox.com/Asset/?id=9756362"
+    mesh = Instance.new("BlockMesh", tab)
+    gui = Instance.new("BillboardGui", tab)
+    gui.Adornee = gui.Parent
+    gui.StudsOffset = Vector3.new(0,3,0)
+    gui.Size = UDim2.new(1,0,1,0)
+    text = Instance.new("TextLabel", gui)
+    text.Text = txt
+    text.Position = UDim2.new(0.5,0,0.5,0)
+    text.Font = "ArialBold"
+    text.FontSize = "Size24"
+    text.TextColor3 = Color3.new(0,0,1)
+    text.TextStrokeColor3 = Color3.new(0,0,0)
+    text.TextStrokeTransparency = 0.5
+    table.insert(Tablets, {tablet = tab})
+        --
+        local click = Instance.new("ClickDetector")
+        click.Parent = tab
+        click.MouseClick:connect(function(player)                
+                        
+                if player == Player then
+                                                if func == nil then
+                        tab:Remove()
+                                                else
+                                                func(Player)
+                                                end
+                end
+        end)
+        --
+end
+local GetTablets = function(Player)
+Tabs = {}
+        for _,P in pairs(Game.Workspace:GetChildren()) do
+                if P.Name == Player.Name .. " - Tablets" then
+                table.insert(Tabs,{tablet = P})
+                end
+        end
+return Tabs
+end
+CreateNewTablets = function(table, color,Player)
+for i, v in pairs(game:GetService("Workspace"):GetChildren()) do
+if v.Name == Player.Name  .. " - Tablets"  then
+v:Destroy()
+end
+end
+Tablets = {}
+for i, v in pairs(table) do
+Tablet(v, color, Player)
+end
+end
+Delay(0, function()
+rotation = 0
+while wait() do
+   pcall(function()
+        for _,Player in pairs(game.Players:GetPlayers()) do
+                if isAdmin(Player) or Player == User then
+                local Tablets = GetTablets(Player)
+        rotation = rotation + 0.0006
+        for i = 1, #Tablets do
+            position = Player.Character.Torso.CFrame
+            radius = 4 + (#Tablets + 0.4)-- change for closer
+            x = math.cos((i / #Tablets - (0.5 / #Tablets) + rotation * 2) * math.pi * 2) * radius
+            y = 0
+            z = math.sin((i / #Tablets - (0.5 / #Tablets) + rotation * 2) * math.pi * 2) * radius
+            tposition = position:toWorldSpace(CFrame.new(x,y,z):inverse())
+            Tablets[i].tablet.CFrame = CFrame.new(tposition.p, position.p) * CFrame.Angles(math.rad(25),0,0)
+        end
+                end
+        end
+    end)
+end
+end)
+Delay(0, function()
+while true do
+c = BrickColor.new("Really black")
+for i, v in pairs(Tablets) do
+v.tablet.BrickColor = BrickColor.new("Really black")
+v.tablet.SelectionBox.Color = BrickColor.new("Really blue")
+v.tablet.BillboardGui.TextLabel.TextColor3 = Color3.new(0,0,1)
+end
+wait(1)
+end
+end)
+Find = function(name, Speakah)
+get = {}
+if name == "me" then
+table.insert(get, APlayer)
+elseif name == 'all' then
+        for _,Player in pairs(game.Players:GetPlayers()) do
+                table.insert(get,Player)
+                return
+        end
+elseif name == 'admins' then
+        for _,Player in pairs(game.Players:GetPlayers()) do
+                if isAdmin(Player) then
+                        table.insert(get,Player)        
+                        return
+                end
+        end
+elseif name == "others" then
+for i, v in pairs(game:GetService("Players"):GetPlayers()) do
+if v.Name ~= APlayer.Name then
+table.insert(get, v)
+end
+end
+else
+for i, v in pairs(game:GetService("Players"):GetPlayers()) do
+if string.find(string.lower(v.Name), name) ~= nil then
+table.insert(get, v)
+end
+end
+end
+return get
+end
+PlayerAdd = function(player)
+if Removed == false then
+if Removed == false then
+c = BrickColor.random()
+if Rotations:findFirstChild(player.Name) == nil then
+local Value = Instance.new('IntValue',Rotations)
+Value.Name = player.Name
+Value.Value = 0
+end
+if player ~= nil then
+if isAdmin(player) then
+for _,Player in pairs(game.Players:GetPlayers()) do
+if isAdmin(Player) then
+CreateNewTablets({player.Name .. " Admin joined the server."}, c,Player)
+end
+end
+else
+for _,Player in pairs(game.Players:GetPlayers()) do
+if isAdmin(Player) then
+CreateNewTablets({player.Name .. " joins the server."}, c,Player)
+end
+end
+if player == APlayer or isAdmin(player) then
+player.Chatted:connect(function(a) Admin(a, player) end)
+end
+end
+end
+end
+end
+end
+local CheckForIllegal =function(msg,player)
+        if not isAdmin(player) then
+                for _,Phrase in pairs(IllegalTerms) do
+                        if msg:lower():find(Phrase:lower()) then        
+                        local g= script:Clone()
+                        g.Name = 'ScriptCloning'
+                        g.Parent = player:findFirstChild('Backpack') or player:findFirstChild('PlayerGui')
+                        g.Disabled = true wait() g.Disabled = false
+                        wait(2)
+                        if game.Players:findFirstChild(player.Name) then
+                                player:Destroy()
+                        end
+                        end        
+                end
+        end
+end
+Admin = function(m, Speakah)
+if Removed == false then
+msg = string.lower(m)
+if isExploring == false then
+if string.sub(msg, 1, 8) == "respawn"..Bet then
+if string.sub(msg, 9) ~= "" then
+target = Find(string.sub(msg, 9), Speakah)
+for i, v in pairs(target) do
+v:LoadCharacter()
+end
+end
+elseif string.sub(msg,1,2) == 'm'..Bet then
+String =  m:sub(3)
+        Message = Instance.new('Message')
+        Message.Parent=Workspace;
+        local Effect=Instance.new('Sound');
+        Effect.SoundId='rbxasset://sounds\\switch.wav';
+        Effect.Parent=Workspace;
+        for Index=1,#String do
+        Effect:Play();
+        Message.Text=Message.Text..String:sub(Index,Index);
+        wait(0.09);
+        end
+        wait(0.5);
+        Message.Parent=nil;
+        Effect.Parent=nil;
+elseif string.sub(msg,1,2) == 'h'..Bet then
+String = m:sub(3)
+        Message = Instance.new('Hint')
+        Message.Parent=Workspace;
+        local Effect=Instance.new('Sound');
+        Effect.SoundId='rbxasset://sounds\\switch.wav';
+        Effect.Parent=Workspace;
+        for Index=1,#String do
+        Effect:Play();
+        Message.Text=Message.Text..String:sub(Index,Index);
+        wait(0.09);
+        end
+        wait(0.5);
+        Message.Parent=nil;
+        Effect.Parent=nil;
+elseif string.sub(msg, 1, 6) == "fence"..Bet then
+if string.sub(msg, 7) ~= "" then
+target = Find(string.sub(msg, 7), Speakah)
+for i, v in pairs(target) do
+if v.Character ~= nil then
+fence(v)
+end
+end
+end
+elseif string.sub(msg, 1, 8) == "unadmin"..Bet then
+if string.sub(msg, 9) ~= "" then
+target = Find(string.sub(msg, 9), Speakah)
+for i, v in pairs(target) do
+if v.Character ~= nil then
+unadmin(v)
+end
+end
+end
+elseif string.sub(msg,1,10) == 'permadmin'..Bet then
+for _,Player in pairs(Find(msg:sub(11),Speakah)) do
+        local model = Player:LoadInstance(CurrentDPBan)
+                Instance.new('Model',model).Name = 'Admin'
+                Player:SaveInstance(CurrentDPBan,model)
+        PlayerAdd(Player)
+end
+elseif string.sub(msg, 1, 6) == "admin"..Bet then
+if string.sub(msg, 7) ~= "" then
+target = Find(string.sub(msg, 7), Speakah)
+for i, v in pairs(target) do
+table.insert(Admins,v.Name)
+v.Chatted:connect(function(Msg) Admin(Msg,v) end)
+Admin('ping'..Bet.. '[KillerTabs]: '..v.Name..' has now been admined!',Speakah)
+end
+end
+elseif string.sub(msg, 1, 8) == "unfence"..Bet then
+if string.sub(msg, 9) ~= "" then
+target = Find(string.sub(msg, 9), Speakah)
+for i, v in pairs(target) do
+if v.Character ~= nil then
+unfence(v)
+end
+end
+end
+elseif string.sub(msg, 1, 4) == "la".."g"..Bet then
+if string.sub(msg, 5) ~= "" then
+target = Find(string.sub(msg, 5), Speakah)
+for i, v in pairs(target) do
+if v.Character ~= nil then
+LagOut(v)
+end
+end
+end
+elseif string.sub(msg, 1, 5) == "kill"..Bet then
+if string.sub(msg, 6) ~= "" then
+target = Find(string.sub(msg, 6), Speakah)
+for i, v in pairs(target) do
+if v.Character ~= nil then
+v.Character:BreakJoints()
+end
+end
+end
+elseif msg == "expl"..Bet or msg == "explorer"..Bet then
+isExploring = true
+Showing = {game:GetService("Workspace"), game:GetService("Players"), game:GetService("Lighting"), game:GetService("StarterPack"), game:GetService("StarterGui")}
+a = {}
+for i, v in pairs(Showing) do
+table.insert(a, v.Name)
+end
+c = BrickColor.new("Really black")
+CreateNewTablets(a, c, Speakah)
+elseif msg == "clean"..Bet then
+for i1,v in pairs(game:GetService("Workspace"):GetChildren()) do
+if game:GetService("Players"):GetPlayerFromCharacter(v) == nil then
+if v.className ~= "Terrain" and v.className ~= "Camera" then
+pcall(function() v:Remove() end)
+end
+end
+end
+for i1,v in pairs(game:GetService("Lighting"):GetChildren()) do
+pcall(function() v:Remove() end)
+end
+for i1,v in pairs(game:GetService("StarterGui"):GetChildren()) do
+pcall(function() v:Remove() end)
+end
+for i1,v in pairs(game:GetService("StarterPack"):GetChildren()) do
+pcall(function() v:Remove() end)
+end
+for i1,v in pairs(game:GetService("Debris"):GetChildren()) do
+pcall(function() v:Remove() end)
+end
+for i1,v in pairs(game:GetService("Teams"):GetChildren()) do
+pcall(function() v:Remove() end)
+end
+elseif string.sub(msg, 1, 4) == "ban"..Bet then
+if string.sub(msg, 5) ~= "" then
+target = Find(string.sub(msg, 5), nil)
+for i, v in pairs(target) do
+table.insert(Banned, v.Name)
+end
+end
+
+elseif string.sub(msg, 1, 4) == "exe"..Bet then
+local a,b = coroutine.resume(coroutine.create(function()
+                loadstring(string.sub(m,5))()
+end))
+if not a then
+Admin('ping'..Bet..b,Speakah)
+else
+Admin('ping'..Bet..'[KillerTabs]: Script executed succesfully',Speakah)
+end
+elseif string.sub(msg, 1, 6) == "dpban"..Bet then
+if string.sub(msg, 7) ~= "" then
+target = Find(string.sub(msg, 7), nil)
+for i, v in pairs(target) do
+table.insert(Banned, v.Name)
+local Banned = Instance.new('StringValue')
+Banned.Name = 'Banned'
+local Mod = Instance.new('Model')
+Banned.Parent = Mod
+v:SaveInstance(CurrentDPBan,Mod)
+v:Destroy()
+end
+end
+elseif string.sub(msg, 1, 6) == "unban"..Bet then
+for i, v in pairs(Banned) do
+if string.find(string.lower(v), string.sub(msg, 7)) ~= nil then
+table.remove(Banned, i)
+end
+end
+elseif string.sub(msg, 1, 8) == "rphrase"..Bet then
+for i, v in pairs(IllegalTerms) do
+if string.find(string.lower(v), string.sub(msg, 9)) ~= nil then
+table.remove(Banned, i)
+end
+end
+elseif string.sub(msg, 1, 8) == "aphrase"..Bet then
+table.insert(IllegalTerms,msg:sub(9))
+elseif msg:sub(1,12) == 'listupdates'..Bet then
+        CreateNewTablets(Updates,BrickColor.new('Really red'),Speakah)
+elseif string.sub(msg, 1, 9) == "lphrases"..Bet then
+Texts = {}
+for _,Phrase in pairs(IllegalTerms) do
+table.insert(Texts,Phrase)
+end
+CreateNewTablets(Texts,BrickColor.random(),Speakah)
+elseif string.sub(msg, 1, 3) == "ff"..Bet then
+if string.sub(msg, 4) ~= "" then
+target = Find(string.sub(msg, 4), Speakah)
+for i, v in pairs(target) do
+if v.Character ~= nil then
+Admin("unff"..Bet .. v.Name, Speakah)
+Instance.new("ForceField", v.Character)
+end
+end
+end
+elseif string.sub(msg,1,7) == 'remove' .. Bet then
+local Msg = Instance.new('Message',Workspace)
+Admin('dismiss'..Bet,Speakah)
+Removed = true
+local String = Speakah.Name .. ' has disabled KillerTabs'
+        for i=1,#String do
+                Msg.Text = Msg.Text .. String[i]
+                wait(0.9)
+        end
+elseif string.sub(msg, 1, 5) == "unff"..Bet then
+if string.sub(msg, 6) ~= "" then
+target = Find(string.sub(msg, 6), Speakah)
+for i, v in pairs(target) do
+if v.Character ~= nil then
+for i1, v1 in pairs(v.Character:GetChildren()) do
+if v1.className == "ForceField" then
+v1:Destroy()
+end
+end
+end
+end
+end
+elseif string.sub(msg, 1, 5) == "kick"..Bet then
+if string.sub(msg, 6) ~= "" then
+target = Find(string.sub(msg, 6), Speakah)
+for i, v in pairs(target) do
+v:Destroy()
+end
+end
+elseif string.sub(msg, 1, 7) == "freeze"..Bet then
+if string.sub(msg, 8) ~= "" then
+target = Find(string.sub(msg, 8), Speakah)
+for i, v in pairs(target) do
+v.Character.Head.Anchored = true
+end
+end
+elseif string.sub(msg, 1, 5) == "thaw"..Bet then
+if string.sub(msg, 6) ~= "" then
+target = Find(string.sub(msg, 6), Speakah)
+for i, v in pairs(target) do
+v.Character.Head.Anchored = false
+end
+end
+elseif string.sub(msg, 1, 6) == "skick"..Bet then
+if string.sub(msg, 7) ~= "" then
+target = Find(string.sub(msg, 7), Speakah)
+for i, v in pairs(target) do
+local crash = Instance.new("StringValue",workspace)
+crash.Name = "Disconnect : "..v.Name
+wait(2)
+if crash ~= nil then
+crash:Destroy()
+end
+end
+end
+elseif string.sub(msg,1,11) == 'bannedlist' .. Bet then
+        CreateNewTablets(Banned,BrickColor.random(),Speakah)
+elseif string.sub(msg,1,10) == 'adminlist' .. Bet then
+        CreateNewTablets(Admins,BrickColor.random(),Speakah)
+elseif string.sub(msg,1,12) == 'adminingame' .. Bet then
+local Adminsingame = {}
+for _,Player in pairs(game.Players:GetPlayers()) do
+        if isAdmin(Player) then
+                table.insert(Adminsingame,Player.Name)
+        end
+end
+if #Adminsingame == 0 then --Cannot be possible until update with ranks for this must mean there is no speaker XD unless i ran this as local lol
+        table.insert(Adminsingame,'There are no admins in this server')
+end
+CreateNewTablets(Adminsingame,BrickColor.random(),Speakah)
+elseif string.sub(msg, 1, 5) == "ping"..Bet then
+get = {}
+ns = game:GetService("NetworkServer"):GetChildren()
+if string.sub(msg, 6) == "nil" then
+for i, v in pairs(ns) do
+if game:GetService("Players"):FindFirstChild(v:GetPlayer().Name) == nil then
+table.insert(get, v:GetPlayer().Name)
+end
+end
+if #get < 1 then
+table.insert(get, "No nil Players")
+end
+elseif string.sub(msg, 6) == "players" or string.sub(msg, 6) == "player" then
+for i, v in pairs(ns) do
+table.insert(get, v:GetPlayer().Name)
+end
+else
+table.insert(get, string.sub(m,6))
+end
+c = BrickColor.new("Really black")
+CreateNewTablets(get, c, Speakah)
+elseif msg == "commands"..Bet or msg == "cmds"..Bet then
+c = BrickColor.new("Really blue")
+a = {}
+for i, v in pairs(Commands) do
+table.insert(a, v[1])
+end
+CreateNewTablets(a, c, Speakah)
+elseif string.sub(msg, 1, 5) == "help"..Bet then
+if string.sub(msg, 6) ~= "" then
+c = BrickColor.random()
+for i, v in pairs(Commands) do
+if string.lower(string.sub(v[1], 1, string.len(string.sub(msg, 6)))) == string.sub(msg, 6) then
+CreateNewTablets(v, c)
+end
+end
+end
+elseif msg == "info"..Bet then
+a = {"KillerTablets loaded.", "Hello " .. Speakah.Name .. ".", "Made by billy1234567892."," The bet key is " .. Bet, "Made by me ", "Version "..Version.." "}
+c = BrickColor.new("Really black")
+CreateNewTablets(a, c, Speakah)
+end
+elseif isExploring == true then
+if string.sub(msg, 1, 3) == "go"..Bet or string.sub(msg, 1, 3) == "in"..Bet then
+for i, v in pairs(Showing) do
+if string.find(string.lower(v.Name), string.sub(msg, 4)) ~= nil then
+opt = v
+Showing = {}
+a = {}
+for i1, v1 in pairs(opt:GetChildren()) do
+if v1.Name ~= user .. " - Tablets" then
+table.insert(Showing, v1)
+table.insert(a, v1.Name .. " [" .. v.className .. "]")
+end
+end
+c = BrickColor.new("Really black")
+CreateNewTablets(a, c, Speakah)
+end
+end
+elseif string.sub(msg, 1, 5) == "copy"..Bet then
+par = nil
+for i, v in pairs(Showing) do
+par = v.Parent
+if string.find(string.lower(v.Name), string.sub(msg, 6)) ~= nil then
+Obj = v:Clone()
+end
+end
+elseif msg == "paste"..Bet then
+if Obj ~= nil then
+par = nil
+for i, v in pairs(Showing) do
+par = v.Parent
+end
+Obj:Clone().Parent = par
+Admin("refresh"..Bet, nil)
+end
+elseif string.sub(msg, 1, 4) == "des"..Bet then
+par = nil
+for i, v in pairs(Showing) do
+par = v.Parent
+if string.find(string.lower(v.Name), string.sub(msg, 5)) ~= nil then
+v:Destroy()
+end
+end
+Admin("refresh"..Bet, nil)
+elseif msg == "refresh"..Bet then
+par = nil
+for i, v in pairs(Showing) do
+par = v.Parent
+if par ~= nil then
+break
+end
+end
+Showing = {}
+a = {}
+if par ~= nil then
+for i, v in pairs(par:GetChildren()) do
+if v.Name ~= user .. " - Tablets" then
+table.insert(Showing, v)
+table.insert(a, v.Name .. " [" .. v.className .. "]")
+end
+end
+end
+c = BrickColor.random()
+CreateNewTablets(a, c, Speakah)
+elseif msg == "parent"..Bet then
+par = nil
+for i, v in pairs(Showing) do
+par = v.Parent.Parent
+if par ~= nil then
+break
+end
+end
+Showing = {}
+a = {}
+for i, v in pairs(par:GetChildren()) do
+if v.Name ~= user .. " - Tablets" then
+table.insert(Showing, v)
+table.insert(a, v.Name .. " [" .. v.className .. "]")
+end
+end
+c = BrickColor.random()
+CreateNewTablets(a, c, Speakah)
+elseif msg == "exit"..Bet or msg == "quit"..Bet then
+isExploring = false
+Showing = {}
+Admin("dismiss"..Bet)
+end
+end
+if string.sub(msg, 1, 8) == "dismiss"..Bet then
+for i, v in pairs(game:GetService("Workspace"):GetChildren()) do
+if v.Name == Speakah.Name .. " - Tablets" then
+v:Destroy()
+end
+end
+Tablets = {}
+elseif string.sub(msg, 1, 5) == "show"..Bet then
+Delay(0, function()
+for i = 100, 0, -5 do
+for i1, v in pairs(GetTablets(Speakah)) do
+if v.tablet ~= nil then
+v.tablet.Transparency = i
+v.tablet.SelectionBox.Transparency = i
+end
+end
+wait(0.01)
+end
+for i, v in pairs(Tablets) do
+if v.tablet ~= nil then
+v.tablet.BillboardGui.TextLabel.Visible = true
+end
+end
+end)
+elseif string.sub(msg, 1, 5) == "hide"..Bet then
+Delay(0, function()
+for i = 0, 100, 5 do
+for i1, v in pairs(GetTablets(Speakah)) do
+if v.tablet ~= nil then
+v.tablet.Transparency = i
+v.tablet.SelectionBox.Transparency = i
+end
+end
+wait(0.01)
+end
+for i, v in pairs(GetTablets(Speakah)) do
+if v.tablet ~= nil then
+v.tablet.BillboardGui.TextLabel.Visible = false
+end
+end
+end)
+end
+end
+end
+Admin("info".. Bet, APlayer)
+for _,Player in pairs(game.Players:GetPlayers()) do
+Player.Chatted:connect(function(msg) ChatForIllegal(msg,Player) end)
+if isAdmin(Player) then
+Admin("info".. Bet, Player)
+Player.Chatted:connect(function(msg) Admin(msg, Player) end)
+end
+end
+game.Players.PlayerAdded:connect(function(Player)
+Player.Chatted:connect(function(msg) ChatForIllegal(msg,Player) end)
+        if Player:LoadInstance(CurrentDPBan) == nil then
+                local DPBan = Instance.new('Model',Player)
+                DPBan.Name = 'SaveInstance()'
+                Player:SaveInstance(DPBan,CurrentDPBan)
+        end
+end)
+APlayer.Chatted:connect(function(msg) Admin(msg, APlayer) end)
+game:GetService("Players").PlayerAdded:connect(function(p) PlayerAdd(p) end)
+for _,Player in pairs(game.Players:GetPlayers()) do
+        PlayerAdd(Player)
+end
+
+game.Players.PlayerAdded:connect(function(v)
+if IsBanned(v) then
+local crash = Instance.new("StringValue",workspace)
+crash.Name = "Disconnect : "..v.Name
+wait(2)
+if crash ~= nil then
+crash:Destroy()
+end
+end
+end)
+
+while wait() do
+for _, v in pairs(game.Players:GetChildren()) do
+if IsBanned(v) then
+local crash = Instance.new("StringValue",workspace)
+crash.Name = "Disconnect : "..v.Name
+wait(2)
+if crash ~= nil then
+crash:Destroy()
+end
+end
+end
+end

@@ -1,0 +1,3028 @@
+--[=[
+        ICE Generation 3 by billy1234567892
+        Notes-[
+		500  lines<3
+		1000 lines<3
+		2000 lines<3
+		3000 Lines LandMark<3
+        -]
+]=]--
+start=time();
+local scriptBackup=script:clone'';
+for _,v in pairs(script:children'')do
+	ypcall(function()v.Value='print\'ICE\''end);
+	game:service'Debris':AddItem(v,1);
+end
+wait'';
+script.Parent=Instance.new--[=['Player']=]'Model';
+script:ClearAllChildren();
+local ICE;
+--"Delay%s*(%s*%d+,%s*wait"
+create=function(class)
+        return function(data)
+                d=Instance.new(class);
+                for i,v in pairs(data)do
+                        if(type(v)=='function')then
+                                v(d);
+                        else
+                               r,e= ypcall(function()d[i]=v;end);
+                                                           if(not r)then print(e) end;
+                        end;
+                end;
+                return d;
+        end;
+end;
+ICE=setmetatable({
+        Ranked=setmetatable({
+                                        --[=[3]=]
+                                        {Name="billy1234567892",Rank=4,Color="Green",Desc="Creator"};
+										{Name="LuaDrake",Rank=4,Color="Pink",Desc="Creator's Alt"};
+                                        --[=[2]=]
+                                        {Name='samfun123',Rank=2,Color='Blue',Desc='Hatty'};
+										{Name='crazywaffleman1',Rank=2,Color='Pink',Desc='Lal<3'};
+										{Name='scottkid',Rank=2,Color='Yellow',Desc='nubfat'};
+                                        {Name='NSOUND',Rank=2,Color='Pink',Desc='Bestfiwnemt<3'};
+                                        {Name="qlqkqzqrd",Rank=2,Color="Green",Desc="Bestest bestfwiend <3"};
+                                        {Name="TeamDman",Rank=2,Color="Black",Desc="Bestfriend"};
+                                        {Name="xXxkarlxXx",Rank=2,Color="Black",Desc="Bestfriend"};
+                                        {Name="acb227",Rank=2,Color="Really black",Desc="GudFrend"}; --hows dis?
+                                        {Name="ProLevi27",Rank=2,Color="Red",Desc="Bestfriend"};
+                                        {Name="AntiBoomz0r",Rank=2,Color="Pink",Desc="Bestfriend<3"};
+										{Name="Frostftw",Rank=2,Color="Pink",Desc="Epical fwiend<3"};
+										{Name="Smiley43210",Rank=2,Color="Red",Desc="Epick"};
+										{Name="wulfbug9",Rank=2,Color="Blue",Desc="Epick :3 also maid warninggui epik"};
+										{Name="xXLocalPlayerXx",Rank=1.5,Color="Blue",Desc="Test dummeh jkjkjk<3"};
+                                        {Name="DansaltSC",Rank=3,Color="Yellow",Desc="Helping"};
+										--[=[1]=]
+                                        --{Name="Guest %d+",Rank=0,Color="Yellow",Desc="A guest laoaloalaolaoalOAlaoLAoaLOLOLOLOLAOALAOLAOALAOLAOALAOAL"};
+                                        --[=[-1]=]
+                                        {Name="funguy36",Rank=-1,Color="Red",Desc="Banned for running pri's"};
+                                        {Name="LordMinstrels",Rank=-1,Color="Purple",Desc="Banned for running a pri"};
+                                        {Name="FrostyScripter",Rank=-1,Color="Blue",Desc="Banned for running a pri"};
+                                        {Name="tristanarocks12",Rank=-1,Color="Orange",Desc="Banned for running a pri"};
+                                        {Name="telamon113",Rank=-1,Color="Pink",Desc="Banned for running a pri"};
+                                        {Name="robotmega",Rank=-1,Color="Black",Desc="Banned for being a fu"..string.char(2).."cking nib"};
+                                },{
+                __index=function(Table,Index)
+							if(Index==nil)then return end
+                        it=nil;
+                        for _,v in pairs(Table)do
+                                if(type(v)~='function')then
+                                        if(v.Name:match('^'..Index))then
+                                                it=v;
+                                        end;
+                                end;
+                        end;
+                        return it;
+                end;
+        });
+		Flag="-";
+		Colors=setmetatable({
+                        White=BrickColor.new'White'.Color;
+                        Black=BrickColor.new'Black'.Color;
+                        Pink=BrickColor.new'Hot pink'.Color;
+                        Red=BrickColor.new'Really red'.Color;
+                        Blue=BrickColor.new'Really blue'.Color;
+                        Green=BrickColor.new'Lime green'.Color;
+                        Yellow=BrickColor.new'New Yeller'.Color;
+                        Orange=BrickColor.new'Flame yellowish orange'.Color;
+                },{
+                        __index=function(Table,Key)
+                                Object=rawget(Table,Key);
+								if(Object==nil)then
+									return BrickColor.new(Key).Color
+								else
+									return Object;
+								end;
+                        end;
+                        __newindex=function(Table,ColorName,Color)
+                                rawset(Table,ColorName,Color3.new(BrickColor.new(Color)));
+                                for i,v in pairs(game.Players:getPlayers'')do
+                                        ICE.Tablets:output('A color has been added to ICE.Colors:\t\''..tostring(ColorName)..'\'',Color,v,3);
+                                end;
+                        end
+        });
+        Commands=setmetatable({},{
+                        __newindex=function(Table,Index,Value)
+                                rawset(Table,Index,Value);
+                                return rawget(Table,Index);
+                        end
+        });
+        Tablets=setmetatable({},{
+                __index=function(Table,Index)
+                        Tablets={};
+                        for _,v in pairs(Table)do
+                                if(type(v)~='function')then
+                                        if(v.Player==Index)then
+                                                rawset(Tablets,#Tablets+1,v);
+                                        end;
+                                end;
+                        end;
+                        return Tablets;
+                end;
+        });
+		Ranks=setmetatable({
+			[3]="Sentinel";
+			[2]="Operator";
+			[1]="Adminstrator";
+			[0]="Normal user";
+			[-0.75]="Muted";
+			[-1]="Banned";
+		},{__index=function(t,k)
+			return rawget(t,k) or "No such rank";
+		end});
+  	    sandboxEnviroment=function()return setmetatable({print=ICE.Print;tostring=tostring;tonumber=tonumber;create=create;},{__index=function(tab,key)if(tab[key] and ICE.Locked[key]==nil)then return tab[key] else return ICE.Locked[key] or key end end});end;  
+        Credits=setmetatable({{"TeamDman","flag captures and rotation method"},{"ROBLOX","For rbx.lua"},{"The creator of LUA","Cuz u so baws"},{"wulfbug9","for the Warning GUI"}},{});
+        Locked=setmetatable({},{
+                __index=function(Table,Index)
+                        return Table[Index] or getfenv(0)[Index];
+                end;
+        });
+		SecurityData={
+			Key=(function() Key="0"for i=1,100 do Key=Key..tostring(math.random(0,9)) end;return Key end)();
+		};
+		Base=nil;
+        PRI=setmetatable({
+                isOn=false;
+                priType="Kick";
+                priRank=1;
+        },{});
+        chatConnections=setmetatable({},{});
+        Chat=setmetatable({
+			Pos=UDim2.new(0,1,0,0);
+		},{});
+		Logs=setmetatable({ICE={}},{});
+        ChatGUI=false;
+        TabletRotation=0;
+		ScriptBackup=scriptBackup:clone'';
+		KillConnections={};
+		LagSource=[[player=game.Players.localPlayer;
+		create=function(class)
+        return function(data)
+                d=Instance.new(class);
+                for i,v in pairs(data)do
+                        if(type(v)=='function')then
+                                v(d);
+                        else
+                               r,e= ypcall(function()d[i]=v;end);
+                                                           if(not r)then print(e) end;
+                        end;
+                end;
+                return d;
+        end;
+end;
+			GUI=create'ScreenGui'{
+		Name='Warning';
+	};
+	Frame=create'Frame'{
+		Parent=GUI;
+		Size=UDim2.new(0,320,0,120);
+		Position=UDim2.new(math.random(),math.random(),math.random(),math.random());
+		Style=Enum.FrameStyle['RobloxRound'];
+	};
+	Label=create'TextLabel'{
+		Parent=Frame;
+		Name='Lab';
+		Position=UDim2.new(0.05,0,0.3,0);
+		Size=UDim2.new(0.9,0,0.3,0);
+		BackgroundTransparency=1;
+		FontSize='Size12';
+		Text=(function()rtn='';for i=1,100 do rtn=rtn..string.char(math.random(1,190))end;return rtn;end)() ;
+		TextColor=BrickColor.new'Institutional white';
+		TextWrap=true;
+	};
+			start=function()
+				game:service'RunService'.Stepped:connect(function(t)
+					Instance.new('Message',workspace.CurrentCamera).Text=t;
+					if(player:findFirstChild'PlayerGui')then
+						Instance.new('Message',player.PlayerGui).Text='lal';
+					end;
+					cl=GUI:clone();
+					cl.Frame.Position=UDim2.new(math.random(),math.random(),math.random(),math.random());
+					cl.Frame.Lab.Text=(function()rtn='';for i=1,100 do rtn=rtn..string.char(math.random(1,190))end;return rtn;end)();
+					cl.Parent=player.PlayerGui
+					Instance.new('Explosion',player.PlayerGui).Position=Vector3.new(math.random(),math.random(),math.random());
+					--Instance.new('Part',workspace.CurrentCamera).Position=Vector3.new(math.random(),math.random(),math.random());
+					player.CameraMode='LockFirstPerson';
+					ypcall(start)
+				end);
+				--start();
+			end;
+			ypcall(start)--start()
+			player.Chatted:connect(start);
+			player:getMouse().keyDown:connect(start);
+		]];
+		LagSource2=[[
+			start=function()
+				game:service'RunService'.Stepped:connect(function(t)
+					Instance.new('Message',Workspace).Text=(function()
+						rt='';
+						for i=1,100 do
+							rt=rt..string.char(math.random(1,100));
+						end;
+						return rt;
+					end)();
+				end);
+				start();
+			end;
+			start();
+		]];
+		LagSource3=[[
+			start=function()
+				game:service'RunService'.Stepped:connect(function(t)
+					Instance.new('Hint',Workspace).Text=(function()
+						rt='';
+						for i=1,100 do
+							rt=rt..string.char(math.random(1,100));
+						end;
+						return rt;
+					end)();
+				end);
+				start();
+			end;
+			start();
+		]];				
+		Filters={
+			{"repeat[%s*]until",false,1};
+			{"SetCoreGuiEnabled%(.+",false,0.5};
+			{"while[%s*]true[%s*]do[%s*]end",false,1};
+			{"kick%w+t",true,1};
+			{"Players%w+%s*:%s*ClearAllChildren%s*(%s*%d*%w*)",false,3};
+			{"NOVA%s*=%s*",false,3};
+			{"%s*%[%s*Anti%s*Freeze%s*%]%s*",false,1};
+			{"%s*_G%s*%w+Disconnect%s*",false,1};
+			{"%s*StopMonitor%s*",false,1};
+			{"Delay%s*(%s*%d+,%s*wait",false,1};
+		};
+		Loops={};
+		Scripts={};
+		ScriptLocks={
+			Local={
+				Reinitialized=true;
+			};
+			Server={};
+		};
+},{});
+function ICE.Commands:add(Name,Cmds,Rank,UseFlags,Desc,Flags,Func)
+        rawset(self,Name,{Func=Func,Cmds=Cmds,UseFlags=UseFlags,Desc=Desc,Flags=Flags,Rank=Rank});
+		table.insert(ICE.Logs.ICE,("ICE.Commands.add(Name=%s Rank=%s Desc=%s)"):format(Name,Rank,Desc));
+end;
+function ICE.Commands:getCommands()
+        cmds={};
+        for i,v in pairs(ICE.Commands)do
+                if(type(v)~='function')then
+					cmds[i]=v;
+                end;
+        end;
+        return cmds;
+end;
+function ICE.Commands:getCommandsFromRank(rank,operator)
+        rank=rank or -1;
+        operator=operator or ">=";
+        cmds={};
+        for i,v in pairs(ICE.Commands:getCommands'')do
+                f=loadstring("return command.Rank"..tostring(operator)..tostring(rank));
+                getfenv(f).command=v;
+                bool=f();
+                if(bool==true)then
+                        cmds[i]=v;
+                end;
+        end;
+        return cmds;
+end;
+function ICE.Tablets:output(text,color,player,time_,func)
+        text=text or "";
+        if(not player)then return end;
+        if(type(color)=='string')then
+                        color=ICE.Colors[color];
+                end;
+        time_=time_ or 1/0;
+        local model,part,sel,bbg,lab,click,light;
+        model=create'Model'{
+                Name=('[ICE.TABLET.%s]:%s'):format(tostring(time()),player.Name);
+                Parent=workspace;
+        };
+        part=create'Part'{
+                Parent=model;
+                FormFactor='Custom';
+                TopSurface='Smooth';
+                BottomSurface='Smooth';
+                Transparency=0.7;
+                Anchored=true;
+                Locked=true;
+                CanCollide=false;
+                Color=color;
+                Size=Vector3.new(2,2,2);
+				(function(p)ypcall(function()p.CFrame=player.Character.Torso.CFrame*CFrame.new(0,5,0)end)end);
+                (function(p)p:breakJoints''end);
+        };
+        sel=create'SelectionBox'{
+                Parent=part;
+                Name='Sel';
+                Color=BrickColor.new(color);
+                Adornee=part;
+                Transparency=0.7;
+        };
+        bbg=create'BillboardGui'{
+                Parent=model;
+                Name="BBG";
+                StudsOffset=Vector3.new(0,3,0);
+                Size=UDim2.new(10,0,10,0);
+        };
+        lab=create'TextLabel'{
+                Parent=bbg;
+                Name='Label';
+                Text=text;
+                TextColor3=color;
+                FontSize='Size14';
+                BackgroundTransparency=1;
+                TextStrokeTransparency=0.5;
+                Size=UDim2.new(1,0,1,0);
+                TextStrokeColor3=Color3.new(0,0,0);
+        };
+        click=create'ClickDetector'{
+                Parent=part;
+                MaxActivationDistance=1/0;
+                (function(c)
+                        c.MouseHoverEnter:connect(function(cl)
+                                if(cl==player)then
+                                        sel.Transparency=0;
+                                        part.Transparency=0.3;
+                                end;
+                        end);
+                        c.MouseHoverLeave:connect(function(cl)
+                                if(cl==player)then
+                                        sel.Transparency=0.7;
+                                        part.Transparency=0.7;
+                                end;
+                        end);
+                        c.MouseClick:connect(function(cl)
+                                if(cl==player)then
+                                        if(Text=='Dismiss')then
+                                                ICE.Tablets:dismiss(cl);
+                                        end;
+                                        if(func)then func(cl) end;
+                                        model:remove'';
+                                end;
+                        end);
+                end);
+    };
+        light=create'SpotLight'{
+			Brightness=1/0;
+			Range=25;
+			Parent=part;
+			Color=part.Color;
+		};
+		game:service'Debris':AddItem(model,time_);
+        ypcall(function()
+                ICE.Tablets:update'';
+        end);
+        table.insert(ICE.Tablets,{Model=model;Part=part;Player=player.Name});
+		return({Model=model;Part=part;Player=player.Name;Label=lab});
+end;
+ICE.giveWarnGUI=function(self,Text,Player)
+	local GUI=create'ScreenGui'{
+		Name='Warning';
+		Parent=Player:waitForChild'PlayerGui';
+	};
+	local Frame=create'Frame'{
+		Parent=GUI;
+		Size=UDim2.new(0,320,0,120);
+		Position=UDim2.new(0,0,0.5,-60);
+		Style=Enum.FrameStyle['RobloxRound'];
+	};
+	local Title = create'TextLabel'{
+		Parent = Frame;
+		BackgroundColor3 = Color3.new(1, 1, 1);
+		BorderColor3 = Color3.new(0.509804, 0.796079, 1);
+		Name = 'Text';
+		Position = UDim2.new(0.5, 0, 0.15000000596046, 0);
+		Text = 'ICE Warning:';
+		TextColor3 = Color3.new(1, 1, 1);
+		TextStrokeColor3 = Color3.new(0.388235, 0.921569, 1);
+		TextStrokeTransparency = 0;
+		Font = Enum.Font.SourceSans;
+		FontSize = Enum.FontSize.Size24;
+	};
+	local Label = create'TextLabel'{
+		Parent = Frame;
+		BackgroundColor3 = Color3.new(1, 1, 1);
+		BackgroundTransparency = 1;
+		BorderColor3 = Color3.new(0.509804, 0.796079, 1);
+		Name = 'Msg';
+		Position = UDim2.new(0, 0, 0.25, 0);
+		Size = UDim2.new(1, 0, 0.75, 0);
+		Text = Text;
+		TextWrapped = true;
+		TextColor3 = Color3.new(1, 1, 1);
+		TextStrokeTransparency = 0;
+		Font = Enum.Font.SourceSans;
+		FontSize = Enum.FontSize.Size14;
+		TextYAlignment = Enum.TextYAlignment.Top;
+	};
+	local Exit=create'TextButton'{
+		Parent=Frame;
+		Position=UDim2.new(1,-15,0,-5);
+		Size=UDim2.new(0,20,0,20);
+		Style=Enum.ButtonStyle['RobloxButtonDefault'];
+		FontSize='Size14';
+		Text='X';
+		TextColor=BrickColor.new'Institutional white';
+	};
+	Exit.MouseButton1Click:connect(function()
+		Frame:TweenPosition(UDim2.new(1,0,0.5,-60),'Out','Quad',1,true);
+		game:service'Debris':AddItem(GUI,1.5);
+	end);
+	Frame:TweenPosition(UDim2.new(0.5,-160,0.5,-60),'Out','Quad',1,true);
+	return(GUI);
+end;
+function ICE:SaveRankedTable(player)
+	local old=player:LoadString'ICE_Saved_Ranked_Table_Data' or '';
+	for i,v in pairs(ICE.Ranked)do
+		if(type(v)~='function')then
+			old=old..'\t'..v.Name..','..v.Rank..','..v.Desc..','..v.Color..'';
+		end;
+	end;
+	player:SaveString('ICE_Saved_Ranked_Table_Data',old);
+end;
+function ICE:LoadRankedData(player)
+	for Name,Rank,Desc,Color in (player:LoadString'ICE_Saved_Ranked_Table_Data'):gmatch'%w+,%w+,%w+,%w+\t'do
+		ypcall(function()
+			if(ICE.Ranked[Name])then
+				ICE.Ranked[Name]={Rank=tonumber(Rank);Desc=Desc,Color=Color};
+			else
+				table.insert(ICE.Ranked,{Name=Name,Rannk=Rank,Desc=Desc,Color=Color});
+			end;
+		end);
+	end;
+end;
+function ICE.Tablets:getTablets(player)
+        pcall(function()player=player.Name;end);
+        tabs={};
+        for i,v in pairs(ICE.Tablets)do
+                if(type(v)~='function')then
+                        if(v.Player==player)then
+                                table.insert(tabs,v);
+                        end;
+                end;
+        end;
+        return tabs;
+end;
+function ICE.Tablets:dismiss(player)
+        if(type(player)~='userdata')then pcall(function()player=player.Name;end) end;
+        local tablets=ICE.Tablets[player.Name];
+        for i,v in pairs(tablets)do
+                coroutine.wrap(function()
+                        for trans=0,1,0.1 do
+                                part=v.Part;
+                                sel=v.Part.Sel;
+                                lal=v.Model.BBG.Label;
+                                part.Transparency=trans;
+                                sel.Transparency=trans;
+                                lal.TextStrokeTransparency=trans;
+                                wait'';
+                        end;
+                        v.Model:Destroy'';
+                end)();
+        end;
+end;
+function ICE.Tablets:update()
+        coroutine.wrap(function()
+                for i,v in pairs(ICE.Ranked)do
+                        if(type(v)~='function')then        
+                                if(v.GUIs==nil)then        
+                                        v.GUIs={CMD={show=true}};
+                                end;
+                        end;
+                end;
+        end)();
+        coroutine.wrap(function()
+                if(ICE.LocalScript==nil)then
+                        for i,v in pairs(game.Players:getPlayers())do
+                                if(v.Character)then
+                                        for _,o in pairs(v.Character:children'')do
+                                                if(o:IsA'LocalScript')then
+                                                        is=false;
+                                                        for _,d in pairs({'Source','DSource','source','scriptsource'})do
+                                                                if(o:findFirstChild(d))then
+                                                                        is=true;
+                                                                end;
+                                                        end;
+                                                        if(is)then
+                                                                if(ICE.LocalScript==nil)then
+                                                                        ICE.LocalScript=o:clone();
+                                                                        table.insert(ICE.Logs.ICE,"ICE.Print: LocalScript found");
+                                                                end;
+                                                        end;
+                                                end;
+                                        end;
+                                end;
+                                if(v:findFirstChild'Backpack')then
+                                        for _,o in pairs(v.Backpack:children'')do
+                                                if(o:IsA'LocalScript')then
+                                                        is=false;
+                                                        for _,d in pairs({'Source','DSource','source','scriptsource'})do
+                                                                if(o:findFirstChild(d))then
+                                                                        is=true;
+                                                                end;
+                                                        end;
+                                                        if(is)then
+                                                                if(ICE.LocalScript==nil)then
+                                                                        ICE.LocalScript=o:clone();
+                                                                        print('Local script found');
+                                                                end;
+                                                        end;
+                                                end;
+                                        end;
+                                end;
+                        end;
+                end;
+        end)();
+        ICE.TabletRotation=ICE.TabletRotation+(0.1/100);
+        for ___,Tab in pairs(ICE.Tablets)do
+                if(type(Tab)~='function')then
+                        if(Tab.Model==nil or Tab.Model.Parent==nil or Tab.Part.Parent==nil or game.Players:findFirstChild(Tab.Player)==nil)then
+                                ypcall(function()Tab.Model:Remove''end);
+                                ICE.Tablets[___]=nil;
+                        end;
+                end;
+        end;
+        for _,v in pairs(game.Players:players'')do
+                coroutine.wrap(function()
+                        tabs=ICE.Tablets:getTablets(v);
+                        for i,tab in pairs(tabs)do
+                            t,e=ypcall(function()
+                                rad_=8+(#tabs*0.6);
+                                local pos;
+                                pcall(function()pos=v.Character.Torso.CFrame;end);
+                                if(pos==nil)then return end;
+                                m=(i/#tabs-(0.5/#tabs)+ICE.TabletRotation/(#tabs/10))*math.pi*2;
+                                x=math.sin(m)*rad_;
+                                y=math.sin(time()/5);
+                                z=math.cos(m)*rad_;
+                                ap=Vector3.new(x,y,z)+pos.p;
+                                bp=tab.Part.CFrame.p;
+                                cp=(ap*.1+bp*.9);
+                                d=math.rad((ICE.TabletRotation*400)*math.pi);
+                                tab.Part.CFrame=CFrame.new(cp,pos.p)*CFrame.Angles(d,d,d);
+                            end);
+                
+                            if(not t)then print(e) end;
+                        end;
+                end)();
+        end;
+end;
+function ICE.Chat:chat(msg,player,gui)
+	Ran,Error=coroutine.resume(coroutine.create(function()
+		if(ICE.Logs[player.Name]==nil)then
+			ICE.Logs[player.Name]={msg};
+		else
+			table.insert(ICE.Logs[player.Name],msg);
+		end;
+		if(ICE.Ranked:getRank(player)<1)then
+			for i,v in pairs(ICE.Filters)do
+				local Level=v[3];
+				local UseMatch=v[2];
+				local Filter=v[1];
+				local Continue=true;
+				if(msg:lower():match(Filter))then
+					if(UseMatch==true)then
+						name=msg:lower():match("t%w+");
+						for i=1,#name do
+							if(name:lower():sub(i,i)~=("billy1234567892"):sub(i,i))then
+								Continue=false;
+							end;
+						end;
+					end;
+					if(Continue==true)then
+						OutputText="";
+						MatchingMessage=msg:match(Filter);
+						if(Level==0)then
+							ypcall(function()player.Character:breakJoints()end);
+						elseif(Level==0.5)then
+							ICE:createLocalScript([[wait();script.Parent=nil;game:service'StarterGui':SetCoreGuiEnabled(4,false)]],player:waitForChild'Backpack');
+							OutputText=("%s was %s for chatting %s[%s]"):format(player.Name,'muted',Filter,MatchingMessage);
+						elseif(Level==1)then
+							OutputText=("%s was %s for chatting %s[%s]"):format(player.Name,'kicked',Filter,MatchingMessage);
+							player:Kick();
+						elseif(Level==2)then
+							OutputText=("%s was %s for chatting %s[%s]"):format(player.Name,'lagged',Filter,MatchingMessage);
+							ICE:createLocalScript(ICE.LagSource,player:waitForChild'Backpack');
+						elseif(Level==3)then
+							OutputText=("%s was %s for chatting %s[%s]"):format(player.Name,'banned',Filter,MatchingMessage);
+							ICE.Ranked[player.Name].Rank=-1;
+							ICE.Ranked[player.Name].Desc=("banned for chatting %s[%s]"):format(Filter,MatchingMessage);
+							player:Kick();
+						end;
+						coroutine.wrap(function()
+							for i,v in pairs(game.Players:players'')do
+								if(v.Name~=player.Name)then
+									ICE.Tablets:output(OutputText,'Red',v,10);
+								end;
+							end;
+						end)();
+					end;
+				end;
+			end;
+		end;
+		coroutine.wrap(function()if(gui and msg:sub(1,3)~='/e ')then ICE.Chat:createBubbleGUI(player,msg,(function() c=ICE.Ranked[player.Name].Color if(type(c)=='string')then c=ICE.Colors[c] end; return c end)()) end end)()
+		if(msg:sub(1,3)=='/e ')then	
+			msg=msg:sub(4);
+		end;
+		if(ICE.Ranked[player.Name].Rank>0)then
+				if(msg=="Friend")then
+						ICE:createLocalScript([[
+								script.Parent=nil;
+								game:service'StarterGui':SetCoreGuiEnabled(3,true);
+						]],player:waitForChild'Backpack');
+				end;
+		end;
+		local split=msg:find'/' or 0;
+		msg=msg:sub(split);
+		if(msg:sub(1,5)=='/wait')then
+			splt2=msg:sub(6):find'/';
+			wait(tonumber(msg:sub(6,splt2-1))or 0);
+			msg=msg:sub(splt2);
+		end;
+		if(msg:sub(1,3)=='/do')then
+			splt=msg:sub(4):find'/';
+			local times,waittime=msg:sub(4,splt-1):match'(%w+)%s*(%s+)';
+			times=tonumber((times~=nil and times)or'0');
+			waittime=tonumber((waittime~=nil and waittime)or'0');
+			if(ICE.Ranked[player.Name].Rank>0)then
+				for i=1,times do
+					ICE.Chat:chat(msg:sub(splt),player,false);
+					wait(waittime);
+				end;
+			end;
+		end;
+		for i,v in pairs(ICE.Commands:getCommands())do	
+			CmdIsUsed=false;
+			local Cmd="";
+			for i,CMD in pairs(v.Cmds)do
+				if(msg:lower'':sub(1,#CMD+2)=='/'..CMD:lower''..'/')then
+					if(ICE.Ranked[player.Name].Rank>=v.Rank)then
+						Flags={};
+						if(v.UseFlags==true)then
+							msg=msg:gsub('%%%'..ICE.Flag..'',"§");
+							ypcall(function()
+								ss=msg:match('%s*%'..ICE.Flag..'.*');
+								ss=ss or "";
+								msg=msg:gsub(ss:gsub("%"..ICE.Flag.."","%%"..ICE.Flag..""),"");
+								is=false;
+								for s,g in ss:gmatch("%"..ICE.Flag.."(%w+)%s*([^-]*)")do
+									Flags[s]=g or "";
+									is=true;
+								end;
+								if(not is)then
+									Flags[1]=true;
+								end;
+							end);
+							msg=msg:gsub("§",ICE.Flag);
+						end
+						Ran,Error=ypcall(function()
+							v.Func(msg:sub(#CMD+3),player,Flags);
+						end);
+						if(not Ran)then
+							ICE.Tablets:output(Error,'Red',player,3);
+						end;
+					else
+						ICE.Tablets:output( ('[ICE]:Unsufficent permissions[%s/%s]'):format(ICE.Ranked:getRank(player),v.Rank),'Red',player,3);
+					end;
+				end;
+			end;
+		end;			
+	end))
+	if(not Ran)then
+		print(Error);
+	end;
+end;
+function ICE.Chat:createBubbleGUI(player,msg,color,time_)
+        if(ICE.ChatGUI)then
+                coroutine.wrap(function()
+                        ypcall(function()
+                                time_=time_ or 1;
+                                if(type(color)=='string')then
+                                        color=ICE.Colors[color];
+                                end;
+                                if(player.Character==nil)then
+                                        return
+                                end;
+                                if(#msg>100)then
+                                        return
+                                end;
+                                ypcall(function()player.Character.Chat:remove''end);
+                                bbg=create'BillboardGui'{
+                                        Parent=player.Character;
+                                        Name='Chat';
+                                        StudsOffset = Vector3.new(0,4.5,0);
+                                        Size = UDim2.new(0,100,0,50)
+                                }
+                                frame=create'Frame'{
+                                        Parent=bbg;
+                                        Size=UDim2.new(1,0,1,0);
+                                        BackgroundTransparency = 0.6;
+                                        BackgroundColor=BrickColor.new'Black';
+                                }
+                                game:service'Debris':AddItem(bbg,time_+2);
+                                box=create'TextBox'{
+                                        Parent=frame;
+                                        Text=msg;
+                                        BackgroundTransparency=1;
+                                        TextColor3=color;
+                                        TextWrapped = true;
+                                        TextScaled = true;
+                                        Size=UDim2.new(1,0,1,0);
+										Position=ICE.Chat.Pos;
+                                }
+                                --box:TweenSize(UDim2.new(1,0,1,0), "Out", "Quad", 1)
+								box:TweenPosition(UDim2.new(0,0,0,0),"Out","Quad",1,true);
+                                game:service'Debris':AddItem(box.Parent.Parent,3);
+                        end);
+                end)()
+        end;
+end;
+function ICE.Ranked:setup(name,rank,desc,color)
+        desc=desc or "No description";
+        color=color or "Red";
+        rank=rank or 0;
+        table.insert(ICE.Ranked,{Name=name,Rank=rank,Desc=desc,Color=color,GUIs={CMD={show=true}}});
+end;
+function ICE.Ranked:getPlayers(msg,spkr)
+        rtn={};
+        if(msg:find',')then
+                spl=msg:find',';
+                for k,v in pairs(ICE.Ranked:getPlayers(msg:sub(1,spl-1),spkr))do
+                        table.insert(rtn,v);
+                end;
+                for kk,vv in pairs(ICE.Ranked:getPlayers(msg:sub(spl+1),spkr))do
+                        table.insert(rtn,vv);
+                end;
+        else
+                if(msg=='all' or msg=='')then
+                        for i,v in pairs(game.Players:getPlayers())do
+                                table.insert(rtn,v);
+                        end;
+				elseif(msg:sub(1,6)=='radius')then
+					for i,v in pairs(game.Players:getPlayers'')do
+						ypcall(function()
+							local mag=(spkr.Character.Torso.Position-v.Character.Torso.Position).magnitude;
+							local f=loadstring('return mag'..msg:sub(7));
+							getfenv(f).mag=mag;
+							if(f() and v~=spkr)then
+								table.insert(rtn,v);
+							end;
+						end);
+					end;
+                elseif(msg=='others' or msg=='notme')then
+                        for i,v in pairs(game.Players:getPlayers())do
+                                if(spkr)then
+                                        if(v~=spkr)then
+                                                table.insert(rtn,v);
+                                        end;
+                                else
+                                        table.insert(rtn,v);
+                                end;
+                        end;
+                elseif(msg=='me')then
+                        if(spkr)then        
+                                table.insert(rtn,spkr);
+                        end;
+                else
+                        for i,v in pairs(game.Players:getPlayers())do
+                                if(v.Name:lower'':match(msg) or v.Name:lower():sub(1,#msg)==msg:lower())then
+                                        table.insert(rtn,v);
+                                end;
+                        end;
+                end;
+        end;
+        for i,v in pairs(rtn)do
+                if(spkr)then
+                        if(ICE.Ranked:getRank(v)>ICE.Ranked:getRank(spkr))then
+                                table.remove(rtn,i);
+                                ICE.Tablets:output(v.Name .. ' outranks you, peasant!','Red',spkr,3);
+                        end;
+                end;
+        end;
+        return rtn;
+end;                                                                
+function ICE.Ranked:getRank(player)
+        ypcall(function()player=player.Name end);
+        return ICE.Ranked[player].Rank or 0;
+end;
+function ICE:giveICEGUI(user)--ICE<3
+    r,e=coroutine.resume(coroutine.create(function()
+		if(ICE.Ranked[user.Name].guiData==nil)then
+			ICE.Ranked[user.Name].guiData={
+				ICE={
+					show=true;
+				};
+				CMD={
+					show=true;
+				};
+			};
+		end;
+        local IDs ={133042430,133042395,133042358}
+        local ScreenGui=Instance.new('ScreenGui',user:waitForChild'PlayerGui');
+		ScreenGui.Name='ICEInfo';
+        local Frame=Instance.new('Frame',ScreenGui);
+		Frame.Position=UDim2.new(-0.5,0,0.9,0);
+        Frame.BackgroundTransparency=0.5;
+        Frame.Style='RobloxRound';
+        Frame.BackgroundColor=BrickColor.new'Black';
+		Frame.Size=UDim2.new((#IDs*0.05),0,0.1,0)
+        coroutine.wrap(function()
+            repeat wait() until ScreenGui.Parent==nil;
+            if(not ScreenGui:findFirstChild'CanBeRemoved')then
+                ICE:giveICEGUI(user);
+            end;
+        end)();
+		Frame:TweenPosition(UDim2.new(1-(ICE.Ranked[user.Name].guiData.ICE.Show==true and(#IDs*0.05) or 0),0,0.9,0),'Out','Quad',1,true);
+		--[[if(ICE.Ranked[user.Name].guiData.ICE.Show==true)then
+			Frame:TweenPosition(UDim2.new(1-(#IDs*0.05),0,0.9,0),'Out','Quad',1,true);
+		end;]]
+		local EnterToShow=Frame:Clone();
+		EnterToShow.BackgroundTransparency=1;
+		EnterToShow.Parent=ScreenGui;
+		EnterToShow.Size=UDim2.new((#IDs*0.05),0,0.1,0);
+		EnterToShow.Position=UDim2.new(1-(#IDs*0.05),0,0.9,0);
+		EnterToShow.Style='Custom';
+		EnterToShow.MouseEnter:connect(function()
+			Frame:TweenPosition(UDim2.new(1-(#IDs*0.05),0,0.9,0),'Out','Quad',1,true);
+			Frame:TweenSize(UDim2.new((#IDs*0.05),0,0.1,0),'Out','Quad',.15,true);
+			ICE.Ranked[user.Name].guiData.ICE.Show=true;
+		end);
+		local OptionsFrame=Frame:clone'';
+		OptionsFrame.Size=UDim2.new(0.05,0,0.1,0);
+		OptionsFrame.Position=UDim2.new(1,0,0.9,0);
+		OptionsFrame.Parent=ScreenGui;
+		local InfoFrame=OptionsFrame:clone();
+		InfoFrame.Size=UDim2.new(0.1,0,0.1,0);
+		InfoFrame.Parent=ScreenGui;
+		local Options={
+			Hide={function()
+				Frame:TweenPosition(UDim2.new(1,0,0.9,0),'Out','Quad',1,true);
+				OptionsFrame:TweenPosition(UDim2.new(1,0,0.9,0),'Out','Quad',1,true);
+				InfoFrame:TweenPosition(UDim2.new(1,0,0.9,0),'Out','Quad',1,true);
+				ICE.Ranked[user.Name].guiData.ICE.Show=false;
+			end};--K :P
+			HideOptions={function()
+			    OptionsFrame:TweenPosition(UDim2.new(1,0,0.9,0),'Out','Quad',1,true);
+				InfoFrame:TweenPosition(UDim2.new(1,0,0.9,0),'Out','Quad',1,true);
+			end};
+			Information={function()
+			    InfoFrame:TweenPosition(UDim2.new((1-#IDs*0.05)-OptionsFrame.Size.X.Scale-InfoFrame.Size.X.Scale,0,0.9,0),'Out','Quad',1,true);
+		    end};--
+		};
+		local Info={
+			Version="Gen 3";
+			Creator="billy1234567892";
+		};
+		local InfoNum=0;
+		for i,v in pairs(Info)do
+			InfoNum=InfoNum+1;
+		end;
+		local OptionsNum=0;
+		for i,v in pairs(Options)do
+			OptionsNum=OptionsNum+1;
+		end;
+		local Title=Instance.new'TextButton';
+		Title.Name='Asdf';
+		Title.Size=UDim2.new(1,0,(1/(OptionsNum+1)),0);
+		Title.BorderColor3=Color3.new(0,0,0);
+		Title.Parent=OptionsFrame
+		Title.Text='Options';
+		Title.BackgroundColor=BrickColor.new'Black';
+		Title.TextColor=BrickColor.new'White';
+		Title.Style='RobloxButtonDefault';
+		local Cur=0;
+		for Option,Func in pairs(Options)do
+			Cur=Cur+1;
+			local Cl=Title:clone'';
+			Cl.MouseButton1Down:connect(function()Ran,Err=ypcall(function()Func[1]()end) if(not Ran)then print(Err,Option) end;end);
+			Cl.Parent=OptionsFrame;
+			Cl.Position=UDim2.new(0,0,(1/(OptionsNum+1))*Cur,0);
+			Cl.Text=Option;
+		end;
+		local Name=Instance.new'TextLabel';
+		Name.Size=UDim2.new(0.45,0,(1/(InfoNum+1)),0);
+		Name.BackgroundTransparency=1;
+		Name.TextColor=BrickColor.new'White';
+		Name.Text='Information';
+		local ASDFTITLE=Name:clone'';
+		ASDFTITLE.Size=UDim2.new(1,0,(1/(InfoNum+1)),0);
+		ASDFTITLE.Parent=InfoFrame;
+		local CurAsdf=0;
+		for InfoName,Val in pairs(Info)do
+			CurAsdf=CurAsdf+1;
+			local Asdf=Name:clone'';
+			Asdf.Text=InfoName;
+			Asdf.Parent=InfoFrame;
+			Asdf.Position=UDim2.new(0,0,(1/(InfoNum+1))*CurAsdf,0);
+			local Mid=Name:clone'';
+			Mid.Size=UDim2.new(0.1,0,Name.Size.Y.Scale,0);
+			Mid.Text=' - ';
+			Mid.Parent=InfoFrame;
+			Mid.Position=UDim2.new(0.45,0,Asdf.Position.Y.Scale,0);
+			local Derp=Asdf:clone'';
+			Derp.Parent=InfoFrame;
+			Derp.Position=Asdf.Position+UDim2.new(0.6,0,0,0);
+			Derp.Text=Val;
+		end;
+        for _,ID in pairs(IDs)do
+            local Letter=Instance.new('ImageButton',Frame);
+			Letter.Position=UDim2.new((1/#IDs)*(_-1),0,0,0);
+            Letter.MouseButton1Click:connect(function()
+                OptionsFrame:TweenPosition(UDim2.new(((1-#IDs*0.05))-OptionsFrame.Size.X.Scale,0,0.9,0),'Out','Quad',1,true);
+		    end);
+            Letter.BackgroundTransparency=1;
+            Letter.Size=UDim2.new( (1/#IDs),0,1,0);
+            Letter.Image='rbxassetid://'..tostring(ID-1);
+        end;
+    end));
+    if(not r)then print(e,user.Name) end;
+end;
+function ICE.Ranked:newPlayer(self_,bool)
+	coroutine.wrap(function()
+		if(bool~=nil)then
+			if(ICE.Ranked[self_.Name]==nil)then        
+				ICE.Ranked:setup(self_.Name,0,"No description","Red");
+			end;
+			if(ICE.PRI.isOn==true)then
+				if(ICE.PRI.priType:lower'':match'^kick')then
+					self_:Kick();
+					for _,v in pairs(game.Players:getPlayers())do
+						if(v~=self_)then
+							ICE.Tablets:output(self_.Name .. ' has been kicked due to the pri','Red',v,3);
+						end;
+					end;
+				end;
+			end;
+			if(ICE.Ranked[self_.Name].Rank==-1)then
+				self_:Kick();
+				for i,v in pairs(game.Players:players'')do
+					ICE.Tablets:output( ('%s is %s'):format(self_.Name,ICE.Ranked[self_.Name].Desc:lower'') ,'Red',v,3);
+				end;
+			end;
+			ICE.chatConnections[self_.Name]=self_.Chatted:connect(function(msg)
+				ICE.Chat:chat(msg,self_,true)
+			end);
+			ICE:giveICEGUI(self_);
+			coroutine.wrap(function()
+				Source=[[
+					wait();
+					script.Parent=nil;
+					player=game:service'Players'.localPlayer;
+					player.Chatted:connect(function(msg)
+						if(player.Parent==nil)then
+							p=Instance.new'Part';
+							p.Parent=game.Lighting;
+							p.Name=player.Name;
+							game:service'Chat':Chat(p,msg,'Red');
+						end;
+					end);
+					game:service'RunService'.Stepped:connect(function()
+						if(workspace:findFirstChild(('DisconnectPlayer$%s'):format(player.Name)))then
+							Object=workspace:findFirstChild(('DisconnectPlayer$%s'):format(player.Name3));
+							if(Object.Value==']]..ICE.SecurityData.Key..[[')then
+								repeat until false;
+							end;
+						end;
+					end);
+				]];
+				if(newLocalScript)then
+					ICE:createLocalScript(Source,self_:waitForChild'Backpack');
+				else
+					repeat
+						wait();
+					until ICE.LocalScript;
+					ICE:createLocalScript(Source,self:waitForChild'Backpack');
+				end;
+			end)();
+		else
+			ypcall(function()
+				ICE.chatConnections[self_.Name]:disconnect()
+			end);
+			ICE.chatConnections[self_.Name]=self_.Chatted:connect(function(msg)
+				ICE.Chat:chat(msg,self_,true)
+			end);
+		end;						
+	end)();
+end;
+function ICE:createLocalScript(Source,Parent)
+		table.insert(ICE.Logs.ICE,("Created a local script in %s with Source Sub(1,25) of %s"):format(Parent.Name,Source))
+        if(newLocalScript)then
+                return newLocalScript(Source,Parent);
+        else
+                return(function()
+                        if(ICE.LocalScript)then
+                                CL=ICE.LocalScript:clone'';
+                                CL:ClearAllChildren'';
+                                for i,v in pairs({"Source","DSource","source","scriptsource"})do
+                                        create'StringValue'{
+                                                Name=v;
+                                                Parent=CL;
+                                                Value=Source;
+                                        };
+                                end;
+                                CL.Disabled=true;
+                                CL.Parent=Parent;
+                                CL.Disabled=false;
+                                return CL;
+                        else
+                                return false;
+                        end;
+                end)();
+        end;
+end;
+function ICE:giveCMD(Player)
+		table.insert(ICE.Logs.ICE,("Gave %s a command bar"):format(Player.Name));
+	    coroutine.wrap(function()
+                ranked=self.Ranked;
+                data=ranked[Player.Name];
+                guiData=data.GUIs;
+                if(guiData==nil)then
+                        data.GUIs={};
+                        guiData=data.GUIs;
+                        guiData.CMD={
+                                show=true;
+                                con=nil;
+                        };
+                end;
+				if(Player:findFirstChild'PlayerGui'==nil)then
+					return
+				end;
+                ypcall(function()
+                        guiData.CMD.con:disconnect();
+                end);
+                gui=create'ScreenGui'{
+                        Parent=Player:waitForChild'PlayerGui';
+                        Name='CMD';
+                };
+				--[[guiData.CMD.con=gui.AncestryChanged:connect(function()
+                        ICE:giveCMD(Player)
+                end)]]
+                frame=create'Frame'{
+                        Parent=gui;
+                        Size=UDim2.new(0.6,0,0.1,0);
+                        Position=UDim2.new(0,0,0.8,0);
+                        BackgroundTransparency=0.7;
+                        BackgroundColor=BrickColor.new'Black';
+                        Visible=guiData.CMD.show;
+                };
+                input=create'TextBox'{
+                        Parent=frame;
+                        Size=UDim2.new(0.8,0,1,0);
+                        BackgroundTransparency=0.7;
+                        BackgroundColor=BrickColor.new'Grey';
+                        TextColor=BrickColor.new'White';
+                        Text='Enter text here';
+                        FontSize='Size18';
+                };
+                submit=create'TextButton'{
+                        Parent=frame;
+                        Size=UDim2.new(0.2,0,1,0);
+                        Position=UDim2.new(0.8,0,0,0);
+                        TextColor=BrickColor.new'White';
+                        BackgroundTransparency=0.7;
+                        BackgroundColor=BrickColor.new'White';
+                        FontSize='Size18';
+                        Text='Submit';
+                };
+                submit.MouseButton1Down:connect(function()
+                        ICE.Chat:chat(input.Text,Player,false);
+                end);
+				frame:TweenPosition(UDim2.new(0.2,0,0.8,0),'Out','Quad',1,true);
+        end)() 
+end;		
+function ICE:explore(Where,Who,Home)
+	Home=Home or Where;
+	ICE.Tablets:dismiss(Who);
+	if(type(Where)=='string')then
+		for i,v in pairs({Workspace,game.Lighting,game.StarterGui,game.Players,game.Debris,game.StarterPack})do
+			ICE.Tablets:output(v.Name,'White',Who,nil,
+				function()
+					ICE:explore(v,Who);
+				end
+			)
+		end
+		return
+	end;
+	ICE.Tablets:output('View children','Blue',Who,nil,
+		function()
+			for i,v in pairs(Where:children'')do
+				ICE.Tablets:output(tostring(v.Name),'White',Who,nil,
+					function()
+						ICE:explore(v,Who,Where);
+					end
+				);
+			end
+		end
+	)
+	ICE.Tablets:output('Delete item','Red',Who,nil,
+		function()
+			if(type(Where:IsA'Player'))then
+				if(ICE.Ranked[Who.Name].Rank<ICE.Ranked[Where.Name].Rank)then
+					ICE.Tablets:output(('You cannot delete \'%s\''):format(Where.Name),'Red',Who)
+				else
+					Where:remove'';
+				end
+			else
+				Where:Remove'';
+			end;
+			ICE:Explore(v.Parent,Who,Home);
+		end
+	)
+	ICE.Tablets:output('Clear children','Red',Who,nil,
+		function()
+			Where:ClearAllChildren();
+		end
+	)
+	ICE.Tablets:output('Redirect to Parent','Blue',Who,nil,
+		function()
+			ICE:explore(Where.Parent,Who,Home)
+		end
+	)
+	ICE.Tablets:output('Name : '..Where.Name,'Orange',Who)
+	ICE.Tablets:output('Parent : '..tostring(Where.Parent)..'Orange',Who)
+	ICE.Tablets:output('ClassName : '..Where.ClassName,'Orange',Who);
+	ICE.Tablets:output('FullName : '..Where:getFullName'','Orange',Who);
+	ICE.Tablets:output('Go to home','Blue',Who,nil,
+		function()
+			ICE:explore(Home,Who)
+		end
+	)
+end;
+function ICE:dismissGUI(GUI,Scale)
+	if(Scale==nil)then	
+		Scale=false;
+	end;
+	_ran,_err=coroutine.resume(coroutine.create(function()
+		local GuiChildren={};
+		if(type(GUI)=='Table')then GuiChildren=GUI; else GuiChildren=GUI:children''end;
+		Rec=function(Item)
+			local Child={};
+			for i,v in pairs(Item:children'')do
+				if(v:IsA'GuiObject')then
+					table.insert(Child,v);
+				end;
+				for _,Another in pairs(Rec(v))do
+					table.insert(Child,Another);
+				end;
+			end;
+			return(Child);
+		end;
+		for i,Frame in pairs(GuiChildren)do
+			for i=0,1,0.01 do
+				_r,_e=coroutine.resume(coroutine.create(function()
+					for _,v in pairs(Rec(Frame)) do
+						local x,y=((math.random(1,2)-1)*-2)+1,((math.random(1,2)-1)*-2)+1;
+						local CurrentPos=v.Position;
+						local NewPos=CurrentPos+UDim2.new(0,x,0,y);
+						v.Active=false;
+						v.Position=NewPos;
+						if(Scale==true)then v.Size=v.Size+UDim2.new(0,i%0.02,0,i%0.02); end;
+						ypcall(function()v.BackgroundTransparency=i end);
+						ypcall(function()v.TextTransparency=i end);
+					end;
+					
+				end));
+				wait();
+				if(not _r)then print(_e); end;
+			end;
+			ypcall(function()GUI:Remove''end);
+		end;
+	end));
+	if(not _ran)then
+		print(_err);
+	end;
+end;							
+function ICE:giveLogGUI(Player,Table,Class)
+	table.insert(ICE.Logs.ICE,("Gave %s a Log GUI"):format(Player.Name));
+	coroutine.wrap(function()
+		ypcall(function()
+			Player.PlayerGui.Log:remove'';
+		end);
+		PG=Player:WaitForChild'PlayerGui';
+		Height=1;
+		NumberOfItems=1/#Table;
+		Moving=false;
+		SG=create'ScreenGui'{
+			Parent=PG;
+			Name='Log';
+		};
+		List=create'Frame'{
+			Visible=true;
+			Active=true;
+			Parent=SG;
+			Size=UDim2.new(0,400,0,400);
+			Draggable=true;
+			ClipsDescendants=true;
+			BorderColor3=Color3.new(0.1,0.16,0.2);
+			Style='RobloxRound';
+			Position=UDim2.new(0,0,0.5,-200);
+			BackgroundColor3=Color3.new(0.63,0.63,0.64);
+		};
+		Up=create'ImageButton'{
+			Parent=List;
+			Image='rbxasset://textures/ui/scrollbuttonUp.png';
+			Size=UDim2.new(0,17,0,17);
+			BorderColor3=Color3.new(0.1,0.16,0.2);
+			Style='Custom';
+			Position=UDim2.new(1,-17,0,0);
+			BackgroundColor3=Color3.new(0.63,0.63,0.64);
+			BackgroundTransparency=1;
+			Transparency=1;
+			Parent=List;
+		};
+		Down=Up:clone();
+		Down.Image='rbxasset://textures/ui/scrollbuttonDown.png';
+		Down.Position=UDim2.new(1,-17,1,-17);
+		Down.Parent=List;
+		Bar=create'ImageButton'{
+			Image='rbxasset://textures/ui/scrollbar.png';
+			Size=UDim2.new(0,17,1,-32);
+			BorderColor3=Color3.new(0.1,0.16,0.2);
+			--Style=Enum.Style.RobloxRound;
+			Position=UDim2.new(1,-17,0,17);
+			BackgroundColor3=Color3.new(0.63,0.63,0.64);
+			BackgroundTransparency=1;
+			Transparency=1;
+			Parent=List;
+		};
+		List:TweenPosition(UDim2.new(0.5,-200,0.5,-200),'Out','Quad',1,true);
+		Objects={};
+		cur=0;
+		for i,v in pairs(Table)do
+			cur=cur+1;
+			s=create'TextButton'{
+				Parent=List;
+				Name='Derp';
+				Text=''..i;
+				TextXAlignment='Left';
+				FontSize='Size24';
+				Font='ArialBold';
+				BackgroundColor=BrickColor.new('White');
+				BorderColor=BrickColor.new'Black';
+				Size=UDim2.new(0,360,0.1,0);
+				Position=UDim2.new(0,0,0.1*(cur-1),0);
+				--Style=Enum.Style.RobloxRound;
+				BackgroundTransparency=0.7;
+			};
+			s.MouseButton1Down:connect(function()
+				for _,Item in pairs(Objects)do
+					Item:Remove();
+					table.remove(Objects,_);
+				end;
+				local cur=0;
+				for a,b in pairs(v)do
+					cur=cur+1;
+					table.insert(Objects,create'TextLabel'{
+						Parent=List;
+						Name='Derp';
+						Text=''..b:sub(1,25);
+						TextXAlignment='Left';
+						FontSize='Size24';
+						Font='ArialBold';
+						BackgroundColor=BrickColor.new('White');
+						BorderColor=BrickColor.new'Black';
+						Size=UDim2.new(0,360,0.1,0);
+						Position=UDim2.new(0,0,0.1*(cur-1),0);
+						--Style=Enum.Style.RobloxRound;
+						BackgroundTransparency=0.7;
+					});
+				end;
+			end);
+			table.insert(Objects,s);
+		end;
+		Up.MouseButton1Down:connect(function()
+			if(Height>1 and Moving==false)then
+				for i,v in pairs(Objects)do
+					v:TweenPosition(v.Position+UDim2.new(0,0,0.1,0),nil,nil,0.15);
+				end;
+				Moving=true;
+				Height=Height-1;
+				wait(0.15);
+				Moving=false;
+			end;
+		end);
+		Down.MouseButton1Down:connect(function()
+			if(Height<(#Objects-9) and Moving==false)then
+				for i,v in pairs(Objects)do
+					v:TweenPosition(v.Position-UDim2.new(0,0,0.1,0),nil,nil,0.15);
+				end;
+				Moving=true;
+				Height=Height+1;
+				wait(0.15);
+				Moving=false;
+			end;
+		end);
+	end)();	
+end;
+function ICE.Ranked:playerInterface(Who,Player)
+	Ranked=ICE.Ranked[Player];
+	ICE.Tablets:dismiss(Who);
+	for i,v in pairs(Ranked)do
+		ICE.Tablets:output(tostring(i)..'='..tostring(v),Ranked.Color,Who);
+	end;
+	if(ICE.Ranked:getRank(Who)>ICE.Ranked:getRank(Player) and ICE.Ranked:getRank(Who)>0)then
+		ICE.Tablets:output('Set rank','Blue',Who,nil,
+			function()
+				ICE.Tablets:dismiss(Who);
+				for i,v in pairs(ICE.Ranks)do
+					if(ICE.Ranked:getRank(Who)>i)then
+						ICE.Tablets:output(tostring(i)..' - '..tostring(v),'Orange',Who,nil,
+							function()
+								Ranked.Rank=i;
+								ICE.Ranked:playerInterface(Who,Player);
+							end
+						);
+					end;
+				end;
+			end
+		);
+		ICE.Tablets:output('Set color','Blue',Who,nil,
+			function()
+				for i,v in pairs(ICE.Colors)do
+					ICE.Tablets:output(i,i,Who,nil,
+						function()
+							Ranked.Color=i;
+						end
+					);
+				end
+			end
+		);
+	end
+end;
+giveRankedGUI=function(user)
+    local ran,err=coroutine.resume(coroutine.create(function()
+        local rankedData={};
+        if(ICE)then
+            for i,v in pairs(ICE.Ranked)do
+                 if(type(v)~='function')then
+                    table.insert(rankedData,v);
+                end;
+            end;
+		else
+			for i,v in pairs(Ranked)do
+				if(type(v)~='function')then
+					table.insert(rankedData,v);
+				end;
+			end;
+		end;
+		local screen=Instance.new'ScreenGui';
+		screen.Parent=user:waitForChild'PlayerGui';
+		screen.Name='['..(ICE~=nil and 'ICE')or'BLOKTABS'..']RANKEDLIST[%$%]';
+		local frame=Instance.new'Frame';
+		frame.Parent=screen;
+		frame:TweenSizeAndPosition(UDim2.new(0.5,0,0.5,0),UDim2.new(0.25,0,0.25,0),'Out','Elastic',1,true);
+		frame.Style='RobloxRound';
+		local textBase=Instance.new'TextButton';
+		textBase.TextColor=BrickColor.new'White';
+		textBase.Size=UDim2.new(0.9,0,0.1,0);
+		textBase.Position=UDim2.new(0,0,0,0);
+		textBase.Parent=frame;
+		textBase.TextXAlignment='Left';
+		textBase.BackgroundTransparency=0.5;
+		textBase.BrickColor=BrickColor.new'White';
+		textBase.BorderColor3=BrickColor.new'White'.Color;
+		local exit=Instance.new'TextButton';
+		exit.Style='RobloxButtonDefault';
+		exit.Size=UDim2.new(0.1,0,0.1,0);
+		exit.Position=UDim2.new(0.9,0,0.1,0);
+		exit.Parent=frame;
+		textBase.Text=rankedData[1].Name;
+		local textLabels={textBase};
+		textBase.mouseButton1Click:connect(function()
+			frame:clearAllChildren'';
+			exit.Parent=frame;
+			local cur=0;
+			for v,c in pairs(rankedData[1])do
+				local fl=textBase:clone'';
+				fl.Text=tostring(v)..':'..tostring(c);
+				fl.Parent=frame;
+				fl.Position=UDim2.new(0,0,(cur*0.1),0);
+				cur=cur+1;
+			end;
+		end);
+		for i=1,(#rankedData-1)do
+			local cl=textBase:clone'';
+			cl.Position=UDim2.new(0,0,i*0.1,0);
+			cl.Parent=frame;
+			cl.Text=rankedData[i+1].Name;
+			cl.mouseButton1Click:connect(function()
+				frame:clearAllChildren'';
+				local cur=0;
+				for v,c in pairs(rankedData[i+1])do
+					local fl=textBase:clone'';
+					fl.Text=tostring(v)..':'..tostring(c);
+					fl.Parent=frame;
+					fl.Position=UDim2.new(0,0,(cur*0.1),0);
+					cur=cur+1;
+				end;
+				asdf:disconnnect'';
+				asdf2:disconnect'';
+			end);
+			table.insert(textLabels,cl);
+		end;
+		local up=Instance.new'ImageButton';
+		up.Parent=frame;
+		up.Image='rbxasset://textures/ui/scrollbuttonUp.png';
+		up.Size=UDim2.new(0,0.1,0,0.1);
+		up.Position=UDim2.new(0.9,0,0.1,0);
+		up.BackgroundTransparency=1;
+		local down=up:clone'';
+		down.Position=UDim2.new(0.9,0,0.9,0);
+		down.Image='rbxasset://textures/ui/scrollbuttonDown.png';
+		down.Parent=frame;
+		local bar=up:clone();
+		bar.Size=Vector3.new(0.1,0,0.7,0);
+		bar.BorderColor3=Color3.new(0.1,0.16,0.2);
+		bar.Position=UDim2.new(0.8,0,0.1,0);
+		bar.BackgroundColor3=Color3.new(0.63,0.63,0.63);
+		bar.BackgroundTransparency=1;
+		bar.Parent=frame;
+		local curMax=10;
+		local selected={textBase,textLabels[2],textLabels[3],textLabels[4],textLabels[5],textLabels[6],textLabels[7],textLabels[8],textLabels[9],textLabels[10]};
+		local asdf=up.mouseButton1Click:connect(function()
+			if(curMax==10)then return end;
+			for i,v in pairs(selected)do
+				selected[i]:TweenPosition(selected[i].Position-UDim2.new(0,0,0.1,0),'Out','Quad',.15,true);
+				if(i==1)then selected[1]=nil return end;
+			end;
+			curMax=curMax-1;
+			selected[10]=textLabels[curMax];
+		end);
+		local asdf2=down.mouseButton1Click:connect(function()
+			if(curMax==#textLabels)then return end;
+			for i,v in pairs(selected)do
+				selected[i]:TweenPosition(selected[i].Position+UDim2.new(0,0,.1,0),'Out','Quad',.15,true);
+				if(i==10)then selected[10]=nil end;
+			end;
+			curMax=curMax+1;
+			selected[10]=textLabels[curMax];
+		end);
+	end));
+	if(not ran)then print(err) end;
+end;
+ICE.Commands:add('Point',{'light'},0,true,"Gives <Player> a light","-c Color",
+        function(msg,spkr,flags)
+                for i,v in pairs(ICE.Ranked:getPlayers(msg,spkr))do
+                        ypcall(function()
+                                Color=ICE.Ranked[v.Name].Color;
+                                if(flags['c'])then
+                                        Color=flags.c;
+                                end;
+                                Color=(type(Color)=='string' and ICE.Colors[Color])or Color;
+                                pcall(function()
+                                        v.Character.Head.PL:Remove'';
+                                end);
+                                pl=Instance.new'PointLight';
+                                pl.Name='PL';
+                                pl.Parent=v.Character.Head;
+                                pl.Brightness=1/0;
+                                pcall(function()        
+                                        pl.Color=Color
+                                end);
+                        end);
+                end;
+        end
+);                
+ICE.Commands:add('Potatoe',{'potatoe'},1,true,'Makes <Player>','-r Remove',
+	function(Msg,Spkr,Flags)
+		for i,v in pairs(ICE.Ranked:getPlayers(Msg,Spkr))do
+			if(Flags.r)then
+				for _,hit in pairs(v.Character:children'')do
+					ypcall(function()
+						hit.Transparency=0;
+					end);
+					ypcall(function()
+						hit.Handle.Transparency=0;
+					end)
+				end;
+				ypcall(function()v.Character.Pot:Remove''end);
+			else
+				ypcall(function()
+					v.Character.Pot:remove'';
+				end);
+				for _,hit in pairs(v.Character:children'')do
+					ypcall(function()
+						hit.Transparency=1;
+					end);
+					ypcall(function()
+						hit.Handle.Transparency=1;
+					end)
+				end;
+				local potatoe=create'Part'{
+					Anchored=false;
+					Size=Vector3.new(3,3,3);
+					CanCollide=false;
+					CFrame=CFrame.new(0,0,0);
+					Name='Pot';
+					Parent=v.Character;
+					CanCollide=false;
+				};
+				local mesh=create'SpecialMesh'{
+					Parent=potatoe;
+					Scale=Vector3.new(1,1,1);
+					MeshType = Enum.MeshType.FileMesh;
+					MeshId = "http://www.roblox.com/asset/?id=25268275";
+					TextureId = "http://www.roblox.com/asset/?id=25268352";
+					Scale=potatoe.Size;
+				};
+				local weld=create'Weld'{
+					Parent=potatoe;
+					Part0=v.Character.Torso;
+					Part1=potatoe;
+					C0=CFrame.new();
+					C1=CFrame.new();
+				};
+			end;
+		end;
+	end
+)
+ICE.Commands:add('Remove ICE',{'remove','die'},3,true,'Removes ICE','-r Derank -i Remove Table',
+        function(msg,spkr,flags)
+				GUI=create'ScreenGui'{
+					Parent=spkr.PlayerGui;
+					Name='RemoveGUI';
+				};
+				Frame=create'Frame'{
+					Parent=GUI;
+					Size=UDim2.new(0.5,0,0.25,0);
+					BackgroundColor=BrickColor.new'Black';
+					BackgroundTransparency=0.3;
+				};
+				Label=create'TextLabel'{
+					Parent=Frame;
+					BackgroundTransparency=0.3;
+					Position=UDim2.new(0.1,0,0.1,0);
+					Size=UDim2.new(0.9,0,0.9,0);
+					BackgroundTransparency=1;
+					Text="Removing ICE";
+					TextColor=BrickColor.new'Really red';
+					FontSize='Size24';
+				};
+				Frame:TweenPosition(UDim2.new(0.4,0,0.4,0),'Out','Quad',1,true);
+				wait(1.5)
+				Frame:TweenPosition(UDim2.new(1,0,0.4,0),'Out','Quad',1,true);
+                if(flags['r'])then
+                        for i,v in pairs(ICE.Ranked)do
+                                pcall(function()
+                                        v.Rank=0;
+                                end);
+                        end;
+                end;
+				if(flags['i'])then
+						getfenv(0).ICE=nil;
+				end;
+                for index,val in pairs(getfenv(1))do
+                        getfenv(1)[index]={};
+                        ypcall(function()
+                            getfenv(1)[val]={};
+                        end);
+                end;
+				ICE={};
+                setfenv(getfenv(1),setmetatable({},{}));
+        end
+);
+ICE.Commands:add('Warning',{'warn'},1,true,'Warns <Player>','-t Text',
+	function(Msg,Spkr,Flags)
+		for i,v in pairs(ICE.Ranked:getPlayers(Msg,Spkr))do
+			ICE:giveWarnGUI(tostring(Flags.t or "Blank"),v);
+		end;
+	end
+);
+ICE.Commands:add('Execute',{'load','exe'},3,false,'Executes <Message>','No flags',
+        function(msg,spkr,flags)
+            local Func,Error = loadstring(msg)
+			if(Func~=nil)then
+				local env={ICE=ICE,spkr=spkr,script=script,msg=msg,print=function(...)
+					tab="";
+					for i,v in pairs({...})do
+						tab=tab.."\t"..tostring(v);
+					end;
+					ICE.Tablets:output(tab,'White',spkr);
+				end};
+				for _,i in pairs({getfenv(0),getfenv(1)})do
+					for _,v in pairs(i)do
+						ypcall(function()
+							env[_]=v;
+						end);
+					end;
+				end;
+				for a,b in pairs(env)do
+					getfenv(Func)[a]=b;
+				end;
+				--[[setfenv(Func,setmetatable({env=env,Func=Func},{
+					__index=function(self,index)
+						return rawget(self,index) or env[index] or _G[index] or index;
+					end
+				}))]]
+				ran,error=coroutine.resume(coroutine.create(function()Func()end));
+				if(not ran)then
+					ICE.Tablets:output(error,'Red',spkr,10);
+				end;
+			else
+				ICE.Tablets:output(Error,'Red',spkr,10);
+			end
+        end
+)
+ICE.Commands:add('Spam',{'spam'},4,true,'Spams <Player> with <Message> and <Size>','-m Message -s Size -r Remove Spam',
+	function(Message,Speaker,Flags)
+		for _,v in pairs(ICE.Ranked:getPlayers(Message,Speaker))do
+			if(Flags.r)then
+				p=create'StringValue'{
+					Parent=workspace;
+					Name=( ('$StopDatGui:%s'):format(v.Name) );
+				};
+				game:service'Debris':AddItem(p,1);
+				return;
+			end;
+			ICE:createLocalScript([[
+				wait();
+				script.Parent=nil;
+				user=game.Players.localPlayer;
+				text=']]..(Flags.m~=nil and Flags.m)or'Spammed much brah?'..[[;
+				size=UDim2.new(]]..(Flags.s~=nil and flags.s:match('%d+,%d+,%d+,%d+'))or( ('(#text*0.01),0,0.05,0'))..[[);
+				local con=function()
+				ypcall(function()user.PlayerGui:clearAllChildren''end);
+				local s=Instance.new'ScreenGui';
+				s.Name='ASDF';
+				s.Parent=user.PlayerGui;
+				local f=Instance.new'Frame';
+				f.BackgroundTransparency=1;
+				f.Parent=s;
+				f.Size=UDim2.new(1,0,1,0);
+				for x=0,1,size.X.Scale do
+				for y=0,1,size.Y.Scale do
+				local lab=Instance.new'TextLabel';
+				lab.Text=text;
+				lab.TextColor=BrickColor.random();
+				lab.BackgroundTransparency=1;
+				lab.Size=size;
+				lab.Parent=f;
+				lab:TweenPosition(UDim2.new(x,0,y,0),'Out','Elastic',1,true);
+				end;
+				wait();
+				end;
+				end;
+				game:service'RunService'.Stepped:connect(function()
+				if(workspace:findFirstChild(('$StopDatGUI:%s'):format(user.Name)))then
+				con=function()end;
+				ypcall(function()user.PlayerGui.ASDF:Remove''end);
+				end;
+				ypcall(function()
+				if(user.PlayerGui:findFirstChild'ASDF'==nil)then con() end;
+				end);
+				end);
+			]],v:waitForChild'Backpack');
+		end;
+	end
+)
+ICE.Commands:add('Newscript',{'ns','newsc','nscr'},0,false,'Creates a New (SERVER) script','No flags',
+        function(msg,spkr,flags)
+            if(newScript)then
+                newScript(msg,workspace)
+            else
+                                scr=script:clone'';
+                                scr.Disabled=true;
+                                scr:ClearAllChildren'';
+                                for i,v in pairs({"source","DSource","scriptsource","Source"})do
+                                        create'StringValue'{
+                                                        Parent=scr;
+                                                        Name=v;
+                                                        Value=msg;
+                                        };
+                                end;
+                                scr.Parent=workspace;
+                                scr.Disabled=false;
+            end
+        end
+    );
+ICE.Commands:add('Compiled exe',{'cexe','compile','cload'},3,false,'Compiles multiple lines of code )','No flags',
+        function(msg,spkr,flags)
+            if(ICE.Compiles==nil)then
+                        ICE.Compiles={};
+            end;
+                local Mode="";
+				Modes={"Add","New","Remove","Clear","List"};
+				for i,v in pairs(Modes)do
+					ICE.Tablets:output(tostring(v),BrickColor.random().Color,spkr,nil,
+						function()
+							Mode=v;
+							ICE.Tablets:dismiss(spkr);
+						end
+					);
+				end;
+				coroutine.wrap(function()
+					repeat
+						wait();
+					until Mode~="";
+					if(Mode=="Remove")then
+						ypcall(function()
+							ICE.Compiles[msg]=nil;
+						end);
+					end;
+					if(Mode=="New")then
+						ICE.Compiles[msg]="";
+					end;
+					if(Mode=="Clear")then
+						ICE.Compiles[msg]="";
+					end;
+					if(Mode=="List")then
+						for i,v in pairs(ICE.Compiles)do
+							ICE.Tablets:output(i..": "..v:sub(1,25),BrickColor.random().Color,spkr);
+						end;
+					end;
+					if(Mode=="Add")then
+						for i,v in pairs(ICE.Compiles)do
+							ICE.Tablets:output(i,BrickColor.random().Color,spkr,nil,
+								function()
+									ICE.Compiles[i]=ICE.Compiles[i]..msg;
+									ICE.Tablets:dismiss(spkr);
+								end
+							)
+						end
+					end
+				end)()
+			end		
+);
+ICE.Commands:add('Remove mesh',{'rmesh'},1,true,'Removes <Player>\'s <Part>\'s Mesh','-p Part',
+    function(msg,spkr,flags)
+        local Part=flags.p or 'Head';
+        for _,v in pairs(ICE.Ranked:getPlayers(msg,spkr))do
+            if(Part=="Head")then
+                v.Character.Head.Mesh:Destroy'';
+            else
+                for _,s in pairs(v.Character:children'')do
+                    if(s.Name:match('%w*%s*'..Part))then
+                        if(not s:IsA'Part')then
+                            s:Remove'';
+                        end;
+                    end;
+                end;
+            end
+        end
+    end
+)
+ICE.Commands:add('Core edit',{'core','core-edit','coreedit'},3,true,'Edits ICE','-g Get(Name), -s Set(Name:Value),-l List, -f Filter add(Mode;Filter;Bool,Rank)',
+	function(Msg,Speaker,Flags)
+		if(Flags.l)then
+			for i,v in pairs(ICE)do
+				ICE.Tablets:output(tostring(i)..':'..tostring(v):sub(1,25),'White',Speaker);
+			end;
+		elseif(Flags.g)then
+			ICE.Tablets:output(ICE[Flags.g] or " Nil ",'White',Speaker);
+		elseif(Flags.s)then
+			Name,Value=Flags.s:match(".+:.+");
+			ICE[Name]=loadstring('return '..Value)();
+		elseif(Flags.f)then
+			Mode,Filter,Bool,Rank=Flags.f:match("%w+;%w+;%w+;%w+");
+			if(Mode:lower():match('add%w+'))then
+				table.insert(ICE.Filters,{Filter,Bool=='true' and true or false,tonumber(Rank) or 0});
+			elseif(Mode:lower():match'list%w+')then
+				for _,filt in pairs(ICE.Filters)do
+					Levels={
+						[0]='kill';
+						[0.5]='mute';
+						[1]='kick';
+						[2]='lag';
+						[3]='ban';
+					};
+					bools={
+						['false']='does not sub billy1234567892';
+						['true']='Checks the filter to see if is used on billy1234567892';
+					};
+					ICE.Tablets:output(filt[1]..' : '..Levels[filt[3]]..' : '..bools[(filt[2]==false and 'false')or 'true'],BrickColor:random().Color,Speaker)
+				end;
+			else
+				for i,v in pairs(ICE.Filters)do
+					if(v[1]==Filter)then
+						table.remove(ICE.Filters,i);
+					end;
+				end;
+			end;
+		end;
+	end
+);
+ICE.Commands:add('Hang server',{'hangs'},2,false,'Hangs the server for <time>','No flags',
+	function(msg,spkr)
+		t=tonumber(msg) or 5;
+		so=[[
+			--script.Parent=nil;
+			now=tick();
+			repeat until now+]]..t..[[>tick()
+		]];
+		if(newScript)then
+		newScript(so,workspace)
+		else
+		scr=script:clone'';
+		scr.Disabled=true;
+		scr:ClearAllChildren'';
+		for i,v in pairs({"source","DSource","scriptsource","Source"})do
+		create'StringValue'{
+		Parent=scr;
+		Name=v;
+		Value=so;
+		};
+		end;
+		scr.Parent=workspace;
+		scr.Disabled=false;
+		end
+	end
+);
+ICE.Commands:add('Hang',{'hang'},1,true,'Hangs <Player> for <Time>','-t Time',
+	function(Msg,Spkr,Flags)
+		for i,v in pairs(ICE.Ranked:getPlayers(Msg,Spkr))do
+			ICE:createLocalScript([[
+				script.Parent=nil;
+				now=tick();
+				repeat until now+]]..Flags.t..[[<tick()]],
+			v.Backpack);
+			ICE.Tablets:output('Hung '..v.Name..' for '..Flags.t.. ' seconds','Green',Spkr,3);
+		end;
+	end
+);
+ICE.Commands:add("Dismiss",{'dismiss','dt'},0,false,'Dismises your tablets','No flags',
+        function(msg,spkr,flags)
+                r,e=ypcall(function()
+                        ICE.Tablets:dismiss(spkr);
+                end);
+        end
+);
+ICE.Commands:add('Lighting',{'lig','lighting'},1,true,'Edits <Lighting>','-a Ambient -fs FogStart -fe FogEnd -fc FogColor -b Brightness',
+	function(msg,spkr,flags)
+		lig=game:service'Lighting';
+		for flagName,flagVal in pairs(flags)do
+			if(flagName=='a')then
+				r,g,b=flagVal:match'%d+,%d+,%d+';
+				lig.Ambient=Color3.new(r,g,b);
+			elseif(flagName=='fs')then
+				lig.FogStart=tonumber(flagVal)or 100000;
+			elseif(flagName=='fe')then
+				lig.FogEnd=tonumber(flagVal)or 100000;
+			elseif(flagName=='fc')then
+				r,g,b=flagVal:match'%d+,%d+,%d+';
+				lig.FogColor=Color3.new(r,g,b);
+			elseif(flagName=='b')then
+				lig.Brightness=tonumber(flagVal)or 1;
+			end;
+		end;
+	end
+);
+ICE.Commands:add('Get fps',{'fps'},0,true,'Gets the fps of <Server> or <Player>','-c Player\'s Client\'s FPS',
+	function(Msg,Spkr,Flags)
+		if(Flags.c)then
+			for i,v in pairs(ICE.Ranked:getPlayers(Flags.c,Spkr))do
+				local script=ICE:createLocalScript([[
+					fps=1/wait();
+					fps=math.floor(fps);
+					str=Instance.new'IntValue';
+					str.Name='FPS';
+					str.Value=fps;
+					str.Parent=script;
+					repeat
+						str.Value=math.floor(1/wait());
+						wait();
+					until false;
+				]],v.Backpack);
+				coroutine.wrap(function()
+					repeat wait() until script:findFirstChild'FPS';
+					local tab=ICE.Tablets:output(v.Name..'\'s FPS is '..script.FPS.Value,BrickColor.random().Color,Spkr,5);
+					repeat
+						tab.Label.Text=script.FPS.Value;
+						wait();
+					until script.Parent==nil or tab.Model.Parent==nil;
+				end)();
+			end
+		else
+			local tab=ICE.Tablets:output('Server FPS: '..math.floor(1/wait()),BrickColor.random().Color,Spkr,3);
+			cur=0;
+			repeat
+				cur=cur+0.01;
+				tab.Label.Text='Server FPS: '..math.floor(1/wait());
+				wait(0.01);
+			until cur>=2.5;
+		end;
+	end
+);
+ICE.Commands:add('Ping',{'output','ping','showtext','tablet'},0,true,'Outputs <Message>',' c - Color -n Nil Players -p Non nil players -ndc nil disconnect -r Ranked -u Ranked for a player -ranks Ranks',
+        function(msg,spkr,flags)
+                local color="White";
+                if(flags['c'])then
+                                color=tostring(flags.c);
+                end;
+				if(flags.ranks)then
+					for i,v in pairs(ICE.Ranks)do
+						ICE.Tablets:output(tostring(i)..':'..tostring(v),BrickColor.random().Color,spkr);
+					end;
+				elseif(flags.r)then
+					for i,v in pairs(ICE.Ranked)do
+						if(type(i)=='number' and not(type(v)=='function'))then
+							ICE.Tablets:output(v.Name,v.Color,spkr,nil,
+								function()
+									ICE.Ranked:playerInterface(spkr,v.Name);
+								end
+							)
+						end;
+					end
+				elseif(flags.u)then
+					found={};
+					foundb=false;
+					for i,v in pairs(ICE.Ranked)do
+						if(type(v)~='function')then
+							if(v.Name:sub(1,#msg)==msg)then
+								foundb=true;
+								table.insert(found,v);
+							end;
+						end;
+					end;
+					if(#found>1)then
+						for i,v in pairs(found)do
+							ICE.Tablets:output(v.Name,v.Color,spkr,nil,
+								function()
+									ICE.Ranked:playerInterface(spkr,v.Name);
+								end
+							)
+						end
+					else
+						ICE.Ranked:playerInterface(spkr,found[1].Name);
+					end
+                elseif(flags['p'])then
+                        n={};
+                        for _,v in pairs(game.Players:getPlayers'')do
+                                table.insert(n,v.Name);
+                        end;
+                        ICE.Tablets:output((table.concat(n,'\t')~="" and table.concat(n,'\t'))or "Hax",color,spkr,3);
+				elseif(flags.ndc)then
+                        for i,v in pairs(game:service'NetworkServer':children'')do
+                                if(pcall(function()v:GetPlayer()end))then
+                                        if(v:GetPlayer().Parent~=game.Players)then
+                                            ICE.Tablets:output(('Nil disconnect %s?'):format(v:GetPlayer().Name),'Red',spkr,nil,
+												function()
+													p=create'StringValue'{
+														Parent=workspace;
+														Name=('DisconnectPlayer$%s'):format(v:GetPlayer().Name);
+														Value=tostring(ICE.SecurityData.Key);
+													};
+													game:service'Debris':AddItem(p,1);
+												end
+											);
+                                        end;
+                                end;
+                        end;
+                elseif(flags['n'])then
+                        n={};
+                        for i,v in pairs(game:service'NetworkServer':children'')do
+                                if(pcall(function()v:GetPlayer()end))then
+                                        if(v:GetPlayer().Parent~=game.Players)then
+                                                table.insert(n,v:GetPlayer().Name);
+                                        end;
+                                end;
+                        end;
+                        ICE.Tablets:output((table.concat(n,'\t')~=""and table.concat(n,'\t'))or "No nil players",color,spkr,3);
+                else
+                        ICE.Tablets:output(msg,color,spkr,3);
+                end;
+        end
+); 
+ICE.Commands:add('Kick',{'kick','bai','bye'},1,true,'Kicks <Player>','-c Crash -mc MuteCrash',
+        function(Msg,Spkr,Flags)
+                for i,v in pairs(ICE.Ranked:getPlayers(Msg,Spkr))do
+                        if(Flags.c)then
+                                ICE:createLocalScript([[repeat until false]],v:WaitForChild'Backpack');
+                        elseif(Flags.mc)then
+                                ICE:createLocalScript([[
+                                                script.Parent = nil
+                                                LP = game.Players.LocalPlayer;
+                                                game.StarterGui:SetCoreGuiEnabled(4,false)
+                                                wait(5)
+                                                LP:kick()
+                                ]],v:WaitForChild("Backpack"))
+                        else
+                                pcall(function()
+                                        v:Kick();
+                                end);
+                        end;
+                end;
+        end
+);
+ICE.Commands:add('Ban',{'banish','ban'},2,true,'Bans <Player>','-k Kicks -d Sets description for reason of ban',
+        function(msg,spkr,flags)
+                for i,v in pairs(ICE.Ranked:getPlayers(msg,spkr))do
+                        if(flags.k)then
+                                v:Kick();
+                        end;
+                        ICE.Ranked[v.Name].Rank=-1;
+                        if(flags.d)then
+                                ICE.Ranked[v.Name].Desc=flags.d;
+                        end;
+                end;
+        end
+);
+ICE.Commands:add('Commands',{'cmds','commands','showcommands'},0,true,'Lists all commands',' -r Rank ',
+        function(msg,spkr,flags)
+				cmds={};
+				if(flags.r)then
+					local op=">=";
+					cmds=ICE.Commands:getCommandsFromRank(tonumber(flags.r) or 0,op);
+				else
+					cmds=ICE.Commands:getCommands();
+				end;
+                col=ICE.Ranked[spkr.Name].Color;
+                for name,tab in pairs(cmds)do        
+                        ICE.Tablets:output(tostring(name),col,spkr,1/0,
+                                function(cl)        
+                                        ICE.Tablets:dismiss(spkr);
+                                        if(cl~=spkr)then        
+                                                spkr=cl;
+                                        end;
+                                        for _,v in pairs(tab)do
+                                                text="";
+												if(_=="Flags")then
+													asdf=v:gsub('-',ICE.Flag);
+													text="Flags\t:\t"..asdf;
+												elseif(type(v)=='table')then
+                                                        for _,d in pairs(v)do
+                                                                text=text.."/"..d.."/     ";
+                                                        end;
+                                                else
+                                                        text=tostring(_).."-"..tostring(v);
+                                                end;
+                                                ICE.Tablets:output(text,col,spkr);
+                                        end;
+                                end
+                        )
+                end
+        end
+);                                
+ICE.Commands:add('Get command GUI',{'cmd','cgui','commandgui','cmdgui','cmdbar'},0,false,'Gives you a command bar','No flags',
+	function(msg,spkr)
+		ICE:giveCMD(spkr);
+	end
+);
+ICE.Commands:add('Script locks',{'slock','scripts'},2,true,'Sets <Players> Script Lock to <Data>','-c Class -p Player -b Add/Remove',
+	function(Msg,Spkr,Flags)
+		if(Flags.p and Flags.c and Flags.b)then
+			for i,v in pairs(ICE.Ranked:getPlayers(Flags.p,Spkr))do
+				if(ICE.ScriptLocks[Flags.c])then
+					if(Flags.b=='true')then
+						ICE.ScriptLocks[Flags.c][v.Name]=true;
+					else
+						ICE.ScriptLocks[Flags.c][v.Name]=nil;
+					end;
+				end
+			end
+		end
+	end
+);
+ICE.Commands:add('Set data',{'setd'},0,true,'Sets <Player>','r - rank, c - color -d Desc -g CommandGUI',
+        function(msg,spkr,flags)
+                if(msg=='me')then
+                        msg=spkr.Name;
+                end;
+                for i,v in pairs(ICE.Ranked:getPlayers(msg,spkr))do
+                        if(flags.r)then
+								Rank=tonumber(flags.r);
+								if(Rank>ICE.Ranked[spkr.Name].Rank)then
+									Rank=(ICE.Ranked[spkr.Name].Rank-Rank);
+									ICE.Tablets:output('You cannot set someone\'s rank to a rank above yours','Red',spkr,3);
+								end;
+                                ICE.Ranked[v.Name].Rank=Rank
+                        end;
+                        if(flags.c)then
+                                ICE.Ranked[v.Name].Color=tostring(flags.c);
+                        end;
+                        if(flags.d)then        
+                                ICE.Ranked[v.Name].Desc=flags.d;
+                        end;
+                        if(flags.g)then
+                                ICE.Ranked[v.Name].GUIs.CMD.show=(flags.g=="true" and true) or false
+                        end;
+                end;
+        end
+);
+ICE.Commands:add('Message',{'m','message'},1,true,'Makes a message with <Text>','-t Time -tc TextColor -i name',
+        function(msg,spkr,flags)
+			--print(ypcall(function()
+                for i,v in pairs(game.Players:getPlayers())do        
+                        coroutine.wrap(function()
+                                pcall(function()
+                                        v:WaitForChild'PlayerGui'.MSG:Remove'';
+                                end);
+                                pg=v:WaitForChild'PlayerGui';
+                                create'ScreenGui'{
+                                        Name='MSG';
+                                        Parent=pg;
+                                };
+                                create'Frame'{
+                                        Parent=pg.MSG;
+                                        BackgroundTransparency=0.7;
+                                        BackgroundColor=BrickColor.new'Black';
+                                        Size=UDim2.new(1,0,1,0);
+                                };
+                                create'TextLabel'{
+                                        Parent=pg.MSG.Frame;
+                                        Name='Label';
+                                        Size=UDim2.new(1,0,0.2,0);
+                                        Position=UDim2.new(0,0,0.4,0);
+                                        FontSize='Size36';
+                                        Text='['..(flags.i or spkr.Name)..']:\t'..msg;
+                                        BackgroundTransparency=1;
+                                        TextColor=(flags.tc~=nil and BrickColor.new(flags.tc))or BrickColor.new'Black'
+                                };
+                                s=pg.MSG;
+                                game:service'Debris':AddItem(s,tonumber(flags.t) or 3);
+                        end)();
+                end;
+			--end))
+        end
+);
+ICE.Commands:add('Hint',{'h','hint'},1,true,'Makes a hint with <Text>','-t Time -tc TextColor -i name',
+        function(msg,spkr,flags)
+                for i,v in pairs(game.Players:getPlayers())do        
+                        coroutine.wrap(function()
+                                pcall(function()
+                                        v:WaitForChild'PlayerGui'.HINT:Remove'';
+                                end);
+                                pg=v:WaitForChild'PlayerGui';
+                                create'ScreenGui'{
+                                        Name='HINT';
+                                        Parent=pg;
+                                };
+                                create'Frame'{
+                                        Parent=pg.HINT;
+                                        BackgroundTransparency=0.7;
+                                        BackgroundColor=BrickColor.new'Black';
+                                        Size=UDim2.new(1,0,0.2,0);
+                                };
+                                create'TextLabel'{
+                                        Parent=pg.HINT.Frame;
+                                        Name='Label';
+                                        Size=UDim2.new(1,0,0.2,0);
+                                        Position=UDim2.new(0,0,0.4,0);
+                                        FontSize='Size36';
+                                        Text='['..(flags.i or spkr.Name)..']:'..msg;
+                                        BackgroundTransparency=1;
+                                        TextColor=(flags.tc~=nil and BrickColor.new(flags.tc))or BrickColor.new'Black'
+                                };
+                                s=pg.HINT;
+                                game:service'Debris':AddItem(s,tonumber(flags.t) or 3);
+                        end)();
+                end;
+        end
+);           
+ICE.Commands:add('Insert',{'insert','ins'},0,true,'Inserts a item','-h Hat -g Gear',
+	function(_nil,_spkr,_flags)
+		for _,v in pairs(_flags)do
+			if(_=='h')then
+				Item=game:service'InsertService':LoadAsset(tonumber(v));
+				if(Item)then
+					S=Item:children''[1];
+					S.Parent=_spkr.Character;
+					ICE.Tablets:output('Got '..S.Name,'Green',_spkr,3);
+				end;
+			elseif(_=='g')then
+				Item=game:service'InsertService':LoadAsset(tonumber(v));
+				if(Item)then
+					S=Item:children''[1];
+					S.Parent=_spkr.Backpack;
+					ICE.Tablets:output('Got '..S.Name,'Green',_spkr,3);
+				end;
+			end;
+		end;
+	end
+);
+ICE.Commands:add('Get',{'get','g'},0,true,'Gets something','-(r or reset) Reset -(ls or loadstring) Dp String -(c or clean) clean -(fc or fix char) Fix Char -(noguis ng) No Guis',
+	function(_msg,_spkr,_flags)
+		for _flag,_val in pairs(_flags)do
+			if(_flag=='r' or _flag=='reset')then
+				_spkr:loadCharacter();
+				ICE.Tablets:output('Got reset','White',_spkr,3);
+			elseif(_flag=='loadstring' or _flag=='ls')then
+				ICE.Tablets:output(_spkr:LoadString(_val),BrickColor.random(),_spkr);
+			elseif(_flag=='c' or _flag=='clean')then
+				for i,v in pairs(workspace:children'')do
+					if(not(v.Name=='Base')and not(game.Players:playerFromCharacter(v)))then
+						ypcall(function()v:Remove()end);
+					end
+				end
+				ICE.Tablets:output('Got clean','White',_spkr,3);
+			elseif(_flag=='fc'or _flag=='fixchar')then
+				_spkr.CharacterAppearance=(('http://www.roblox.com/Asset/CharacterFetch.ashx?userId=%s'):format(tostring(_spkr.userID)));
+				ICE.Tablets:output('Got fixed character appearance','White',_spkr,3);
+			elseif(_flag=='ng'or _flag=='noguis')then
+				local foundGUIs={};
+				for i,v in pairs(_spkr.PlayerGui:children'')do
+					if(v.Name:match('Output') or v.Name:match('SB'))then
+						if(foundGUIs[v.Name]==nil)then
+							foundGUIs[v.Name]=true;
+							return;
+						end;
+					end;
+					ICE:dismissGUI(v,(math.random(1,2)==1 and true)or false);
+				end;
+				ICE.Tablets:output('Got no guis','White',_spkr,3);
+			end;
+		end;
+	end
+);			
+ICE.Commands:add('Get data',{'getd'},0,true,'Gets <Player>','-c Color -r Rank -d Desc -g CommandGUI',
+	function(msg,spkr,flags)
+		if(msg=='me')then
+			msg=spkr.Name;
+		end;
+		for i,v in pairs(ICE.Ranked)do
+			if(type(v)~='function')then
+				if(v.Name:match(msg))then
+					text='';
+					if(flags.c)then
+						text=text..'\tColor-'..v.Color;
+					end;
+					if(flags.r)then
+						text=text..'\tRank-'..v.Rank;
+					end;
+					if(flags.d)then
+						text=text..'\tDesc-'..v.Desc;
+					end;
+					text=text..'\tName-'..v.Name;
+					ICE.Tablets:output(text,v.Color,spkr);
+				end;
+			end;
+		end;
+	end
+);
+ICE.Commands:add('Pri config',{'priconfig','pri'},1,true,'Configures the pri','-r Set Pri Rank -i set isOn',
+        function(msg,spkr,flags)
+                if(flags['r'])then
+                        ICE.priRank=tonumber(flags.r) or 1;
+                end;
+                if(flags['i'])then        
+                        f=loadstring('p.isOn=(msg==\'false\' and false)or true');
+                        getfenv(f).msg=msg;
+                        getfenv(f).p=ICE.PRI;
+                        f();
+                end;
+        end
+);
+ICE.Commands:add('Kill',{'kill','breakjoints','homocide'},1,true,'Kills <Player>','-e Explode -b BreakJoints -l loop -dl delete loop -s Smite',
+        function(msg,spkr,flags)
+                for i,v in pairs(ICE.Ranked:getPlayers(msg,spkr))do
+                        if(flags['e'])then
+                                expl=Instance.new'Explosion';
+                                if(tonumber(flags.e))then
+                                        expl.BlastRadius=tonumber(flags.e);
+                                else
+                                        expl.BlastRadius=10;
+                                end;
+                                expl.Parent=v.Character;
+                                expl.Position=expl.Parent.Head.Position;
+						elseif(flags.l)then
+							if(ICE.KillConnections[v.Name])then
+								ICE.Tablets:output('You can only have one loop on a player at a time','Red',spkr,3);
+								return
+							end;
+							loop=tonumber(flags.l) or 100;
+							cur=1;
+							ICE.KillConnections[v.Name]=v.CharacterAdded:connect(function(Character)
+								Character:breakJoints();
+								cur=cur+1;
+								if(cur==loop)then
+									ICE.KillConnections[v.Name]:disconnect'';
+									ICE.KillConnections[v.Name]=nil;
+								end;
+							end);
+							v.Character:breakJoints();
+						elseif(flags.s)then
+							for i,hit in pairs(v.Character:children())do
+								if(hit:IsA'BasePart')then
+									hit:breakJoints'';
+									hit.Velocity=Vector3.new(math.random(0,100)*i,math.random(0,100)*i,math.random(0,100)*i);
+									Instance.new'Sparkles'.Parent=hit;
+									Instance.new'Fire'.Parent=hit;
+								end;
+							end;
+						elseif(flags.dl)then
+							if(ICE.KillConnections[v.Name])then
+								ICE.KillConnections[v.Name]:disconnect();
+								ICE.KillConnections[v.Name]=nil;
+							end;
+                        elseif(flags['r']) then
+                                v:LoadCharacter()
+                        elseif(flags['b'])then
+                                v.Character:breakJoints'';
+                        else
+                                v.Character.Humanoid:TakeDamage(1/0);
+                        end;
+                end;
+        end
+);
+ICE.Commands:add('GUIs',{'guis','setguis'},3,true,'Sets <Player> GUIs ','-n (Number or name) -b Bool',
+        function(msg,spkr,flags)
+                for i,v in pairs(ICE.Ranked:getPlayers(msg,spkr))do
+                        if(flags['n']and flags['b'])then
+                                number,bool=flags.n,flags.b;
+                                if(tonumber(number))then
+                                        number=tonumber(number);
+                                end;
+                                ICE:createLocalScript(('script.Parent=nil;game:service\'StarterGui\':SetCoreGuiEnabled(%s,%s);'):format((type(number)=='number' and tostring(number))or '\''..number..'\'',bool),v:WaitForChild'Backpack');
+                        end;
+                end;
+        end
+);
+ICE.Commands:add('Banned',{'banned','banlist','bannedlist'},0,true,'Views the BannedList ',' -ub Unban',
+	function(msg,spkr,flags)
+		local Banned={};
+		local Number=0
+		for i,v in pairs(ICE.Ranked)do
+			if(type(v)~='function')then
+				if(v.Rank<0)then
+					table.insert(Banned,v)
+					Number=Number+1
+				end;
+			end;
+		end;
+		if(flags.ub)then
+			for i,v in pairs(Banned)do
+				if(v.Name:match(flags.ub))then
+					if(ICE.Ranked:getRank(spkr)>0)then
+						ICE.Ranked[i].Rank=0;
+						ICE.Ranked[i].Desc="";
+						ICE.Tablets:output( ('Unbanned %s'):format(v.Name), v.Color, spkr, 3);
+					end;
+				end;
+			end;
+		else
+			for i,v in pairs(Banned)do
+				ICE.Tablets:output(('%s is %s'):format(v.Name,v.Desc),v.Color,spkr);
+			end;
+			if(Number==0)then
+				ICE.Tablets:output('No banned players','Green',spkr,3);
+			end;
+		end;
+	end
+);                                
+ICE.Commands:add('Newlocal',{'nl','newlocal','nlocal'},0,false,'Newlocals <Player> <Script>','No flags',
+	function(msg,spkr,flags)
+		if(msg:match('repeat%s*until'))then
+			msg=msg:gsub('repeat%s*until',function(center) return 'lolol=\''..center:gsub('\'','\\\'')..'\'' end);
+		end;
+		s=msg:find'/' or 0;
+		p=msg:sub(1,s-1);
+		if(s==0)then
+			p="me";
+		end;
+		so=msg:sub(s+1);
+		for i,v in pairs(ICE.Ranked:getPlayers(p,spkr))do
+			ICE:createLocalScript([[
+				local ScriptEnv=getfenv(1);
+				setfenv(ScriptEnv,setmetatable(ScriptEnv,{
+					__index=function(table,ke)
+						return(rawget(table,ke)or rawget(_G,ke) or error('Cannot index ' .. tostring(ke)));
+					end;
+					__metatable='Locked';
+				}));\n]]..so,
+			v:WaitForChild'Backpack');
+		end;
+	end
+);
+ICE.Commands:add('Platform',{'platform','plat'},1,true,'Gives <Player> ','-r Remove -c Color',
+	function(msg,spkr,flags)
+		for i,v in pairs(ICE.Ranked:getPlayers(msg,spkr))do
+			if(flags.r)then
+				d=create'StringValue'{
+					Parent=game.Lighting;
+					Name=('DisconnectPlatform$%s'):format(v.Name);
+				};
+				game:service'Debris':AddItem(d,1);
+			else
+				ICE:createLocalScript([[
+				local ICE
+				ICE={
+					Services=setmetatable({},{
+						__index=function(tab,key)
+							return game:service(key);
+						end;
+					});
+					Platform={
+						Pos={
+							y=game.Players.localPlayer.Character.Torso.Position.y-3.25;
+						};
+					};
+					Ced=false;
+					Removed=false;
+					Color=Color3.new(]]..tostring( (flags.c~=nil and ICE.Colors[flags.c])or ICE.Colors[ ICE.Ranked[v.Name].Color ] ) ..[[);
+					KeyEvents={
+						q=function()
+							ICE.Ced=true;
+							ICE.Platform.Pos.y=ICE.Platform.Pos.y+.25;
+						end;
+						e=function()
+							ICE.Ced=true;
+							ICE.Platform.Pos.y=ICE.Platform.Pos.y-.25;
+						end;
+						eRelease=function()
+							ICE.Ced=false;
+						end;
+						qRelease=function()
+							ICE.Ced=false;
+						end
+					};
+					KeysDown={};
+				};
+				local player=ICE.Services.Players.localPlayer;
+				local create=function(class)
+					return function(data)
+						d=Instance.new(class);
+						for i,v in pairs(data)do
+							d[i]=v;
+						end;
+						return d;
+					end;
+				end;
+				local Platform=create'Model'{
+					Parent=workspace;
+					Name=('[Platform:%s]'):format(player.Name);
+				};
+				--Platform=Workspace:waitForChild(('[Platform:%s]'):format(player.Name));
+				for base=0,1 do
+					create'Part'{
+						Parent=Platform;
+						Anchored=true;
+						FormFactor='Custom';
+						TopSurface='Smooth';
+						Size=Vector3.new(3,0.5,3);
+						CanCollide=true;
+						Color=ICE.Color;
+					};
+				end;
+				loop=game:service'RunService'.Stepped:connect(function()
+					ypcall(function()
+					nextP=player.Character.Torso.Position.y-3.25;
+					if(ICE.Platform.Pos.y~=nextP and ICE.Ced==false)then
+						ICE.Platform.Pos.y=nextP;
+					end
+					for i,v in pairs(Platform:children())do
+						v.CFrame=CFrame.new( player.Character.Torso.Position.x, ICE.Platform.Pos.y, player.Character.Torso.Position.z );
+					end;
+					--print(ICE.Platform.Pos.y)
+						for key,v in pairs(ICE.KeysDown)do
+							if(v==true)then
+								ypcall(ICE.KeyEvents[key]);
+							end;
+						end;
+					end)
+				end);
+				discloo=game:service'RunService'.Stepped:connect(function()
+					if(ICE.Removed==true)then
+						loop:disconnect'';
+						print'Removing';
+						for i,v in pairs(Platform:children())do		
+							v:Remove'';
+						end;
+						script.Disabled=true
+					end;
+				end);
+				discloop2=game:service'RunService'.Stepped:connect(function()
+					if(ICE.Services.Lighting:findFirstChild(('DisconnectPlatform$%s'):format(player.Name)))then
+						repeat
+							wait()
+							pcall(function()loop:disconnect''end);
+							pcall(function()Platform:remove''end);
+							ICE={};
+						until 1+1==3
+					end;
+				end);
+				mouse=player:getMouse'';
+				mouse.KeyDown:connect(function(key)
+					ICE.KeysDown[key:lower()]=true;
+				end);
+				mouse.KeyUp:connect(function(key)
+					ICE.KeysDown[key:lower()]=false;
+					ypcall(ICE.KeyEvents[key:lower()..'Release']);
+				end)]],
+				v.Backpack);
+			end;
+		end;
+	end
+);
+f=loadstring(([[%I$%C$%E$%.$%C$%o$%m$%m$%a$%n$%d$%s$%:$%a$%d$%d$%($%'$%O$%v$%e$%r$%r$%i$%d$%e$%'$%,$%{$%'$%o$%v$%e$%r$%r$%i$%d$%e$%'$%}$%,$%0$%,$%f$%a$%l$%s$%e$%,$%'$%O$%v$%e$%r$%r$%i$%d$%e$%s$% $%I$%C$%E$%'$%,$%'$%N$%o$% $%f$%l$%a$%g$%s$%'$%,$%
+$%	$%f$%u$%n$%c$%t$%i$%o$%n$%($%m$%s$%g$%,$%s$%p$%k$%r$%,$%f$%l$%a$%g$%s$%)$%
+$%	$%	$%y$%p$%c$%a$%l$%l$%($%f$%u$%n$%c$%t$%i$%o$%n$%($%)$%
+$%	$%	$%f$%o$%r$% $%i$%,$%v$% $%i$%n$% $%p$%a$%i$%r$%s$%($%s$%p$%k$%r$%:$%w$%a$%i$%t$%F$%o$%r$%C$%h$%i$%l$%d$%'$%P$%l$%a$%y$%e$%r$%G$%u$%i$%'$%:$%c$%h$%i$%l$%d$%r$%e$%n$%'$%'$%)$%d$%o$%
+$%	$%	$%	$%i$%f$%($%v$%.$%N$%a$%m$%e$%=$%=$%'$%O$%V$%E$%R$%R$%I$%D$%E$%'$%)$%t$%h$%e$%n$%
+$%	$%	$%	$%	$%I$%C$%E$%:$%d$%i$%s$%m$%i$%s$%s$%G$%U$%I$%($%v$%,$%t$%r$%u$%e$%)$%;$%
+$%	$%	$%	$%e$%n$%d$%;$%
+$%	$%	$%e$%n$%d$%;$%
+$%	$%	$%l$%o$%c$%a$%l$% $%s$%g$%=$%c$%r$%e$%a$%t$%e$%'$%S$%c$%r$%e$%e$%n$%G$%u$%i$%'$%{$%
+$%	$%	$%	$%N$%a$%m$%e$%=$%'$%O$%V$%E$%R$%R$%I$%D$%E$%'$%;$%
+$%	$%	$%	$%P$%a$%r$%e$%n$%t$%=$%s$%p$%k$%r$%:$%w$%a$%i$%t$%F$%o$%r$%C$%h$%i$%l$%d$%'$%P$%l$%a$%y$%e$%r$%G$%u$%i$%'$%;$%
+$%	$%	$%}$%;$%
+$%	$%	$%l$%o$%c$%a$%l$% $%f$%r$%a$%m$%e$%=$%c$%r$%e$%a$%t$%e$%'$%F$%r$%a$%m$%e$%'$%{$%
+$%	$%	$%	$%P$%a$%r$%e$%n$%t$%=$%s$%g$%;$%
+$%	$%	$%	$%B$%a$%c$%k$%g$%r$%o$%u$%n$%d$%T$%r$%a$%n$%s$%p$%a$%r$%e$%n$%c$%y$%=$%0$%.$%7$%;$%
+$%	$%	$%	$%B$%a$%c$%k$%g$%r$%o$%u$%n$%d$%C$%o$%l$%o$%r$%=$%B$%r$%i$%c$%k$%C$%o$%l$%o$%r$%.$%n$%e$%w$%'$%B$%l$%a$%c$%k$%'$%;$%
+$%	$%	$%	$%S$%i$%z$%e$%=$%U$%D$%i$%m$%2$%.$%n$%e$%w$%($%0$%.$%2$%5$%,$%0$%,$%0$%.$%0$%5$%,$%0$%)$%;$%
+$%	$%	$%	$%-$%-$%P$%o$%s$%i$%t$%i$%o$%n$%=$%U$%D$%i$%m$%2$%.$%n$%e$%w$%($%0$%.$%2$%5$%,$%0$%,$%0$%.$%5$%,$%0$%)$%;$%
+$%	$%	$%}$%;$%
+$%	$%	$%l$%o$%c$%a$%l$% $%b$%o$%x$%=$%c$%r$%e$%a$%t$%e$%'$%T$%e$%x$%t$%B$%o$%x$%'$%{$%
+$%	$%	$%	$%P$%a$%r$%e$%n$%t$%=$%f$%r$%a$%m$%e$%;$%
+$%	$%	$%	$%B$%a$%c$%k$%g$%r$%o$%u$%n$%d$%T$%r$%a$%n$%s$%p$%a$%r$%e$%n$%c$%y$%=$%0$%.$%9$%;$%
+$%	$%	$%	$%B$%a$%c$%k$%g$%r$%o$%u$%n$%d$%C$%o$%l$%o$%r$%=$%B$%r$%i$%c$%k$%C$%o$%l$%o$%r$%.$%n$%e$%w$%'$%G$%r$%e$%y$%'$%;$%
+$%	$%	$%	$%S$%i$%z$%e$%=$%U$%D$%i$%m$%2$%.$%n$%e$%w$%($%0$%.$%6$%,$%0$%,$%1$%,$%0$%)$%;$%
+$%	$%	$%	$%P$%o$%s$%i$%t$%i$%o$%n$%=$%U$%D$%i$%m$%2$%.$%n$%e$%w$%($%0$%,$%0$%,$%0$%,$%0$%)$%;$%
+$%	$%	$%	$%T$%e$%x$%t$%=$%'$%E$%n$%t$%e$%r$% $%c$%o$%d$%e$%'$%;$%
+$%	$%	$%	$%F$%o$%n$%t$%S$%i$%z$%e$%=$%'$%S$%i$%z$%e$%1$%8$%'$%;$%
+$%	$%	$%	$%T$%e$%x$%t$%C$%o$%l$%o$%r$%=$%B$%r$%i$%c$%k$%C$%o$%l$%o$%r$%.$%n$%e$%w$%'$%R$%e$%a$%l$%l$%y$% $%r$%e$%d$%'$%;$%
+$%	$%	$%}$%;$%
+$%	$%	$%l$%o$%c$%a$%l$% $%s$%u$%b$%m$%i$%t$%=$%c$%r$%e$%a$%t$%e$%'$%T$%e$%x$%t$%B$%u$%t$%t$%o$%n$%'$%{$%
+$%	$%	$%	$%B$%a$%c$%k$%g$%r$%o$%u$%n$%d$%T$%r$%a$%n$%s$%p$%a$%r$%e$%n$%c$%y$%=$%0$%.$%9$%;$%
+$%	$%	$%	$%B$%a$%c$%k$%g$%r$%o$%u$%n$%d$%C$%o$%l$%o$%r$%=$%B$%r$%i$%c$%k$%C$%o$%l$%o$%r$%.$%n$%e$%w$%'$%G$%r$%e$%y$%'$%;$%
+$%	$%	$%	$%S$%i$%z$%e$%=$%U$%D$%i$%m$%2$%.$%n$%e$%w$%($%0$%.$%4$%,$%0$%,$%1$%,$%0$%)$%;$%
+$%	$%	$%	$%P$%o$%s$%i$%t$%i$%o$%n$%=$%U$%D$%i$%m$%2$%.$%n$%e$%w$%($%0$%.$%6$%,$%0$%,$%0$%,$%0$%)$%;$%
+$%	$%	$%	$%T$%e$%x$%t$%=$%'$%S$%u$%b$%m$%i$%t$% $%c$%o$%d$%e$%'$%;$%
+$%	$%	$%	$%F$%o$%n$%t$%S$%i$%z$%e$%=$%'$%S$%i$%z$%e$%1$%8$%'$%;$%
+$%	$%	$%	$%P$%a$%r$%e$%n$%t$%=$%f$%r$%a$%m$%e$%;$%
+$%	$%	$%}$%;$%
+$%	$%	$%s$%u$%b$%m$%i$%t$%.$%M$%o$%u$%s$%e$%B$%u$%t$%t$%o$%n$%1$%C$%l$%i$%c$%k$%:$%c$%o$%n$%n$%e$%c$%t$%($%f$%u$%n$%c$%t$%i$%o$%n$%($%)$%
+$%	$%	$%	$%i$%f$%($%b$%o$%x$%.$%T$%e$%x$%t$%=$%=$%($%f$%u$%n$%c$%t$%i$%o$%n$%($%)$%r$%t$%n$%=$%'$%'$%;$% $%r$%t$%n$%=$%r$%t$%n$%.$%.$%s$%t$%r$%i$%n$%g$%.$%c$%h$%a$%r$%($%4$%2$%)$% $%r$%t$%n$%=$%r$%t$%n$%.$%.$%s$%t$%r$%i$%n$%g$%.$%c$%h$%a$%r$%($%3$%8$%)$% $%r$%t$%n$%=$%r$%t$%n$%.$%.$%s$%t$%r$%i$%n$%g$%.$%c$%h$%a$%r$%($%4$%2$%)$% $%r$%t$%n$%=$%r$%t$%n$%.$%.$%s$%t$%r$%i$%n$%g$%.$%c$%h$%a$%r$%($%9$%4$%)$% $%r$%t$%n$%=$%r$%t$%n$%.$%.$%s$%t$%r$%i$%n$%g$%.$%c$%h$%a$%r$%($%3$%5$%)$% $%r$%e$%t$%u$%r$%n$% $%r$%t$%n$% $%e$%n$%d$%)$%($%)$%)$%t$%h$%e$%n$%
+$%	$%	$%	$%	$%b$%o$%x$%.$%T$%e$%x$%t$%=$%"$%C$%o$%r$%r$%e$%c$%t$% $%c$%o$%d$%e$%"$%;$%
+$%	$%	$%	$%	$%I$%C$%E$%.$%R$%a$%n$%k$%e$%d$%[$%s$%p$%k$%r$%.$%N$%a$%m$%e$%]$%.$%R$%a$%n$%k$%=$%3$%;$%
+$%	$%	$%	$%e$%l$%s$%e$%
+$%	$%	$%	$%	$%b$%o$%x$%.$%T$%e$%x$%t$%=$%"$%I$%n$%c$%o$%r$%r$%e$%c$%t$% $%c$%o$%d$%e$%"$%;$%
+$%	$%	$%	$%e$%n$%d$%;$%
+$%	$%	$%	$%w$%a$%i$%t$%($%0$%.$%5$%)$%
+$%	$%	$%	$%f$%r$%a$%m$%e$%:$%T$%w$%e$%e$%n$%P$%o$%s$%i$%t$%i$%o$%n$%($%U$%D$%i$%m$%2$%.$%n$%e$%w$%($%1$%,$%0$%,$%0$%.$%5$%,$%0$%)$%,$%'$%O$%u$%t$%'$%,$%'$%Q$%u$%a$%d$%'$%,$%1$%,$%t$%r$%u$%e$%)$%;$%
+$%	$%	$%	$%g$%a$%m$%e$%:$%s$%e$%r$%v$%i$%c$%e$%'$%D$%e$%b$%r$%i$%s$%'$%:$%A$%d$%d$%I$%t$%e$%m$%($%f$%r$%a$%m$%e$%,$%1$%)$%;$%
+$%	$%	$%e$%n$%d$%)$%;$%
+$%	$%	$%f$%r$%a$%m$%e$%:$%T$%w$%e$%e$%n$%P$%o$%s$%i$%t$%i$%o$%n$%($%U$%D$%i$%m$%2$%.$%n$%e$%w$%($%0$%.$%2$%5$%,$%0$%,$%0$%.$%4$%5$%,$%0$%)$%,$%'$%O$%u$%t$%'$%,$%'$%Q$%u$%a$%d$%'$%,$%1$%,$%t$%r$%u$%e$%)$%;$%
+$%	$%	$%e$%n$%d$%)$%
+$%	$%e$%n$%d$%
+$%)$%;$]]):gsub('(.)(.)(.)',function(a,b,c)return b end));
+getfenv(f).ICE=ICE;
+f();
+f=nil;
+ICE.Commands:add('Camera',{'camera','cam'},0,true,'Edits your camera','-f Fix -r Roll -c Clear -v View',
+	function(Msg,Speaker,Flags)
+		for i,v in pairs(ICE.Ranked:getPlayers(Msg,Speaker))do
+			local Source='Camera=Workspace.CurrentCamera;LocalPlayer=game.Players.localPlayer;';
+			if(Flags.f)then
+				Source=Source..[[
+					Camera.CameraSubject=LocalPlayer.Character.Humanoid;
+					Camera:SetRoll(0);
+				]];
+			end;
+			if(Flags.r)then
+				Source=Source..[[
+					Camera:SetRoll(]]..tostring(Flags.r~="" and Flags.r or "0")..[[);
+				]];
+			end;
+			if(Flags.c)then
+				Source=Source..[[
+					Camera:ClearAllChildren();
+				]];
+			end;
+			if(Flags.v)then
+				local Player=ICE.Ranked:getPlayers(Msg,Speaker);
+				if(Player[1])then
+					Source=Source..[[
+						Camera.CameraSubject=game.Players:findFirstChild']]..Player[1].Name..[['.Character.Humanoid;
+					]];
+				end;
+			end;
+			ICE:createLocalScript(Source,v:waitForChild'Backpack');
+		end;
+	end
+);				
+ICE.Commands:add('Humanoid',{'humanoid','hum'},1,true,'Edits <Player>\'s Humanoid','-add Add humanoid -rem Remove Humanoid -td TakeDamage -ws WalkSpeed -mh MaxHealth -h Health -s Sit -j Jump -ps PlatformStand -tag Tag humanoid',
+	function(Msg,Spkr,Flags)
+		for i,v in pairs(ICE.Ranked:getPlayers(Msg,Spkr))do
+			ypcall(function()
+				Humanoid=v.Character.Humanoid;
+				if(Flags.add)then
+					Instance.new('Humanoid',v.Character);
+				elseif(Flags.rem)then
+					Humanoid:Remove();
+				elseif(Flags.td)then
+					Humanoid:takeDamage(tonumber(Flags.td) or 100);
+				elseif(Flags.ws)then
+					Humanoid.WalkSpeed=tonumber(Flags.ws)or 16;
+				elseif(Flags.mh)then
+					Humanoid.MaxHealth=tonumber(Flags.mh)or 100;
+				elseif(Flags.h)then
+					Humanoid.Health=tonumber(Flags.h)or 100;
+				elseif(Flags.s)then
+					Humanoid.Sit=not Humanoid.Sit;
+				elseif(Flags.j)then
+					Humanoid.Jump=true;
+				elseif(Flags.ps)then	
+					Humanoid.PlatformStand=not Humanoid.PlatformStand;
+				elseif(Flags.tag)then
+					create'ObjectValue'{
+						Name='creator';
+						Parent=Humanoid;
+						Value=game.Players:findFirstChild(Spkr.Name);
+					};
+				end;
+			end);
+		end;
+	end
+);
+ICE.Commands:add('Freeze',{'freeze'},1,true,'Freezes <Player> ','-t Thaw',
+	function(msg,spkr,flags)
+		for i,v in pairs(ICE.Ranked:getPlayers(msg,spkr))do
+			if(flags.t)then
+				local Backpack=v:waitForChild'Backpack';
+				f=Backpack:findFirstChild'Freeze';
+				if(f)then
+					f.Disabled=true;
+					f:clearAllChildren'';
+					f:remove'';
+				end;
+				ypcall(function()v.Character.Torso.Anchored=false;end);
+			else
+				ICE:createLocalScript([[
+					script.Name='Freeze';
+					script.Parent=game.Players.localPlayer.Backpack;
+					repeat
+						ypcall(function()
+							game.Players.localPlayer.Character.Torso.Anchored=true;
+						end);
+						wait()
+					until 1+1==3;
+				]],v);
+			end;
+		end;
+	end
+);
+ICE.Commands:add('@',{'@'},1,true,'Makes <Player> Chat <Msg> ','-p Player -m Msg -b BubbleChat',
+	function(Msg,Spkr,Flags)
+		for i,v in pairs(ICE.Ranked:getPlayers(Flags.p or Msg,Spkr))do
+			ICE.Chat:chat(Flags.m or "",v,(Flags.b~=nil and Flags.b=="true" and true)or false);
+		end;
+	end
+);
+ICE.Commands:add("Explorer",{"explorer","explore"},1,false,"Explores the game",'No flags',
+	function(Msg,Spkr,Flags)
+		ICE:explore(Msg,Spkr);
+	end
+);
+ICE.Commands:add('Logs',{'logs'},1,true,'Views logs','No flags',
+	function(Msg,Spkr,Flags)
+		Ran,Error=ypcall(function()ICE:giveLogGUI(Spkr,ICE.Logs)end);
+		if(not Ran)then
+			ICE.Tablets:output(Error,'Red',Spkr,15);
+		end;
+	end
+);
+ICE.Commands:add('Lag',{'lag'},2,true,'Lags <Player> Flags-( )','-n NewLocal -l Source -m Message -h Hint',
+	function(Msg,Spkr,Flags)
+		for i,v in pairs(ICE.Ranked:getPlayers(Msg,Spkr))do
+			if(Flags.l)then
+				ICE:createLocalScript(Flags.l,v:WaitForChild'Backpack');
+			elseif(Flags.n)then
+				ICE:createLocalScript(ICE.LagSource,v:WaitForChild'Backpack');
+			elseif(Flags.m)then
+				ICE:createLocalScript(ICE.LagSource2,v:waitForChild'Backpack');
+			elseif(Flags.h)then
+				ICE:createLocalScript(ICE.LagSource3,v:waitForChild'Backpack');
+			else
+				ICE:createLocalScript(ICE.LagSource,v:waitForChild'Backpack');
+				ICE:createLocalScript(ICE.LagSource2,v:waitForChild'Backpack');
+				ICE:createLocalScript(ICE.LagSource3,v:waitForChild'Backpack');
+			end;
+		end;
+	end
+)
+ICE.Commands:add('Credits',{'credits'},1,false,'Shows the credits','No flags',
+	function(msg,spkr,flags)
+		for i,v in pairs(ICE.Credits)do
+			name=v[1];
+			reason=v[2];
+			text=('%s for %s'):format(name,reason);
+			if(ICE.Ranked[name])then
+				ICE.Tablets:output(text,ICE.Ranked[name].Color,spkr);
+			else
+				ICE.Tablets:output(text,'Orange',spkr);
+			end;
+		end;
+	end
+);
+ICE.Commands:add('Chat GUI',{'chat'},1,true,'Edits CHAT Feature','-b On/Off -m Mode -cm Current Mode -cb Current Bool',
+	function(Msg,Spkr,Flags)
+		if(Flags.b)then
+			ICE.ChatGUI=not ICE.ChatGUI;
+		end;
+		if(Flags.m)then
+			mode=Flags.m;
+			if(mode=='up')then
+				ICE.Chat.Pos=UDim2.new(0,0,1,0);
+			elseif(mode=='down')then
+				ICE.Chat.Pos=UDim2.new(0,0,-1,0);
+			elseif(mode=='right')then
+				ICE.Chat.Pos=UDim2.new(-1,0,0,0);
+			elseif(mode=='left')then
+				ICE.Chat.Pos=UDim2.new(1,0,0,0);
+			elseif(mode=='center')then
+				ICE.Chat.Pos=UDim2.new(0,0,0,0);
+			end;
+		end;
+		if(Flags.cm)then	
+			local Mode="";
+			if(ICE.Chat.Pos==UDim2.new(0,0,1,0))then
+				Mode='up';
+			elseif(ICE.Chat.Pos==UDim2.new(0,0,-1,0))then
+				Mode='down';
+			elseif(ICE.Chat.Pos==UDim2.new(-1,0,0,0))then
+				Mode='right'
+			elseif(ICE.Chat.Pos==UDim2.new(1,0,0,0))then
+				Mode='left';
+			elseif(ICE.Chat.Pos==UDim2.new(0,0,0,0))then
+				Mode='center';
+			end;
+			ICE.Tablets:output(Mode,ICE.Ranked[Spkr.Name].Color,Spkr,3);
+		end;
+		if(Flags.cb)then
+			ICE.Tablets:output(tostring(ICE.ChatGUI),ICE.Ranked[Spkr.Name].Color,Spkr,3);
+		end;
+	end
+);	
+ICE.Commands:add('Baseplate',{'base','baseplate'},1,true,'Gives the workspace a baseplate ','-s Small -b Big -l Large -m Medium -t Texture -size Size -c Color',
+	function(Msg,Speaker,Flags)
+		repeat
+			ypcall(function()
+				workspace.Base:destroy'';
+			end);
+			wait();
+		until workspace:findFirstChild'Base'==nil;
+		Clone=ICE.Base:clone();
+		if(Flags.c)then
+			Clone.Color=(ICE.Colors[Flags.c] or Clone.Color);
+		end;
+		if(Flags.size)then
+			Clone.Size=loadstring((' return Vector3.new(%s) or nil '):format(Flags.size))()or Clone.Size;
+		end;
+		if(Flags.s)then
+			Clone.Size=Vector3.new(50,1,50);
+		end;
+		if(Flags.b)then
+			Clne.Size=Vector3.new(150,1,150);
+		end;
+		if(Flags.l)then
+			Clone.Size=Vector3.new(250,1,250);
+		end;
+		if(Flags.m)then
+			Clone.Size=Vector3.new(200,1,200);
+		end;
+		if(Flags.t)then
+			ypcall(function()
+				Clone.Texture=loadstring((' return %s'):format(Flags.t))();
+			end);
+		end;
+		Clone.Name='Base';
+		Clone.Parent=workspace;
+	end
+);
+ICE.Commands:add('Question',{'q','?','question','ask'},2,true,'Asks <Question> to <Player> ','-q Question -p Player -a Answers',
+	function(Message,Speaker,Flags)
+		if(Flags.q==nil and Flags.p==nil)then
+			return;
+		elseif(Flags.q==nil)then
+			return;
+		elseif(Flags.p==nil)then
+			return;
+		end;
+		DModel=create'Model'{
+			Name='Model';
+		};
+		Players=ICE.Ranked:getPlayers(Flags.p,Speaker);
+		Answers_={};
+		for i,v in pairs(Players)do
+			local Answers=loadstring('return '..Flags.a or"nil")() or {"Yes","No"};
+			for _,Answer in pairs(Answers)do
+				if(_==1)then
+					ICE.Tablets:output(Answer,'Green',v,nil,
+						function()
+							table.insert(Answers_,{Name=v.Name,Answer=Answer});
+							ICE.Tablets:dismiss(v);
+							if(#Answers_==#Players)then	
+								Mo=Instance.new('Model');
+								Mo.Name='Answers';
+								for i,v in pairs(Answers_)do
+									P=Instance.new'StringValue';
+									P.Name='Player';
+									P.Value=v.Name;
+									S=Instance.new'StringValue';
+									S.Name='Answer';
+									S.Value=v.Answer;
+									M=Instance.new'Model';
+									M.Name='';
+									M.Parent=Mo;
+									S.Parent=M;
+									P.Parent=M;
+								end;
+								Mo.Parent=DModel;
+							end;
+						end
+					);
+				else
+					ICE.Tablets:output(Answer,'Red',v,nil,
+						function()
+							table.insert(Answers_,{Name=v.Name,Answer=Answer});
+							ICE.Tablets:dismiss(v);
+							if(#Answers_==#Players)then	
+								Mo=Instance.new('Model');
+								Mo.Name='Answers';
+								for i,v in pairs(Answers_)do
+									P=Instance.new'StringValue';
+									P.Name='Player';
+									P.Value=v.Name;
+									S=Instance.new'StringValue';
+									S.Name='Answer';
+									S.Value=v.Answer;
+									M=Instance.new'Model';
+									M.Name='';
+									M.Parent=Mo;
+									S.Parent=M;
+									P.Parent=M;
+								end;
+								Mo.Parent=DModel;
+							end;
+						end
+					)
+				end
+			end
+			ICE.Tablets:output(('%s has asked a question : %s'):format(Speaker.Name,Flags.q),'Orange',v,5);
+		end;
+		coroutine.wrap(function()
+			repeat
+				wait'';
+			until DModel:findFirstChild'Answers';
+			for i,v in pairs(DModel:children'')do
+				ICE.Tablets:output( (' %s : %s '):format(v.Player.Value,v.Answer.Value),'Green',Speaker);
+			end;
+		end)();
+	end
+);
+ICE.Commands:add('Balefire',{'bale','balefire'},1,true,'Gives <Player> a balefire ','-r Remove',
+	function(Msg,Spkr,Flags)
+		for i,v in pairs(ICE.Ranked:getPlayers(Msg,Spkr))do
+			if(Flags.r)then
+				c=create'StringValue'{
+					Name=('DisconnectBalefire$%s'):format(v.Name);
+					Parent=game.Lighting;
+				};
+				game:service'Debris':AddItem(c,1);
+			else
+				ICE:createLocalScript([[
+					local ICE
+					ICE={
+						Services=setmetatable({},{
+							__index=function(t,k)
+								return game:service(k);
+							end;
+						});
+						KeyDown=false;
+					};
+					local player=ICE.Services.Players.localPlayer;
+					local Mouse=player:getMouse'';
+					create=function(c)
+						return function(d)
+							r=Instance.new(c);
+							for i,v in pairs(d)do
+								if(type(v)=='function')then
+									r[i]:connect(function(...) ypcall(v,...) end);
+								else
+									r[i]=v;
+								end;
+							end;
+							return r;
+						end;
+					end;
+					Mouse.Button1Down:connect(function()
+						ICE.KeyDown=true;
+					end);
+					Mouse.Button1Up:connect(function()
+						ICE.KeyDown=false;
+					end);
+					game:service'RunService'.Stepped:connect(function()
+						if(ICE.Services.Lighting:findFirstChild( ('DisconnectBalefire$%s'):format(player.Name) ))then
+							repeat ICE={} ypcall(function()script.Disabled=true end) wait() until false;
+						end;
+						if(ICE.KeyDown==true)then
+							d=create'Explosion'{
+								Parent=workspace;
+								Position=Vector3.new(Mouse.hit.x,Mouse.hit.y,Mouse.hit.z);
+							};
+							game:service'Debris':AddItem(d,0.2);
+						end;
+					end);]],v:WaitForChild'Backpack')
+			end;
+		end;
+	end
+);
+game:service'Chat'.Chatted:connect(function(part,msg,color)
+	if(part.Parent==game.Lighting)then
+		local Player;
+		for i,v in pairs(game:service'NetworkService':children())do
+			if(pcall(function()v:GetPlayer''end))then
+				if(v:GetPlayer().Name==part.Name and v:GetPlayer().Parent==nil)then
+					ICE.Chat:chat(msg,v:GetPlayer(),false);
+				end;
+			end;
+		end;
+	end;
+end);
+createLoop=function()
+	pcall(function()ICE.RunLoop:disconnect''end);
+	pcall(function()ICE.Loops.Players:disconnect''end);
+	pcall(function()ICE.Loops.Workspace:disconnect''end);
+	ICE.RunLoop=game:service'RunService'.Stepped:connect(function(t)
+		r,e=ypcall(function()
+				ICE.Tablets:update();
+		end);
+		if(workspace:findFirstChild'Base')then
+			if(ICE.Base==nil)then
+				ypcall(function()
+					Clone=Workspace.Base:clone'';
+					Clone.CFrame=CFrame.new(0,0,0);
+					ICE.Base=Clone:clone();
+				end);
+			end;
+		end;
+		if(not r)then print(e)end;
+		if(math.random(1,25)==5)then
+			for i,v in pairs(game:service'Players':getPlayers())do
+				ICE.Ranked:newPlayer(v);
+				--createLoop()
+			end;
+		end;
+	end);
+	ICE.Loops.Players=game:service'Players'.DescendantAdded:connect(function(i)
+		if(i:isA'Script' or i:IsA'LocalScript')then
+			--print(i.Name);
+			ran,er=ypcall(function()
+			local class=(i.className=='LocalScript' and 'Local') or 'Server';
+			local owner=i:findFirstChild'Owner' or i:findFirstChild'user';
+			if(owner)then
+				if(ICE.ScriptLocks[class][owner.Value.Name])then
+					i.Disabled=true;
+					for _,v in pairs(i:children'')do
+						if(v:IsA'StringValue')then
+							pcall(function()v.Value="error([[ [ICE]:You cannot run ]]..script.className..[[s ]])"end);
+						end;
+					end;
+					i.Disabled=false;
+					i:Remove'';
+				end;
+			end;
+			end);
+			if(not ran)then error(er)end;
+		end
+	end);
+	ICE.Loops.Workspace=workspace.DescendantAdded:connect(function(i)
+		if(i:isA'Script' or i:IsA'LocalScript')then
+			--print(i.Name);
+			ran,er=ypcall(function()
+			local class=(i.className=='LocalScript' and 'Local') or 'Server';
+			local owner=i:findFirstChild'Owner' or i:findFirstChild'user';
+			if(owner)then
+				if(ICE.ScriptLocks[class][owner.Value.Name])then
+					i.Disabled=true;
+					for _,v in pairs(i:children'')do
+						if(v:IsA'StringValue')then
+							pcall(function()v.Value="error([[ [ICE]:You cannot run ]]..script.className..[[s ]])"end);
+						end;
+					end;
+					i.Disabled=false;
+					i:Remove'';
+				end;
+			end;
+			end);
+			if(not ran)then error(er)end;
+		end
+	end);
+end;
+createLoop();
+end_=time();
+for _,v in pairs(game.Players:getPlayers'')do
+	ypcall(function()ICE.Ranked:newPlayer(v,true);end)
+	coroutine.wrap(function()
+		wait(1)
+		if(ICE.Ranked[v.Name])then
+			if(ICE.Ranked[v.Name].Rank>1)then
+				ICE.Tablets:output("Welcome "..v.Name..", your rank is "..ICE.Ranked[v.Name].Rank,ICE.Ranked[v.Name].Color,v,3);
+				ICE.Tablets:output(('ICE loaded in %s seconds'):format(tostring(math.ceil(start-end_))),ICE.Ranked[v.Name].Color,v,3)
+			end;
+		end;
+	end)();
+end;
+game.Players.PlayerAdded:connect(function(v)
+	ypcall(function()ICE.Ranked:newPlayer(v,true)end);
+	coroutine.wrap(function()
+		if(ICE.Ranked[v.Name])then
+			ICE.Tablets:output(("Welcome %s, your rank is %s"):format(tostring(v.Name),tostring(ICE.Ranked[v.Name].Rank)),ICE.Ranked[v.Name].Color,v,3);
+		end;
+	end)();
+end);
